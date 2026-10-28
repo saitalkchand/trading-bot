@@ -1,0 +1,6535 @@
+{
+ "generated": "2026-10-26 17:35",
+ "dataset": {
+  "name": "snapshot_2026-09-16_2026-10-14.pkl",
+  "sha256": "f45b46931d187656"
+ },
+ "period": "2026-09-17 \u2192 2026-10-14",
+ "days": 19,
+ "instrument": "NIFTY",
+ "lots": 1,
+ "risk": {
+  "SCALP_MAX_DAILY_LOSS": 1000,
+  "SCALP_MAX_TRADES_PER_DAY": 6,
+  "SCALP_MAX_CONSECUTIVE_LOSSES": 2,
+  "SCALP_COOLDOWN_MIN": 5,
+  "SCALP_NO_ENTRY_BEFORE": "09:35",
+  "SCALP_NO_ENTRY_AFTER": "14:30",
+  "SCALP_MAX_HOLD_MIN": 10,
+  "SQUARE_OFF_AT": "15:10",
+  "MAX_PREMIUM_PER_TRADE": 40000,
+  "ITM_STRIKES": 1,
+  "LOTS": 1,
+  "USE_CRUDE_AGENT": true,
+  "CRUDE_BLOCK_PCT": 1.0,
+  "USE_NEWS_AGENT": false,
+  "NEWS_BLOCK_ON_EVENT": false,
+  "NEWS_BLOCK_SCORE": 0.4
+ },
+ "experiments": {
+  "A baseline (volume rule, 5/10)": {
+   "base": {
+    "trades": 69,
+    "wins": 33,
+    "losses": 36,
+    "win_rate": 47.8,
+    "gross": -4098,
+    "charges": 4828,
+    "slippage": 6642,
+    "net": -8927,
+    "pf": 0.42,
+    "exp_rs": -129,
+    "exp_R": -0.398,
+    "avg_win": 191,
+    "avg_loss": -423,
+    "rr": 0.45,
+    "max_dd": -9462,
+    "max_consec_losses": 7,
+    "avg_hold": 3.2,
+    "ci_low": -207,
+    "ci_high": -41,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 202,
+   "rejections_by_reason": {
+    "daily risk lock": 116,
+    "outside entry window": 30,
+    "cooldown": 13,
+    "position already open": 12,
+    "crude agent": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9501 > \u20b9281 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9521 > \u20b9281 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9513 > \u20b9281 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": 184,
+     "exp_R": 0.095,
+     "pf": 1.2
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 16,
+     "win_rate": 50.0,
+     "net": -2405,
+     "exp_R": -0.463,
+     "pf": 0.3
+    },
+    "morning (<11:30)": {
+     "trades": 47,
+     "win_rate": 44.7,
+     "net": -6706,
+     "exp_R": -0.439,
+     "pf": 0.39
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 33,
+     "win_rate": 54.5,
+     "net": -2131,
+     "exp_R": -0.199,
+     "pf": 0.67
+    },
+    "RANGE": {
+     "trades": 9,
+     "win_rate": 33.3,
+     "net": -2552,
+     "exp_R": -0.873,
+     "pf": 0.04
+    },
+    "TREND_DOWN": {
+     "trades": 13,
+     "win_rate": 46.2,
+     "net": -919,
+     "exp_R": -0.218,
+     "pf": 0.64
+    },
+    "TREND_UP": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -3323,
+     "exp_R": -0.73,
+     "pf": 0.05
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 29,
+     "win_rate": 58.6,
+     "net": -1193,
+     "exp_R": -0.127,
+     "pf": 0.78
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 40.0,
+     "net": -7733,
+     "exp_R": -0.595,
+     "pf": 0.22
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -284,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 24,
+     "primary_net": -10539,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 4,
+     "share_of_losers": "11%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 6,
+     "share_of_losers": "17%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 7,
+     "primary_net": -2707,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 69,
+    "gross_at_mid": 2544,
+    "slippage": 6643,
+    "charges": 4829,
+    "net": -8927,
+    "cost_per_trade": 166,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 34,
+   "conservative": {
+    "trades": 38,
+    "wins": 6,
+    "losses": 32,
+    "win_rate": 15.8,
+    "gross": -5824,
+    "charges": 2593,
+    "slippage": 6106,
+    "net": -8417,
+    "pf": 0.26,
+    "exp_rs": -221,
+    "exp_R": -0.682,
+    "avg_win": 489,
+    "avg_loss": -354,
+    "rr": 1.38,
+    "max_dd": -8417,
+    "max_consec_losses": 8,
+    "avg_hold": 2.4,
+    "ci_low": -332,
+    "ci_high": -102,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 75,
+    "wins": 39,
+    "losses": 36,
+    "win_rate": 52.0,
+    "gross": 3184,
+    "charges": 5300,
+    "slippage": 0,
+    "net": -2115,
+    "pf": 0.84,
+    "exp_rs": -28,
+    "exp_R": -0.087,
+    "avg_win": 286,
+    "avg_loss": -368,
+    "rr": 0.78,
+    "max_dd": -5203,
+    "max_consec_losses": 7,
+    "avg_hold": 3.3,
+    "ci_low": -111,
+    "ci_high": 52,
+    "p_positive": 0.25
+   },
+   "config": {
+    "strategy": "volume"
+   },
+   "objective": -0.54
+  },
+  "B sweep reversal": {
+   "base": {
+    "trades": 7,
+    "wins": 3,
+    "losses": 4,
+    "win_rate": 42.9,
+    "gross": 61,
+    "charges": 516,
+    "slippage": 784,
+    "net": -454,
+    "pf": 0.7,
+    "exp_rs": -64,
+    "exp_R": -0.2,
+    "avg_win": 347,
+    "avg_loss": -374,
+    "rr": 0.93,
+    "max_dd": -615,
+    "max_consec_losses": 2,
+    "avg_hold": 3.1,
+    "ci_low": -334,
+    "ci_high": 235,
+    "p_positive": 0.34
+   },
+   "rejected_signals": 1,
+   "rejections_by_reason": {
+    "outside entry window": 1
+   },
+   "setups": {
+    "provisional": 841,
+    "rejected": 311,
+    "expired": 235,
+    "invalidated": 175,
+    "superseded": 112,
+    "confirmed": 8
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -457,
+     "exp_R": -1.408,
+     "pf": 0.0
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 3,
+     "win_rate": 100.0,
+     "net": 1041,
+     "exp_R": 1.068,
+     "pf": 99.0
+    },
+    "morning (<11:30)": {
+     "trades": 3,
+     "win_rate": 0.0,
+     "net": -1038,
+     "exp_R": -1.065,
+     "pf": 0.0
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -877,
+     "exp_R": -1.349,
+     "pf": 0.0
+    },
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": -90,
+     "exp_R": -0.069,
+     "pf": 0.85
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 512,
+     "exp_R": 1.578,
+     "pf": 99.0
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "net": -121,
+     "exp_R": -0.124,
+     "pf": 0.8
+    },
+    "PE": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": -333,
+     "exp_R": -0.257,
+     "pf": 0.62
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 1,
+     "primary_net": -196,
+     "any": 1,
+     "share_of_losers": "25%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "25%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 3,
+     "primary_net": -1300,
+     "any": 4,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 2,
+     "share_of_losers": "50%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 7,
+    "gross_at_mid": 846,
+    "slippage": 784,
+    "charges": 516,
+    "net": -455,
+    "cost_per_trade": 186,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 4,
+   "conservative": {
+    "trades": 7,
+    "wins": 2,
+    "losses": 5,
+    "win_rate": 28.6,
+    "gross": -608,
+    "charges": 515,
+    "slippage": 1412,
+    "net": -1124,
+    "pf": 0.35,
+    "exp_rs": -160,
+    "exp_R": -0.494,
+    "avg_win": 301,
+    "avg_loss": -345,
+    "rr": 0.87,
+    "max_dd": -1124,
+    "max_consec_losses": 3,
+    "avg_hold": 3.6,
+    "ci_low": -385,
+    "ci_high": 98,
+    "p_positive": 0.11
+   },
+   "v2_model": {
+    "trades": 7,
+    "wins": 3,
+    "losses": 4,
+    "win_rate": 42.9,
+    "gross": 22,
+    "charges": 515,
+    "slippage": 0,
+    "net": -492,
+    "pf": 0.6,
+    "exp_rs": -70,
+    "exp_R": -0.217,
+    "avg_win": 243,
+    "avg_loss": -305,
+    "rr": 0.8,
+    "max_dd": -662,
+    "max_consec_losses": 2,
+    "avg_hold": 2.6,
+    "ci_low": -292,
+    "ci_high": 197,
+    "p_positive": 0.29
+   },
+   "config": {
+    "strategy": "sweep"
+   },
+   "objective": -9.0
+  },
+  "B2 sweep reversal + structure stop": {
+   "base": {
+    "trades": 7,
+    "wins": 3,
+    "losses": 4,
+    "win_rate": 42.9,
+    "gross": -498,
+    "charges": 515,
+    "slippage": 781,
+    "net": -1014,
+    "pf": 0.62,
+    "exp_rs": -144,
+    "exp_R": -0.327,
+    "avg_win": 540,
+    "avg_loss": -658,
+    "rr": 0.82,
+    "max_dd": -1720,
+    "max_consec_losses": 2,
+    "avg_hold": 7.3,
+    "ci_low": -569,
+    "ci_high": 401,
+    "p_positive": 0.28
+   },
+   "rejected_signals": 1,
+   "rejections_by_reason": {
+    "outside entry window": 1
+   },
+   "setups": {
+    "provisional": 841,
+    "rejected": 311,
+    "expired": 235,
+    "invalidated": 175,
+    "superseded": 112,
+    "confirmed": 8
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -644,
+     "exp_R": -1.257,
+     "pf": 0.0
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 839,
+     "exp_R": 0.398,
+     "pf": 2.21
+    },
+    "morning (<11:30)": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "net": -1209,
+     "exp_R": -0.741,
+     "pf": 0.07
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -1364,
+     "exp_R": -1.204,
+     "pf": 0.0
+    },
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": 81,
+     "exp_R": -0.132,
+     "pf": 1.06
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 269,
+     "exp_R": 0.649,
+     "pf": 99.0
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 631,
+     "exp_R": 0.251,
+     "pf": 1.88
+    },
+    "PE": {
+     "trades": 4,
+     "win_rate": 25.0,
+     "net": -1645,
+     "exp_R": -0.76,
+     "pf": 0.14
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 4,
+     "primary_net": -2634,
+     "any": 4,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 3,
+     "share_of_losers": "75%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 7,
+    "gross_at_mid": 283,
+    "slippage": 782,
+    "charges": 515,
+    "net": -1014,
+    "cost_per_trade": 185,
+    "avg_risk_per_trade": 566
+   },
+   "adjustments": 2,
+   "conservative": {
+    "trades": 7,
+    "wins": 2,
+    "losses": 5,
+    "win_rate": 28.6,
+    "gross": -923,
+    "charges": 515,
+    "slippage": 1409,
+    "net": -1438,
+    "pf": 0.49,
+    "exp_rs": -205,
+    "exp_R": -0.438,
+    "avg_win": 685,
+    "avg_loss": -561,
+    "rr": 1.22,
+    "max_dd": -1950,
+    "max_consec_losses": 3,
+    "avg_hold": 7.3,
+    "ci_low": -613,
+    "ci_high": 329,
+    "p_positive": 0.2
+   },
+   "v2_model": {
+    "trades": 7,
+    "wins": 4,
+    "losses": 3,
+    "win_rate": 57.1,
+    "gross": 763,
+    "charges": 516,
+    "slippage": 0,
+    "net": 246,
+    "pf": 1.14,
+    "exp_rs": 35,
+    "exp_R": -0.004,
+    "avg_win": 515,
+    "avg_loss": -604,
+    "rr": 0.85,
+    "max_dd": -744,
+    "max_consec_losses": 1,
+    "avg_hold": 6.9,
+    "ci_low": -408,
+    "ci_high": 560,
+    "p_positive": 0.54
+   },
+   "config": {
+    "strategy": "sweep",
+    "exit": {
+     "EXIT_POLICY": "structure"
+    }
+   },
+   "objective": -9.0
+  },
+  "C breakout-retest": {
+   "base": {
+    "trades": 5,
+    "wins": 1,
+    "losses": 4,
+    "win_rate": 20.0,
+    "gross": -222,
+    "charges": 364,
+    "slippage": 540,
+    "net": -586,
+    "pf": 0.47,
+    "exp_rs": -117,
+    "exp_R": -0.361,
+    "avg_win": 514,
+    "avg_loss": -275,
+    "rr": 1.87,
+    "max_dd": -1100,
+    "max_consec_losses": 4,
+    "avg_hold": 1.4,
+    "ci_low": -384,
+    "ci_high": 198,
+    "p_positive": 0.25
+   },
+   "rejected_signals": 1,
+   "rejections_by_reason": {
+    "outside entry window": 1
+   },
+   "setups": {
+    "rejected": 813,
+    "provisional": 506,
+    "invalidated": 189,
+    "superseded": 160,
+    "expired": 45,
+    "confirmed": 6
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "net": 60,
+     "exp_R": 0.093,
+     "pf": 1.13
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -457,
+     "exp_R": -1.409,
+     "pf": 0.0
+    },
+    "morning (<11:30)": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -188,
+     "exp_R": -0.291,
+     "pf": 0.0
+    }
+   },
+   "by_regime": {
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 25.0,
+     "net": -494,
+     "exp_R": -0.381,
+     "pf": 0.51
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -91,
+     "exp_R": -0.281,
+     "pf": 0.0
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -91,
+     "exp_R": -0.281,
+     "pf": 0.0
+    },
+    "PE": {
+     "trades": 4,
+     "win_rate": 25.0,
+     "net": -494,
+     "exp_R": -0.381,
+     "pf": 0.51
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 2,
+     "primary_net": -189,
+     "any": 2,
+     "share_of_losers": "50%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "25%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 2,
+     "primary_net": -912,
+     "any": 4,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "25%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 4,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 5,
+    "gross_at_mid": 318,
+    "slippage": 541,
+    "charges": 364,
+    "net": -586,
+    "cost_per_trade": 181,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 2,
+   "conservative": {
+    "trades": 5,
+    "wins": 1,
+    "losses": 4,
+    "win_rate": 20.0,
+    "gross": -833,
+    "charges": 363,
+    "slippage": 970,
+    "net": -1196,
+    "pf": 0.28,
+    "exp_rs": -239,
+    "exp_R": -0.736,
+    "avg_win": 468,
+    "avg_loss": -416,
+    "rr": 1.13,
+    "max_dd": -1665,
+    "max_consec_losses": 4,
+    "avg_hold": 1.6,
+    "ci_low": -504,
+    "ci_high": 148,
+    "p_positive": 0.09
+   },
+   "v2_model": {
+    "trades": 5,
+    "wins": 2,
+    "losses": 3,
+    "win_rate": 40.0,
+    "gross": 146,
+    "charges": 364,
+    "slippage": 0,
+    "net": -217,
+    "pf": 0.73,
+    "exp_rs": -43,
+    "exp_R": -0.134,
+    "avg_win": 301,
+    "avg_loss": -273,
+    "rr": 1.1,
+    "max_dd": -798,
+    "max_consec_losses": 2,
+    "avg_hold": 1.4,
+    "ci_low": -323,
+    "ci_high": 270,
+    "p_positive": 0.35
+   },
+   "config": {
+    "strategy": "retest"
+   },
+   "objective": -9.0
+  },
+  "C2 breakout, no retest": {
+   "base": {
+    "trades": 26,
+    "wins": 9,
+    "losses": 17,
+    "win_rate": 34.6,
+    "gross": -1143,
+    "charges": 1799,
+    "slippage": 2419,
+    "net": -2943,
+    "pf": 0.52,
+    "exp_rs": -113,
+    "exp_R": -0.348,
+    "avg_win": 360,
+    "avg_loss": -363,
+    "rr": 0.99,
+    "max_dd": -2943,
+    "max_consec_losses": 4,
+    "avg_hold": 2.2,
+    "ci_low": -259,
+    "ci_high": 34,
+    "p_positive": 0.07
+   },
+   "rejected_signals": 23,
+   "rejections_by_reason": {
+    "daily risk lock": 10,
+    "outside entry window": 9,
+    "cooldown": 3,
+    "crude agent": 1
+   },
+   "setups": {
+    "rejected": 1168,
+    "confirmed": 51
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 33.3,
+     "net": -461,
+     "exp_R": -0.237,
+     "pf": 0.69
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 10,
+     "win_rate": 10.0,
+     "net": -3009,
+     "exp_R": -0.926,
+     "pf": 0.15
+    },
+    "morning (<11:30)": {
+     "trades": 10,
+     "win_rate": 60.0,
+     "net": 528,
+     "exp_R": 0.163,
+     "pf": 1.46
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 8,
+     "win_rate": 25.0,
+     "net": -1823,
+     "exp_R": -0.701,
+     "pf": 0.23
+    },
+    "RANGE": {
+     "trades": 2,
+     "win_rate": 100.0,
+     "net": 58,
+     "exp_R": 0.09,
+     "pf": 99.0
+    },
+    "TREND_DOWN": {
+     "trades": 13,
+     "win_rate": 30.8,
+     "net": -862,
+     "exp_R": -0.204,
+     "pf": 0.71
+    },
+    "TREND_UP": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "net": -315,
+     "exp_R": -0.324,
+     "pf": 0.63
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 10,
+     "win_rate": 30.0,
+     "net": -2150,
+     "exp_R": -0.662,
+     "pf": 0.22
+    },
+    "PE": {
+     "trades": 16,
+     "win_rate": 37.5,
+     "net": -792,
+     "exp_R": -0.152,
+     "pf": 0.77
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 2,
+     "primary_net": -98,
+     "any": 2,
+     "share_of_losers": "12%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -129,
+     "any": 3,
+     "share_of_losers": "18%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 9,
+     "primary_net": -3690,
+     "any": 11,
+     "share_of_losers": "65%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 3,
+     "primary_net": -1376,
+     "any": 6,
+     "share_of_losers": "35%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 2,
+     "primary_net": -893,
+     "any": 11,
+     "share_of_losers": "65%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 26,
+    "gross_at_mid": 1276,
+    "slippage": 2420,
+    "charges": 1800,
+    "net": -2944,
+    "cost_per_trade": 162,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 11,
+   "conservative": {
+    "trades": 23,
+    "wins": 5,
+    "losses": 18,
+    "win_rate": 21.7,
+    "gross": -3176,
+    "charges": 1569,
+    "slippage": 3688,
+    "net": -4745,
+    "pf": 0.34,
+    "exp_rs": -206,
+    "exp_R": -0.635,
+    "avg_win": 491,
+    "avg_loss": -400,
+    "rr": 1.23,
+    "max_dd": -4745,
+    "max_consec_losses": 4,
+    "avg_hold": 2.0,
+    "ci_low": -356,
+    "ci_high": -37,
+    "p_positive": 0.01
+   },
+   "v2_model": {
+    "trades": 26,
+    "wins": 12,
+    "losses": 14,
+    "win_rate": 46.2,
+    "gross": 1696,
+    "charges": 1805,
+    "slippage": 0,
+    "net": -109,
+    "pf": 0.98,
+    "exp_rs": -4,
+    "exp_R": -0.013,
+    "avg_win": 370,
+    "avg_loss": -325,
+    "rr": 1.14,
+    "max_dd": -1634,
+    "max_consec_losses": 3,
+    "avg_hold": 2.5,
+    "ci_low": -151,
+    "ci_high": 146,
+    "p_positive": 0.47
+   },
+   "config": {
+    "strategy": "retest",
+    "strat_cfg": {
+     "BRT_RETEST": false
+    }
+   },
+   "objective": -0.492
+  },
+  "C3 breakout-retest + structure stop": {
+   "base": {
+    "trades": 3,
+    "wins": 2,
+    "losses": 1,
+    "win_rate": 66.7,
+    "gross": 627,
+    "charges": 214,
+    "slippage": 303,
+    "net": 413,
+    "pf": 1.51,
+    "exp_rs": 137,
+    "exp_R": 0.212,
+    "avg_win": 609,
+    "avg_loss": -805,
+    "rr": 0.76,
+    "max_dd": -805,
+    "max_consec_losses": 1,
+    "avg_hold": 5.3,
+    "ci_low": -805,
+    "ci_high": 1198,
+    "p_positive": 0.64
+   },
+   "rejected_signals": 3,
+   "rejections_by_reason": {
+    "structure stop 27.9 premium pts outside 3\u201312": 1,
+    "structure stop 14.0 premium pts outside 3\u201312": 1,
+    "outside entry window": 1
+   },
+   "setups": {
+    "rejected": 813,
+    "provisional": 506,
+    "invalidated": 189,
+    "superseded": 160,
+    "expired": 45,
+    "confirmed": 6
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "net": 392,
+     "exp_R": 0.304,
+     "pf": 1.49
+    },
+    "morning (<11:30)": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 20,
+     "exp_R": 0.027,
+     "pf": 99.0
+    }
+   },
+   "by_regime": {
+    "TREND_DOWN": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 413,
+     "exp_R": 0.212,
+     "pf": 1.51
+    }
+   },
+   "by_side": {
+    "PE": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 413,
+     "exp_R": 0.212,
+     "pf": 1.51
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 1,
+     "primary_net": -806,
+     "any": 1,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 3,
+    "gross_at_mid": 931,
+    "slippage": 304,
+    "charges": 214,
+    "net": 413,
+    "cost_per_trade": 173,
+    "avg_risk_per_trade": 698
+   },
+   "adjustments": 2,
+   "conservative": {
+    "trades": 3,
+    "wins": 1,
+    "losses": 2,
+    "win_rate": 33.3,
+    "gross": 506,
+    "charges": 214,
+    "slippage": 547,
+    "net": 292,
+    "pf": 1.34,
+    "exp_rs": 97,
+    "exp_R": 0.153,
+    "avg_win": 1149,
+    "avg_loss": -428,
+    "rr": 2.68,
+    "max_dd": -857,
+    "max_consec_losses": 2,
+    "avg_hold": 5.3,
+    "ci_low": -849,
+    "ci_high": 1149,
+    "p_positive": 0.6
+   },
+   "v2_model": {
+    "trades": 3,
+    "wins": 2,
+    "losses": 1,
+    "win_rate": 66.7,
+    "gross": 781,
+    "charges": 214,
+    "slippage": 0,
+    "net": 567,
+    "pf": 1.75,
+    "exp_rs": 189,
+    "exp_R": 0.286,
+    "avg_win": 661,
+    "avg_loss": -754,
+    "rr": 0.88,
+    "max_dd": -754,
+    "max_consec_losses": 1,
+    "avg_hold": 5.3,
+    "ci_low": -754,
+    "ci_high": 1262,
+    "p_positive": 0.64
+   },
+   "config": {
+    "strategy": "retest",
+    "exit": {
+     "EXIT_POLICY": "structure"
+    }
+   },
+   "objective": -9.0
+  },
+  "D baseline + regime filter": {
+   "base": {
+    "trades": 70,
+    "wins": 36,
+    "losses": 34,
+    "win_rate": 51.4,
+    "gross": -1363,
+    "charges": 4886,
+    "slippage": 6680,
+    "net": -6250,
+    "pf": 0.56,
+    "exp_rs": -89,
+    "exp_R": -0.275,
+    "avg_win": 219,
+    "avg_loss": -415,
+    "rr": 0.53,
+    "max_dd": -6752,
+    "max_consec_losses": 5,
+    "avg_hold": 3.3,
+    "ci_low": -175,
+    "ci_high": 0,
+    "p_positive": 0.03
+   },
+   "rejected_signals": 201,
+   "rejections_by_reason": {
+    "daily risk lock": 100,
+    "outside entry window": 30,
+    "cooldown": 16,
+    "position already open": 14,
+    "regime RANGE": 12,
+    "crude agent": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9501 > \u20b988 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9526 > \u20b9525 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 5,
+     "win_rate": 60.0,
+     "net": 151,
+     "exp_R": 0.093,
+     "pf": 1.16
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 26,
+     "win_rate": 53.8,
+     "net": -2125,
+     "exp_R": -0.252,
+     "pf": 0.56
+    },
+    "morning (<11:30)": {
+     "trades": 39,
+     "win_rate": 48.7,
+     "net": -4276,
+     "exp_R": -0.337,
+     "pf": 0.49
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 39,
+     "win_rate": 53.8,
+     "net": -2452,
+     "exp_R": -0.193,
+     "pf": 0.67
+    },
+    "TREND_DOWN": {
+     "trades": 17,
+     "win_rate": 52.9,
+     "net": -318,
+     "exp_R": -0.058,
+     "pf": 0.89
+    },
+    "TREND_UP": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -3479,
+     "exp_R": -0.765,
+     "pf": 0.05
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 30,
+     "win_rate": 60.0,
+     "net": -809,
+     "exp_R": -0.083,
+     "pf": 0.85
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 45.0,
+     "net": -5441,
+     "exp_R": -0.419,
+     "pf": 0.37
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 1,
+     "primary_net": -25,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -284,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 22,
+     "primary_net": -9782,
+     "any": 22,
+     "share_of_losers": "65%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 5,
+     "share_of_losers": "15%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 8,
+     "primary_net": -3165,
+     "any": 25,
+     "share_of_losers": "74%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 70,
+    "gross_at_mid": 5316,
+    "slippage": 6680,
+    "charges": 4887,
+    "net": -6251,
+    "cost_per_trade": 165,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 36,
+   "conservative": {
+    "trades": 38,
+    "wins": 6,
+    "losses": 32,
+    "win_rate": 15.8,
+    "gross": -5445,
+    "charges": 2596,
+    "slippage": 6128,
+    "net": -8042,
+    "pf": 0.27,
+    "exp_rs": -211,
+    "exp_R": -0.651,
+    "avg_win": 489,
+    "avg_loss": -343,
+    "rr": 1.43,
+    "max_dd": -8042,
+    "max_consec_losses": 8,
+    "avg_hold": 2.7,
+    "ci_low": -320,
+    "ci_high": -91,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 73,
+    "wins": 40,
+    "losses": 33,
+    "win_rate": 54.8,
+    "gross": 4909,
+    "charges": 5119,
+    "slippage": 0,
+    "net": -210,
+    "pf": 0.98,
+    "exp_rs": -2,
+    "exp_R": -0.009,
+    "avg_win": 290,
+    "avg_loss": -357,
+    "rr": 0.81,
+    "max_dd": -3357,
+    "max_consec_losses": 5,
+    "avg_hold": 3.3,
+    "ci_low": -86,
+    "ci_high": 81,
+    "p_positive": 0.46
+   },
+   "config": {
+    "strategy": "volume",
+    "regime": {}
+   },
+   "objective": -0.463
+  },
+  "E0 baseline, no volume requirement": {
+   "base": {
+    "trades": 67,
+    "wins": 30,
+    "losses": 37,
+    "win_rate": 44.8,
+    "gross": -5333,
+    "charges": 4649,
+    "slippage": 6291,
+    "net": -9983,
+    "pf": 0.35,
+    "exp_rs": -149,
+    "exp_R": -0.458,
+    "avg_win": 177,
+    "avg_loss": -413,
+    "rr": 0.43,
+    "max_dd": -11186,
+    "max_consec_losses": 7,
+    "avg_hold": 2.4,
+    "ci_low": -227,
+    "ci_high": -67,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 813,
+   "rejections_by_reason": {
+    "daily risk lock": 679,
+    "outside entry window": 58,
+    "cooldown": 45,
+    "position already open": 25,
+    "crude agent": 6
+   },
+   "setups": {
+    "confirmed": 922
+   },
+   "by_session": {
+    "midday (11:30\u201313:30)": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "net": -453,
+     "exp_R": -0.698,
+     "pf": 0.03
+    },
+    "morning (<11:30)": {
+     "trades": 65,
+     "win_rate": 44.6,
+     "net": -9530,
+     "exp_R": -0.451,
+     "pf": 0.36
+    }
+   },
+   "by_regime": {
+    "HIGH_VOL": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -421,
+     "exp_R": -1.298,
+     "pf": 0.0
+    },
+    "MIXED": {
+     "trades": 29,
+     "win_rate": 51.7,
+     "net": -3582,
+     "exp_R": -0.38,
+     "pf": 0.36
+    },
+    "RANGE": {
+     "trades": 8,
+     "win_rate": 50.0,
+     "net": -823,
+     "exp_R": -0.317,
+     "pf": 0.56
+    },
+    "TREND_DOWN": {
+     "trades": 19,
+     "win_rate": 47.4,
+     "net": -1765,
+     "exp_R": -0.286,
+     "pf": 0.56
+    },
+    "TREND_UP": {
+     "trades": 10,
+     "win_rate": 20.0,
+     "net": -3389,
+     "exp_R": -1.043,
+     "pf": 0.01
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 31,
+     "win_rate": 38.7,
+     "net": -6135,
+     "exp_R": -0.609,
+     "pf": 0.24
+    },
+    "PE": {
+     "trades": 36,
+     "win_rate": 50.0,
+     "net": -3848,
+     "exp_R": -0.329,
+     "pf": 0.47
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 1,
+     "primary_net": -1,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 2,
+     "primary_net": -619,
+     "any": 2,
+     "share_of_losers": "5%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 23,
+     "primary_net": -9848,
+     "any": 25,
+     "share_of_losers": "68%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 4,
+     "primary_net": -1702,
+     "any": 11,
+     "share_of_losers": "30%"
+    },
+    {
+     "cause": "chop",
+     "primary": 1,
+     "primary_net": -455,
+     "any": 4,
+     "share_of_losers": "11%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 6,
+     "primary_net": -2686,
+     "any": 20,
+     "share_of_losers": "54%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 67,
+    "gross_at_mid": 957,
+    "slippage": 6291,
+    "charges": 4650,
+    "net": -9984,
+    "cost_per_trade": 163,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 29,
+   "conservative": {
+    "trades": 44,
+    "wins": 8,
+    "losses": 36,
+    "win_rate": 18.2,
+    "gross": -5048,
+    "charges": 3050,
+    "slippage": 7424,
+    "net": -8099,
+    "pf": 0.32,
+    "exp_rs": -184,
+    "exp_R": -0.566,
+    "avg_win": 478,
+    "avg_loss": -331,
+    "rr": 1.45,
+    "max_dd": -8099,
+    "max_consec_losses": 13,
+    "avg_hold": 2.1,
+    "ci_low": -287,
+    "ci_high": -69,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 79,
+    "wins": 42,
+    "losses": 37,
+    "win_rate": 53.2,
+    "gross": 3487,
+    "charges": 5531,
+    "slippage": 0,
+    "net": -2044,
+    "pf": 0.84,
+    "exp_rs": -25,
+    "exp_R": -0.08,
+    "avg_win": 265,
+    "avg_loss": -356,
+    "rr": 0.74,
+    "max_dd": -4679,
+    "max_consec_losses": 6,
+    "avg_hold": 3.2,
+    "ci_low": -102,
+    "ci_high": 56,
+    "p_positive": 0.27
+   },
+   "config": {
+    "strategy": "volume",
+    "strat_cfg": {
+     "SCALP_VOL_MULT": 0
+    }
+   },
+   "objective": -0.512
+  },
+  "E1 volume 2.0x": {
+   "base": {
+    "trades": 61,
+    "wins": 27,
+    "losses": 34,
+    "win_rate": 44.3,
+    "gross": -3962,
+    "charges": 4258,
+    "slippage": 5830,
+    "net": -8221,
+    "pf": 0.41,
+    "exp_rs": -134,
+    "exp_R": -0.415,
+    "avg_win": 211,
+    "avg_loss": -409,
+    "rr": 0.52,
+    "max_dd": -9598,
+    "max_consec_losses": 11,
+    "avg_hold": 3.1,
+    "ci_low": -217,
+    "ci_high": -45,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 124,
+   "rejections_by_reason": {
+    "daily risk lock": 79,
+    "outside entry window": 13,
+    "position already open": 11,
+    "cooldown": 11,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9501 > \u20b9139 allowed)": 2,
+    "crude agent": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9437 > \u20b9198 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9516 > \u20b9139 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 197
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": -285,
+     "exp_R": -0.146,
+     "pf": 0.69
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 17,
+     "win_rate": 29.4,
+     "net": -3702,
+     "exp_R": -0.67,
+     "pf": 0.2
+    },
+    "morning (<11:30)": {
+     "trades": 38,
+     "win_rate": 47.4,
+     "net": -4234,
+     "exp_R": -0.343,
+     "pf": 0.49
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 27,
+     "win_rate": 48.1,
+     "net": -2223,
+     "exp_R": -0.253,
+     "pf": 0.63
+    },
+    "RANGE": {
+     "trades": 7,
+     "win_rate": 42.9,
+     "net": -1622,
+     "exp_R": -0.713,
+     "pf": 0.07
+    },
+    "TREND_DOWN": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -1271,
+     "exp_R": -0.279,
+     "pf": 0.57
+    },
+    "TREND_UP": {
+     "trades": 13,
+     "win_rate": 38.5,
+     "net": -3104,
+     "exp_R": -0.735,
+     "pf": 0.04
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 25,
+     "win_rate": 56.0,
+     "net": -1485,
+     "exp_R": -0.183,
+     "pf": 0.67
+    },
+    "PE": {
+     "trades": 36,
+     "win_rate": 36.1,
+     "net": -6736,
+     "exp_R": -0.576,
+     "pf": 0.28
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 1,
+     "primary_net": -25,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 2,
+     "primary_net": -602,
+     "any": 2,
+     "share_of_losers": "6%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 19,
+     "primary_net": -8383,
+     "any": 19,
+     "share_of_losers": "56%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 3,
+     "primary_net": -1346,
+     "any": 5,
+     "share_of_losers": "15%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 4,
+     "share_of_losers": "12%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 7,
+     "primary_net": -2722,
+     "any": 24,
+     "share_of_losers": "71%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 61,
+    "gross_at_mid": 1868,
+    "slippage": 5831,
+    "charges": 4259,
+    "net": -8222,
+    "cost_per_trade": 165,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 28,
+   "conservative": {
+    "trades": 40,
+    "wins": 7,
+    "losses": 33,
+    "win_rate": 17.5,
+    "gross": -5321,
+    "charges": 2722,
+    "slippage": 6367,
+    "net": -8044,
+    "pf": 0.3,
+    "exp_rs": -201,
+    "exp_R": -0.619,
+    "avg_win": 496,
+    "avg_loss": -349,
+    "rr": 1.42,
+    "max_dd": -8044,
+    "max_consec_losses": 12,
+    "avg_hold": 2.4,
+    "ci_low": -315,
+    "ci_high": -83,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 62,
+    "wins": 30,
+    "losses": 32,
+    "win_rate": 48.4,
+    "gross": 1114,
+    "charges": 4342,
+    "slippage": 0,
+    "net": -3227,
+    "pf": 0.72,
+    "exp_rs": -52,
+    "exp_R": -0.16,
+    "avg_win": 281,
+    "avg_loss": -364,
+    "rr": 0.77,
+    "max_dd": -6646,
+    "max_consec_losses": 6,
+    "avg_hold": 3.3,
+    "ci_low": -140,
+    "ci_high": 43,
+    "p_positive": 0.14
+   },
+   "config": {
+    "strategy": "volume",
+    "strat_cfg": {
+     "SCALP_VOL_MULT": 2.0
+    }
+   },
+   "objective": -0.517
+  },
+  "E2 volume 1.5x + displacement": {
+   "base": {
+    "trades": 70,
+    "wins": 33,
+    "losses": 37,
+    "win_rate": 47.1,
+    "gross": -5179,
+    "charges": 4937,
+    "slippage": 6903,
+    "net": -10116,
+    "pf": 0.36,
+    "exp_rs": -144,
+    "exp_R": -0.445,
+    "avg_win": 175,
+    "avg_loss": -429,
+    "rr": 0.41,
+    "max_dd": -10165,
+    "max_consec_losses": 5,
+    "avg_hold": 3.0,
+    "ci_low": -220,
+    "ci_high": -63,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 169,
+   "rejections_by_reason": {
+    "daily risk lock": 110,
+    "outside entry window": 23,
+    "position already open": 14,
+    "cooldown": 6,
+    "crude agent": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9437 > \u20b9189 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9424 > \u20b9189 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9530 > \u20b9102 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 251,
+    "rejected": 37
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": -341,
+     "exp_R": -0.175,
+     "pf": 0.63
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 24,
+     "win_rate": 41.7,
+     "net": -5111,
+     "exp_R": -0.655,
+     "pf": 0.17
+    },
+    "morning (<11:30)": {
+     "trades": 40,
+     "win_rate": 47.5,
+     "net": -4663,
+     "exp_R": -0.359,
+     "pf": 0.47
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 36,
+     "win_rate": 52.8,
+     "net": -3968,
+     "exp_R": -0.339,
+     "pf": 0.46
+    },
+    "RANGE": {
+     "trades": 10,
+     "win_rate": 40.0,
+     "net": -2047,
+     "exp_R": -0.63,
+     "pf": 0.23
+    },
+    "TREND_DOWN": {
+     "trades": 11,
+     "win_rate": 45.5,
+     "net": -513,
+     "exp_R": -0.144,
+     "pf": 0.76
+    },
+    "TREND_UP": {
+     "trades": 13,
+     "win_rate": 38.5,
+     "net": -3587,
+     "exp_R": -0.849,
+     "pf": 0.04
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 30,
+     "win_rate": 56.7,
+     "net": -2868,
+     "exp_R": -0.294,
+     "pf": 0.52
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 40.0,
+     "net": -7248,
+     "exp_R": -0.558,
+     "pf": 0.27
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -284,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 22,
+     "primary_net": -9809,
+     "any": 22,
+     "share_of_losers": "59%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 5,
+     "share_of_losers": "14%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 6,
+     "share_of_losers": "16%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 10,
+     "primary_net": -4074,
+     "any": 25,
+     "share_of_losers": "68%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 70,
+    "gross_at_mid": 1725,
+    "slippage": 6904,
+    "charges": 4937,
+    "net": -10116,
+    "cost_per_trade": 169,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 33,
+   "conservative": {
+    "trades": 41,
+    "wins": 5,
+    "losses": 36,
+    "win_rate": 12.2,
+    "gross": -6489,
+    "charges": 2795,
+    "slippage": 6569,
+    "net": -9285,
+    "pf": 0.21,
+    "exp_rs": -226,
+    "exp_R": -0.697,
+    "avg_win": 495,
+    "avg_loss": -326,
+    "rr": 1.52,
+    "max_dd": -9285,
+    "max_consec_losses": 8,
+    "avg_hold": 2.3,
+    "ci_low": -320,
+    "ci_high": -112,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 69,
+    "wins": 35,
+    "losses": 34,
+    "win_rate": 50.7,
+    "gross": 1352,
+    "charges": 4861,
+    "slippage": 0,
+    "net": -3509,
+    "pf": 0.73,
+    "exp_rs": -50,
+    "exp_R": -0.156,
+    "avg_win": 266,
+    "avg_loss": -377,
+    "rr": 0.71,
+    "max_dd": -5194,
+    "max_consec_losses": 5,
+    "avg_hold": 3.2,
+    "ci_low": -137,
+    "ci_high": 37,
+    "p_positive": 0.13
+   },
+   "config": {
+    "strategy": "volume",
+    "strat_cfg": {
+     "VOL_DISP_ATR": 0.6
+    }
+   },
+   "objective": -0.571
+  },
+  "E3 volume 1.5x + retest confirm": {
+   "base": {
+    "trades": 1,
+    "wins": 0,
+    "losses": 1,
+    "win_rate": 0.0,
+    "gross": -32,
+    "charges": 64,
+    "slippage": 74,
+    "net": -97,
+    "pf": 0.0,
+    "exp_rs": -97,
+    "exp_R": -0.3,
+    "avg_win": 0,
+    "avg_loss": -97,
+    "rr": 0.0,
+    "max_dd": -97,
+    "max_consec_losses": 1,
+    "avg_hold": 2.0,
+    "ci_low": -97,
+    "ci_high": -97,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 0,
+   "rejections_by_reason": {},
+   "setups": {
+    "rejected": 1565,
+    "provisional": 222,
+    "invalidated": 86,
+    "superseded": 40,
+    "expired": 38,
+    "confirmed": 1
+   },
+   "by_session": {
+    "morning (<11:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -97,
+     "exp_R": -0.3,
+     "pf": 0.0
+    }
+   },
+   "by_regime": {
+    "TREND_DOWN": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -97,
+     "exp_R": -0.3,
+     "pf": 0.0
+    }
+   },
+   "by_side": {
+    "PE": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -97,
+     "exp_R": -0.3,
+     "pf": 0.0
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 1,
+     "primary_net": -97,
+     "any": 1,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 1,
+    "gross_at_mid": 42,
+    "slippage": 75,
+    "charges": 65,
+    "net": -97,
+    "cost_per_trade": 139,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 1,
+   "conservative": {
+    "trades": 1,
+    "wins": 0,
+    "losses": 1,
+    "win_rate": 0.0,
+    "gross": -90,
+    "charges": 64,
+    "slippage": 134,
+    "net": -154,
+    "pf": 0.0,
+    "exp_rs": -154,
+    "exp_R": -0.476,
+    "avg_win": 0,
+    "avg_loss": -154,
+    "rr": 0.0,
+    "max_dd": -154,
+    "max_consec_losses": 1,
+    "avg_hold": 2.0,
+    "ci_low": -154,
+    "ci_high": -154,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 1,
+    "wins": 0,
+    "losses": 1,
+    "win_rate": 0.0,
+    "gross": 42,
+    "charges": 64,
+    "slippage": 0,
+    "net": -22,
+    "pf": 0.0,
+    "exp_rs": -22,
+    "exp_R": -0.07,
+    "avg_win": 0,
+    "avg_loss": -22,
+    "rr": 0.0,
+    "max_dd": -22,
+    "max_consec_losses": 1,
+    "avg_hold": 2.0,
+    "ci_low": -22,
+    "ci_high": -22,
+    "p_positive": 0.0
+   },
+   "config": {
+    "strategy": "retest",
+    "strat_cfg": {
+     "BRT_RANGE_N": 5,
+     "BRT_RVOL_MIN": 1.5
+    }
+   },
+   "objective": -9.0
+  },
+  "F1 baseline + volatility stop": {
+   "base": {
+    "trades": 61,
+    "wins": 26,
+    "losses": 35,
+    "win_rate": 42.6,
+    "gross": -4834,
+    "charges": 4307,
+    "slippage": 6038,
+    "net": -9142,
+    "pf": 0.35,
+    "exp_rs": -149,
+    "exp_R": -0.479,
+    "avg_win": 190,
+    "avg_loss": -402,
+    "rr": 0.47,
+    "max_dd": -9142,
+    "max_consec_losses": 6,
+    "avg_hold": 2.7,
+    "ci_low": -230,
+    "ci_high": -61,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 210,
+   "rejections_by_reason": {
+    "daily risk lock": 130,
+    "outside entry window": 26,
+    "cooldown": 12,
+    "position already open": 6,
+    "crude agent": 3,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9490 > \u20b9367 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9697 > \u20b9367 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9754 > \u20b9367 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 412,
+     "exp_R": 1.588,
+     "pf": 99.0
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 16,
+     "win_rate": 43.8,
+     "net": -2638,
+     "exp_R": -0.595,
+     "pf": 0.18
+    },
+    "morning (<11:30)": {
+     "trades": 44,
+     "win_rate": 40.9,
+     "net": -6916,
+     "exp_R": -0.484,
+     "pf": 0.36
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 31,
+     "win_rate": 54.8,
+     "net": -2853,
+     "exp_R": -0.291,
+     "pf": 0.44
+    },
+    "RANGE": {
+     "trades": 9,
+     "win_rate": 33.3,
+     "net": -1667,
+     "exp_R": -0.611,
+     "pf": 0.33
+    },
+    "TREND_DOWN": {
+     "trades": 10,
+     "win_rate": 40.0,
+     "net": -1344,
+     "exp_R": -0.321,
+     "pf": 0.49
+    },
+    "TREND_UP": {
+     "trades": 11,
+     "win_rate": 18.2,
+     "net": -3276,
+     "exp_R": -1.044,
+     "pf": 0.14
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 26,
+     "win_rate": 46.2,
+     "net": -2802,
+     "exp_R": -0.383,
+     "pf": 0.5
+    },
+    "PE": {
+     "trades": 35,
+     "win_rate": 40.0,
+     "net": -6339,
+     "exp_R": -0.55,
+     "pf": 0.25
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 3,
+     "primary_net": -204,
+     "any": 3,
+     "share_of_losers": "9%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 22,
+     "primary_net": -9332,
+     "any": 23,
+     "share_of_losers": "66%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 3,
+     "primary_net": -1366,
+     "any": 8,
+     "share_of_losers": "23%"
+    },
+    {
+     "cause": "chop",
+     "primary": 1,
+     "primary_net": -450,
+     "any": 6,
+     "share_of_losers": "17%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 6,
+     "primary_net": -2739,
+     "any": 22,
+     "share_of_losers": "63%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 61,
+    "gross_at_mid": 1203,
+    "slippage": 6038,
+    "charges": 4307,
+    "net": -9142,
+    "cost_per_trade": 170,
+    "avg_risk_per_trade": 318
+   },
+   "adjustments": 29,
+   "conservative": {
+    "trades": 42,
+    "wins": 7,
+    "losses": 35,
+    "win_rate": 16.7,
+    "gross": -5094,
+    "charges": 2933,
+    "slippage": 7249,
+    "net": -8028,
+    "pf": 0.35,
+    "exp_rs": -191,
+    "exp_R": -0.662,
+    "avg_win": 625,
+    "avg_loss": -354,
+    "rr": 1.76,
+    "max_dd": -8979,
+    "max_consec_losses": 11,
+    "avg_hold": 2.5,
+    "ci_low": -307,
+    "ci_high": -48,
+    "p_positive": 0.01
+   },
+   "v2_model": {
+    "trades": 74,
+    "wins": 40,
+    "losses": 34,
+    "win_rate": 54.1,
+    "gross": 2861,
+    "charges": 5250,
+    "slippage": 0,
+    "net": -2388,
+    "pf": 0.81,
+    "exp_rs": -32,
+    "exp_R": -0.09,
+    "avg_win": 261,
+    "avg_loss": -378,
+    "rr": 0.69,
+    "max_dd": -5191,
+    "max_consec_losses": 5,
+    "avg_hold": 2.9,
+    "ci_low": -113,
+    "ci_high": 54,
+    "p_positive": 0.23
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "EXIT_POLICY": "vol"
+    }
+   },
+   "objective": -0.571
+  },
+  "F2 baseline + structure stop": {
+   "base": {
+    "trades": 44,
+    "wins": 18,
+    "losses": 26,
+    "win_rate": 40.9,
+    "gross": -5300,
+    "charges": 3100,
+    "slippage": 4334,
+    "net": -8400,
+    "pf": 0.41,
+    "exp_rs": -190,
+    "exp_R": -0.425,
+    "avg_win": 322,
+    "avg_loss": -546,
+    "rr": 0.59,
+    "max_dd": -11849,
+    "max_consec_losses": 12,
+    "avg_hold": 4.1,
+    "ci_low": -337,
+    "ci_high": -29,
+    "p_positive": 0.01
+   },
+   "rejected_signals": 227,
+   "rejections_by_reason": {
+    "outside entry window": 48,
+    "daily risk lock": 42,
+    "position already open": 12,
+    "cooldown": 11,
+    "crude agent": 5,
+    "structure stop 12.4 premium pts outside 3\u201312": 3,
+    "structure stop 13.6 premium pts outside 3\u201312": 3,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9578 > \u20b9274 allowed)": 2
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 33.3,
+     "net": -1712,
+     "exp_R": -0.393,
+     "pf": 0.18
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -1474,
+     "exp_R": -0.293,
+     "pf": 0.6
+    },
+    "morning (<11:30)": {
+     "trades": 24,
+     "win_rate": 41.7,
+     "net": -5213,
+     "exp_R": -0.511,
+     "pf": 0.38
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 23,
+     "win_rate": 47.8,
+     "net": -2648,
+     "exp_R": -0.261,
+     "pf": 0.57
+    },
+    "RANGE": {
+     "trades": 4,
+     "win_rate": 0.0,
+     "net": -1835,
+     "exp_R": -0.997,
+     "pf": 0.0
+    },
+    "TREND_DOWN": {
+     "trades": 5,
+     "win_rate": 20.0,
+     "net": -1765,
+     "exp_R": -0.555,
+     "pf": 0.42
+    },
+    "TREND_UP": {
+     "trades": 12,
+     "win_rate": 50.0,
+     "net": -2150,
+     "exp_R": -0.496,
+     "pf": 0.32
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 22,
+     "win_rate": 50.0,
+     "net": -1911,
+     "exp_R": -0.257,
+     "pf": 0.6
+    },
+    "PE": {
+     "trades": 22,
+     "win_rate": 31.8,
+     "net": -6488,
+     "exp_R": -0.594,
+     "pf": 0.31
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 2,
+     "primary_net": -142,
+     "any": 2,
+     "share_of_losers": "8%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 22,
+     "primary_net": -12837,
+     "any": 22,
+     "share_of_losers": "85%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "4%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 4,
+     "share_of_losers": "15%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 2,
+     "primary_net": -1224,
+     "any": 19,
+     "share_of_losers": "73%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "4%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 44,
+    "gross_at_mid": -966,
+    "slippage": 4334,
+    "charges": 3100,
+    "net": -8401,
+    "cost_per_trade": 169,
+    "avg_risk_per_trade": 454
+   },
+   "adjustments": 17,
+   "conservative": {
+    "trades": 37,
+    "wins": 7,
+    "losses": 30,
+    "win_rate": 18.9,
+    "gross": -6374,
+    "charges": 2584,
+    "slippage": 6399,
+    "net": -8959,
+    "pf": 0.34,
+    "exp_rs": -242,
+    "exp_R": -0.531,
+    "avg_win": 670,
+    "avg_loss": -455,
+    "rr": 1.47,
+    "max_dd": -11068,
+    "max_consec_losses": 17,
+    "avg_hold": 4.0,
+    "ci_low": -404,
+    "ci_high": -62,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 53,
+    "wins": 27,
+    "losses": 26,
+    "win_rate": 50.9,
+    "gross": -1954,
+    "charges": 3783,
+    "slippage": 0,
+    "net": -5737,
+    "pf": 0.6,
+    "exp_rs": -108,
+    "exp_R": -0.166,
+    "avg_win": 315,
+    "avg_loss": -548,
+    "rr": 0.58,
+    "max_dd": -9823,
+    "max_consec_losses": 6,
+    "avg_hold": 4.0,
+    "ci_low": -243,
+    "ci_high": 29,
+    "p_positive": 0.07
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "EXIT_POLICY": "structure"
+    }
+   },
+   "objective": -0.478
+  },
+  "F3 baseline + ATR trail": {
+   "base": {
+    "trades": 69,
+    "wins": 33,
+    "losses": 36,
+    "win_rate": 47.8,
+    "gross": -3843,
+    "charges": 4829,
+    "slippage": 6644,
+    "net": -8672,
+    "pf": 0.43,
+    "exp_rs": -125,
+    "exp_R": -0.387,
+    "avg_win": 199,
+    "avg_loss": -423,
+    "rr": 0.47,
+    "max_dd": -9340,
+    "max_consec_losses": 7,
+    "avg_hold": 3.2,
+    "ci_low": -204,
+    "ci_high": -37,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 202,
+   "rejections_by_reason": {
+    "daily risk lock": 116,
+    "outside entry window": 30,
+    "cooldown": 13,
+    "position already open": 12,
+    "crude agent": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9501 > \u20b9372 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9521 > \u20b9372 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9513 > \u20b9372 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": -47,
+     "exp_R": -0.025,
+     "pf": 0.95
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 16,
+     "win_rate": 50.0,
+     "net": -2363,
+     "exp_R": -0.454,
+     "pf": 0.31
+    },
+    "morning (<11:30)": {
+     "trades": 47,
+     "win_rate": 44.7,
+     "net": -6261,
+     "exp_R": -0.41,
+     "pf": 0.43
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 33,
+     "win_rate": 54.5,
+     "net": -2195,
+     "exp_R": -0.205,
+     "pf": 0.66
+    },
+    "RANGE": {
+     "trades": 9,
+     "win_rate": 33.3,
+     "net": -2462,
+     "exp_R": -0.842,
+     "pf": 0.08
+    },
+    "TREND_DOWN": {
+     "trades": 13,
+     "win_rate": 46.2,
+     "net": -777,
+     "exp_R": -0.184,
+     "pf": 0.7
+    },
+    "TREND_UP": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -3236,
+     "exp_R": -0.711,
+     "pf": 0.07
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 29,
+     "win_rate": 58.6,
+     "net": -1426,
+     "exp_R": -0.151,
+     "pf": 0.73
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 40.0,
+     "net": -7246,
+     "exp_R": -0.557,
+     "pf": 0.27
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -284,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 24,
+     "primary_net": -10539,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 4,
+     "share_of_losers": "11%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 6,
+     "share_of_losers": "17%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 7,
+     "primary_net": -2707,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 69,
+    "gross_at_mid": 2801,
+    "slippage": 6644,
+    "charges": 4829,
+    "net": -8672,
+    "cost_per_trade": 166,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 58,
+   "conservative": {
+    "trades": 38,
+    "wins": 6,
+    "losses": 32,
+    "win_rate": 15.8,
+    "gross": -5824,
+    "charges": 2593,
+    "slippage": 6106,
+    "net": -8417,
+    "pf": 0.26,
+    "exp_rs": -221,
+    "exp_R": -0.682,
+    "avg_win": 489,
+    "avg_loss": -354,
+    "rr": 1.38,
+    "max_dd": -8417,
+    "max_consec_losses": 8,
+    "avg_hold": 2.4,
+    "ci_low": -332,
+    "ci_high": -102,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 75,
+    "wins": 39,
+    "losses": 36,
+    "win_rate": 52.0,
+    "gross": 3610,
+    "charges": 5301,
+    "slippage": 0,
+    "net": -1690,
+    "pf": 0.87,
+    "exp_rs": -22,
+    "exp_R": -0.069,
+    "avg_win": 296,
+    "avg_loss": -368,
+    "rr": 0.81,
+    "max_dd": -5112,
+    "max_consec_losses": 7,
+    "avg_hold": 3.2,
+    "ci_low": -105,
+    "ci_high": 59,
+    "p_positive": 0.3
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "TRAIL": "atr"
+    }
+   },
+   "objective": -0.534
+  },
+  "F4 baseline + profit lock": {
+   "base": {
+    "trades": 69,
+    "wins": 33,
+    "losses": 36,
+    "win_rate": 47.8,
+    "gross": -3933,
+    "charges": 4829,
+    "slippage": 6643,
+    "net": -8762,
+    "pf": 0.43,
+    "exp_rs": -126,
+    "exp_R": -0.391,
+    "avg_win": 196,
+    "avg_loss": -423,
+    "rr": 0.46,
+    "max_dd": -9298,
+    "max_consec_losses": 7,
+    "avg_hold": 3.2,
+    "ci_low": -205,
+    "ci_high": -38,
+    "p_positive": 0.0
+   },
+   "rejected_signals": 202,
+   "rejections_by_reason": {
+    "daily risk lock": 116,
+    "outside entry window": 30,
+    "cooldown": 13,
+    "position already open": 12,
+    "crude agent": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9501 > \u20b9281 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9521 > \u20b9281 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9513 > \u20b9281 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": 184,
+     "exp_R": 0.095,
+     "pf": 1.2
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 16,
+     "win_rate": 50.0,
+     "net": -2405,
+     "exp_R": -0.463,
+     "pf": 0.3
+    },
+    "morning (<11:30)": {
+     "trades": 47,
+     "win_rate": 44.7,
+     "net": -6541,
+     "exp_R": -0.428,
+     "pf": 0.4
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 33,
+     "win_rate": 54.5,
+     "net": -2121,
+     "exp_R": -0.198,
+     "pf": 0.68
+    },
+    "RANGE": {
+     "trades": 9,
+     "win_rate": 33.3,
+     "net": -2552,
+     "exp_R": -0.873,
+     "pf": 0.04
+    },
+    "TREND_DOWN": {
+     "trades": 13,
+     "win_rate": 46.2,
+     "net": -880,
+     "exp_R": -0.208,
+     "pf": 0.66
+    },
+    "TREND_UP": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -3207,
+     "exp_R": -0.705,
+     "pf": 0.08
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 29,
+     "win_rate": 58.6,
+     "net": -1077,
+     "exp_R": -0.114,
+     "pf": 0.8
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 40.0,
+     "net": -7685,
+     "exp_R": -0.591,
+     "pf": 0.23
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -284,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 24,
+     "primary_net": -10539,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 4,
+     "share_of_losers": "11%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 6,
+     "share_of_losers": "17%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 7,
+     "primary_net": -2707,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 69,
+    "gross_at_mid": 2710,
+    "slippage": 6644,
+    "charges": 4829,
+    "net": -8763,
+    "cost_per_trade": 166,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 44,
+   "conservative": {
+    "trades": 41,
+    "wins": 9,
+    "losses": 32,
+    "win_rate": 22.0,
+    "gross": -5856,
+    "charges": 2775,
+    "slippage": 6410,
+    "net": -8631,
+    "pf": 0.29,
+    "exp_rs": -210,
+    "exp_R": -0.648,
+    "avg_win": 396,
+    "avg_loss": -381,
+    "rr": 1.04,
+    "max_dd": -8631,
+    "max_consec_losses": 7,
+    "avg_hold": 2.4,
+    "ci_low": -318,
+    "ci_high": -94,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 75,
+    "wins": 39,
+    "losses": 36,
+    "win_rate": 52.0,
+    "gross": 3363,
+    "charges": 5301,
+    "slippage": 0,
+    "net": -1937,
+    "pf": 0.85,
+    "exp_rs": -25,
+    "exp_R": -0.079,
+    "avg_win": 290,
+    "avg_loss": -368,
+    "rr": 0.79,
+    "max_dd": -5024,
+    "max_consec_losses": 7,
+    "avg_hold": 3.3,
+    "ci_low": -108,
+    "ci_high": 55,
+    "p_positive": 0.27
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "TRAIL": "lock"
+    }
+   },
+   "objective": -0.519
+  },
+  "F5 baseline + target extension": {
+   "base": {
+    "trades": 69,
+    "wins": 33,
+    "losses": 36,
+    "win_rate": 47.8,
+    "gross": -3286,
+    "charges": 4830,
+    "slippage": 6646,
+    "net": -8117,
+    "pf": 0.47,
+    "exp_rs": -117,
+    "exp_R": -0.362,
+    "avg_win": 216,
+    "avg_loss": -423,
+    "rr": 0.51,
+    "max_dd": -8813,
+    "max_consec_losses": 7,
+    "avg_hold": 3.3,
+    "ci_low": -201,
+    "ci_high": -23,
+    "p_positive": 0.01
+   },
+   "rejected_signals": 202,
+   "rejections_by_reason": {
+    "daily risk lock": 116,
+    "outside entry window": 30,
+    "position already open": 13,
+    "cooldown": 12,
+    "crude agent": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9501 > \u20b9281 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9521 > \u20b9281 allowed)": 1,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b9513 > \u20b9281 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": 345,
+     "exp_R": 0.177,
+     "pf": 1.37
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 16,
+     "win_rate": 50.0,
+     "net": -2243,
+     "exp_R": -0.432,
+     "pf": 0.34
+    },
+    "morning (<11:30)": {
+     "trades": 47,
+     "win_rate": 44.7,
+     "net": -6219,
+     "exp_R": -0.407,
+     "pf": 0.43
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 33,
+     "win_rate": 54.5,
+     "net": -1637,
+     "exp_R": -0.153,
+     "pf": 0.75
+    },
+    "RANGE": {
+     "trades": 9,
+     "win_rate": 33.3,
+     "net": -2552,
+     "exp_R": -0.873,
+     "pf": 0.04
+    },
+    "TREND_DOWN": {
+     "trades": 13,
+     "win_rate": 46.2,
+     "net": -719,
+     "exp_R": -0.17,
+     "pf": 0.72
+    },
+    "TREND_UP": {
+     "trades": 14,
+     "win_rate": 42.9,
+     "net": -3207,
+     "exp_R": -0.705,
+     "pf": 0.08
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 29,
+     "win_rate": 58.6,
+     "net": -593,
+     "exp_R": -0.063,
+     "pf": 0.89
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 40.0,
+     "net": -7523,
+     "exp_R": -0.579,
+     "pf": 0.24
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 1,
+     "primary_net": -284,
+     "any": 1,
+     "share_of_losers": "3%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 24,
+     "primary_net": -10539,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 4,
+     "share_of_losers": "11%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 6,
+     "share_of_losers": "17%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 7,
+     "primary_net": -2707,
+     "any": 24,
+     "share_of_losers": "67%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 69,
+    "gross_at_mid": 3360,
+    "slippage": 6647,
+    "charges": 4830,
+    "net": -8117,
+    "cost_per_trade": 166,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 54,
+   "conservative": {
+    "trades": 41,
+    "wins": 8,
+    "losses": 33,
+    "win_rate": 19.5,
+    "gross": -6002,
+    "charges": 2773,
+    "slippage": 6397,
+    "net": -8775,
+    "pf": 0.28,
+    "exp_rs": -214,
+    "exp_R": -0.659,
+    "avg_win": 428,
+    "avg_loss": -369,
+    "rr": 1.16,
+    "max_dd": -8775,
+    "max_consec_losses": 12,
+    "avg_hold": 2.5,
+    "ci_low": -322,
+    "ci_high": -95,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 74,
+    "wins": 39,
+    "losses": 35,
+    "win_rate": 52.7,
+    "gross": 3596,
+    "charges": 5236,
+    "slippage": 0,
+    "net": -1640,
+    "pf": 0.87,
+    "exp_rs": -22,
+    "exp_R": -0.068,
+    "avg_win": 288,
+    "avg_loss": -368,
+    "rr": 0.78,
+    "max_dd": -4740,
+    "max_consec_losses": 7,
+    "avg_hold": 3.4,
+    "ci_low": -107,
+    "ci_high": 66,
+    "p_positive": 0.31
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "EXTEND": true
+    }
+   },
+   "objective": -0.51
+  },
+  "F6 baseline, no break-even": {
+   "base": {
+    "trades": 65,
+    "wins": 25,
+    "losses": 40,
+    "win_rate": 38.5,
+    "gross": -1760,
+    "charges": 4584,
+    "slippage": 6401,
+    "net": -6344,
+    "pf": 0.64,
+    "exp_rs": -97,
+    "exp_R": -0.3,
+    "avg_win": 447,
+    "avg_loss": -438,
+    "rr": 1.02,
+    "max_dd": -8500,
+    "max_consec_losses": 7,
+    "avg_hold": 4.0,
+    "ci_low": -205,
+    "ci_high": 6,
+    "p_positive": 0.03
+   },
+   "rejected_signals": 206,
+   "rejections_by_reason": {
+    "daily risk lock": 154,
+    "outside entry window": 24,
+    "position already open": 13,
+    "cooldown": 13,
+    "crude agent": 2
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": 116,
+     "exp_R": 0.09,
+     "pf": 1.13
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 16,
+     "win_rate": 31.2,
+     "net": -2617,
+     "exp_R": -0.503,
+     "pf": 0.46
+    },
+    "morning (<11:30)": {
+     "trades": 45,
+     "win_rate": 40.0,
+     "net": -3843,
+     "exp_R": -0.263,
+     "pf": 0.67
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 34,
+     "win_rate": 41.2,
+     "net": -2659,
+     "exp_R": -0.241,
+     "pf": 0.69
+    },
+    "RANGE": {
+     "trades": 7,
+     "win_rate": 28.6,
+     "net": -1197,
+     "exp_R": -0.526,
+     "pf": 0.45
+    },
+    "TREND_DOWN": {
+     "trades": 12,
+     "win_rate": 41.7,
+     "net": -362,
+     "exp_R": -0.093,
+     "pf": 0.88
+    },
+    "TREND_UP": {
+     "trades": 12,
+     "win_rate": 33.3,
+     "net": -2124,
+     "exp_R": -0.545,
+     "pf": 0.41
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 27,
+     "win_rate": 48.1,
+     "net": -570,
+     "exp_R": -0.065,
+     "pf": 0.91
+    },
+    "PE": {
+     "trades": 38,
+     "win_rate": 31.6,
+     "net": -5773,
+     "exp_R": -0.467,
+     "pf": 0.48
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 29,
+     "primary_net": -12795,
+     "any": 29,
+     "share_of_losers": "72%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 2,
+     "primary_net": -888,
+     "any": 4,
+     "share_of_losers": "10%"
+    },
+    {
+     "cause": "chop",
+     "primary": 2,
+     "primary_net": -844,
+     "any": 5,
+     "share_of_losers": "12%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 7,
+     "primary_net": -3000,
+     "any": 28,
+     "share_of_losers": "70%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "2%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 65,
+    "gross_at_mid": 4641,
+    "slippage": 6401,
+    "charges": 4584,
+    "net": -6344,
+    "cost_per_trade": 169,
+    "avg_risk_per_trade": 325
+   },
+   "adjustments": 0,
+   "conservative": {
+    "trades": 45,
+    "wins": 13,
+    "losses": 32,
+    "win_rate": 28.9,
+    "gross": -5852,
+    "charges": 3032,
+    "slippage": 6926,
+    "net": -8884,
+    "pf": 0.41,
+    "exp_rs": -197,
+    "exp_R": -0.607,
+    "avg_win": 474,
+    "avg_loss": -470,
+    "rr": 1.01,
+    "max_dd": -9138,
+    "max_consec_losses": 6,
+    "avg_hold": 3.0,
+    "ci_low": -320,
+    "ci_high": -65,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 66,
+    "wins": 26,
+    "losses": 40,
+    "win_rate": 39.4,
+    "gross": 2957,
+    "charges": 4646,
+    "slippage": 0,
+    "net": -1689,
+    "pf": 0.89,
+    "exp_rs": -25,
+    "exp_R": -0.079,
+    "avg_win": 517,
+    "avg_loss": -378,
+    "rr": 1.37,
+    "max_dd": -6655,
+    "max_consec_losses": 7,
+    "avg_hold": 4.1,
+    "ci_low": -129,
+    "ci_high": 78,
+    "p_positive": 0.32
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "BE_AT_POINTS": 0
+    }
+   },
+   "objective": -0.454
+  },
+  "H1 volume rule \u00b7 15/30": {
+   "base": {
+    "trades": 61,
+    "wins": 24,
+    "losses": 37,
+    "win_rate": 39.3,
+    "gross": -14501,
+    "charges": 4192,
+    "slippage": 5584,
+    "net": -18694,
+    "pf": 0.48,
+    "exp_rs": -306,
+    "exp_R": -0.314,
+    "avg_win": 712,
+    "avg_loss": -967,
+    "rr": 0.74,
+    "max_dd": -21675,
+    "max_consec_losses": 7,
+    "avg_hold": 17.6,
+    "ci_low": -546,
+    "ci_high": -56,
+    "p_positive": 0.01
+   },
+   "rejected_signals": 210,
+   "rejections_by_reason": {
+    "daily risk lock": 92,
+    "position already open": 41,
+    "outside entry window": 34,
+    "cooldown": 8,
+    "crude agent": 4,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b91,147 > \u20b9344 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b91,136 > \u20b9344 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b91,137 > \u20b9344 allowed)": 2
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 5,
+     "win_rate": 60.0,
+     "net": 75,
+     "exp_R": 0.016,
+     "pf": 1.04
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 17,
+     "win_rate": 35.3,
+     "net": -1739,
+     "exp_R": -0.105,
+     "pf": 0.81
+    },
+    "morning (<11:30)": {
+     "trades": 39,
+     "win_rate": 38.5,
+     "net": -17030,
+     "exp_R": -0.448,
+     "pf": 0.3
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 31,
+     "win_rate": 41.9,
+     "net": -8393,
+     "exp_R": -0.278,
+     "pf": 0.49
+    },
+    "RANGE": {
+     "trades": 6,
+     "win_rate": 50.0,
+     "net": -129,
+     "exp_R": -0.022,
+     "pf": 0.96
+    },
+    "TREND_DOWN": {
+     "trades": 15,
+     "win_rate": 40.0,
+     "net": -5944,
+     "exp_R": -0.406,
+     "pf": 0.39
+    },
+    "TREND_UP": {
+     "trades": 9,
+     "win_rate": 22.2,
+     "net": -4226,
+     "exp_R": -0.482,
+     "pf": 0.34
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 25,
+     "win_rate": 44.0,
+     "net": -3092,
+     "exp_R": -0.127,
+     "pf": 0.77
+    },
+    "PE": {
+     "trades": 36,
+     "win_rate": 36.1,
+     "net": -15601,
+     "exp_R": -0.444,
+     "pf": 0.3
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 37,
+     "primary_net": -35804,
+     "any": 37,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 3,
+     "share_of_losers": "8%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 28,
+     "share_of_losers": "76%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 7,
+     "share_of_losers": "19%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 61,
+    "gross_at_mid": -8917,
+    "slippage": 5584,
+    "charges": 4193,
+    "net": -18694,
+    "cost_per_trade": 160,
+    "avg_risk_per_trade": 975
+   },
+   "adjustments": 20,
+   "conservative": {
+    "trades": 52,
+    "wins": 14,
+    "losses": 38,
+    "win_rate": 26.9,
+    "gross": -14741,
+    "charges": 3544,
+    "slippage": 8357,
+    "net": -18285,
+    "pf": 0.44,
+    "exp_rs": -351,
+    "exp_R": -0.361,
+    "avg_win": 1034,
+    "avg_loss": -862,
+    "rr": 1.2,
+    "max_dd": -20878,
+    "max_consec_losses": 10,
+    "avg_hold": 18.0,
+    "ci_low": -609,
+    "ci_high": -70,
+    "p_positive": 0.01
+   },
+   "v2_model": {
+    "trades": 67,
+    "wins": 30,
+    "losses": 37,
+    "win_rate": 44.8,
+    "gross": -3615,
+    "charges": 4609,
+    "slippage": 0,
+    "net": -8224,
+    "pf": 0.74,
+    "exp_rs": -122,
+    "exp_R": -0.126,
+    "avg_win": 793,
+    "avg_loss": -865,
+    "rr": 0.92,
+    "max_dd": -12009,
+    "max_consec_losses": 7,
+    "avg_hold": 19.0,
+    "ci_low": -352,
+    "ci_high": 115,
+    "p_positive": 0.16
+   },
+   "config": {
+    "strategy": "volume",
+    "exit": {
+     "SL_POINTS": 15.0,
+     "TG_POINTS": 30.0,
+     "BE_AT_POINTS": 15.0
+    },
+    "risk": {
+     "SCALP_MAX_DAILY_LOSS": 2500,
+     "SCALP_MAX_HOLD_MIN": 30
+    }
+   },
+   "objective": -0.337
+  },
+  "H2 sweep reversal \u00b7 15/30": {
+   "base": {
+    "trades": 7,
+    "wins": 4,
+    "losses": 3,
+    "win_rate": 57.1,
+    "gross": 3082,
+    "charges": 522,
+    "slippage": 799,
+    "net": 2559,
+    "pf": 1.82,
+    "exp_rs": 365,
+    "exp_R": 0.375,
+    "avg_win": 1419,
+    "avg_loss": -1038,
+    "rr": 1.37,
+    "max_dd": -2013,
+    "max_consec_losses": 2,
+    "avg_hold": 19.7,
+    "ci_low": -623,
+    "ci_high": 1245,
+    "p_positive": 0.78
+   },
+   "rejected_signals": 1,
+   "rejections_by_reason": {
+    "outside entry window": 1
+   },
+   "setups": {
+    "provisional": 841,
+    "rejected": 311,
+    "expired": 235,
+    "invalidated": 175,
+    "superseded": 112,
+    "confirmed": 8
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -1103,
+     "exp_R": -1.131,
+     "pf": 0.0
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 2641,
+     "exp_R": 0.903,
+     "pf": 3.79
+    },
+    "morning (<11:30)": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 1021,
+     "exp_R": 0.349,
+     "pf": 1.96
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -2168,
+     "exp_R": -1.112,
+     "pf": 0.0
+    },
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 75.0,
+     "net": 2924,
+     "exp_R": 0.75,
+     "pf": 4.08
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 1803,
+     "exp_R": 1.85,
+     "pf": 99.0
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "net": 1404,
+     "exp_R": 0.48,
+     "pf": 2.32
+    },
+    "PE": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": 1155,
+     "exp_R": 0.296,
+     "pf": 1.56
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 3,
+     "primary_net": -3116,
+     "any": 3,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 3,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 1,
+     "share_of_losers": "33%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 7,
+    "gross_at_mid": 3882,
+    "slippage": 799,
+    "charges": 522,
+    "net": 2560,
+    "cost_per_trade": 189,
+    "avg_risk_per_trade": 975
+   },
+   "adjustments": 4,
+   "conservative": {
+    "trades": 7,
+    "wins": 4,
+    "losses": 3,
+    "win_rate": 57.1,
+    "gross": 2568,
+    "charges": 522,
+    "slippage": 1441,
+    "net": 2046,
+    "pf": 1.63,
+    "exp_rs": 292,
+    "exp_R": 0.3,
+    "avg_win": 1329,
+    "avg_loss": -1090,
+    "rr": 1.22,
+    "max_dd": -2125,
+    "max_consec_losses": 2,
+    "avg_hold": 20.9,
+    "ci_low": -676,
+    "ci_high": 1166,
+    "p_positive": 0.73
+   },
+   "v2_model": {
+    "trades": 7,
+    "wins": 4,
+    "losses": 3,
+    "win_rate": 57.1,
+    "gross": 2229,
+    "charges": 519,
+    "slippage": 0,
+    "net": 1709,
+    "pf": 1.59,
+    "exp_rs": 244,
+    "exp_R": 0.251,
+    "avg_win": 1157,
+    "avg_loss": -973,
+    "rr": 1.19,
+    "max_dd": -1872,
+    "max_consec_losses": 2,
+    "avg_hold": 18.4,
+    "ci_low": -590,
+    "ci_high": 1158,
+    "p_positive": 0.7
+   },
+   "config": {
+    "strategy": "sweep",
+    "exit": {
+     "SL_POINTS": 15.0,
+     "TG_POINTS": 30.0,
+     "BE_AT_POINTS": 15.0
+    },
+    "risk": {
+     "SCALP_MAX_DAILY_LOSS": 2500,
+     "SCALP_MAX_HOLD_MIN": 30
+    }
+   },
+   "objective": -9.0
+  },
+  "H3 breakout-retest \u00b7 15/30": {
+   "base": {
+    "trades": 5,
+    "wins": 3,
+    "losses": 2,
+    "win_rate": 60.0,
+    "gross": 22,
+    "charges": 364,
+    "slippage": 541,
+    "net": -341,
+    "pf": 0.84,
+    "exp_rs": -68,
+    "exp_R": -0.07,
+    "avg_win": 620,
+    "avg_loss": -1101,
+    "rr": 0.56,
+    "max_dd": -2202,
+    "max_consec_losses": 2,
+    "avg_hold": 6.2,
+    "ci_low": -876,
+    "ci_high": 869,
+    "p_positive": 0.38
+   },
+   "rejected_signals": 1,
+   "rejections_by_reason": {
+    "outside entry window": 1
+   },
+   "setups": {
+    "rejected": 813,
+    "provisional": 506,
+    "invalidated": 189,
+    "superseded": 160,
+    "expired": 45,
+    "confirmed": 6
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "net": 706,
+     "exp_R": 0.362,
+     "pf": 1.64
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -1103,
+     "exp_R": -1.132,
+     "pf": 0.0
+    },
+    "morning (<11:30)": {
+     "trades": 2,
+     "win_rate": 100.0,
+     "net": 55,
+     "exp_R": 0.029,
+     "pf": 99.0
+    }
+   },
+   "by_regime": {
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": -376,
+     "exp_R": -0.097,
+     "pf": 0.83
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 35,
+     "exp_R": 0.036,
+     "pf": 99.0
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 35,
+     "exp_R": 0.036,
+     "pf": 99.0
+    },
+    "PE": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": -376,
+     "exp_R": -0.097,
+     "pf": 0.83
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 2,
+     "primary_net": -2203,
+     "any": 2,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 2,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 5,
+    "gross_at_mid": 565,
+    "slippage": 542,
+    "charges": 364,
+    "net": -342,
+    "cost_per_trade": 181,
+    "avg_risk_per_trade": 975
+   },
+   "adjustments": 3,
+   "conservative": {
+    "trades": 5,
+    "wins": 1,
+    "losses": 4,
+    "win_rate": 20.0,
+    "gross": -194,
+    "charges": 364,
+    "slippage": 976,
+    "net": -558,
+    "pf": 0.76,
+    "exp_rs": -111,
+    "exp_R": -0.115,
+    "avg_win": 1754,
+    "avg_loss": -578,
+    "rr": 3.03,
+    "max_dd": -2312,
+    "max_consec_losses": 4,
+    "avg_hold": 6.0,
+    "ci_low": -920,
+    "ci_high": 821,
+    "p_positive": 0.37
+   },
+   "v2_model": {
+    "trades": 5,
+    "wins": 3,
+    "losses": 2,
+    "win_rate": 60.0,
+    "gross": 295,
+    "charges": 364,
+    "slippage": 0,
+    "net": -69,
+    "pf": 0.97,
+    "exp_rs": -13,
+    "exp_R": -0.014,
+    "avg_win": 675,
+    "avg_loss": -1048,
+    "rr": 0.64,
+    "max_dd": -2096,
+    "max_consec_losses": 2,
+    "avg_hold": 6.2,
+    "ci_low": -825,
+    "ci_high": 932,
+    "p_positive": 0.38
+   },
+   "config": {
+    "strategy": "retest",
+    "exit": {
+     "SL_POINTS": 15.0,
+     "TG_POINTS": 30.0,
+     "BE_AT_POINTS": 15.0
+    },
+    "risk": {
+     "SCALP_MAX_DAILY_LOSS": 2500,
+     "SCALP_MAX_HOLD_MIN": 30
+    }
+   },
+   "objective": -9.0
+  },
+  "H4 breakout, no retest \u00b7 15/30": {
+   "base": {
+    "trades": 21,
+    "wins": 12,
+    "losses": 9,
+    "win_rate": 57.1,
+    "gross": 5918,
+    "charges": 1467,
+    "slippage": 1992,
+    "net": 4450,
+    "pf": 1.51,
+    "exp_rs": 211,
+    "exp_R": 0.217,
+    "avg_win": 1095,
+    "avg_loss": -965,
+    "rr": 1.13,
+    "max_dd": -3574,
+    "max_consec_losses": 3,
+    "avg_hold": 17.6,
+    "ci_low": -287,
+    "ci_high": 711,
+    "p_positive": 0.8
+   },
+   "rejected_signals": 28,
+   "rejections_by_reason": {
+    "outside entry window": 10,
+    "daily risk lock": 9,
+    "position already open": 6,
+    "cooldown": 2,
+    "crude agent": 1
+   },
+   "setups": {
+    "rejected": 1168,
+    "confirmed": 51
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 4,
+     "win_rate": 100.0,
+     "net": 4646,
+     "exp_R": 1.192,
+     "pf": 99.0
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 9,
+     "win_rate": 55.6,
+     "net": 1534,
+     "exp_R": 0.175,
+     "pf": 1.47
+    },
+    "morning (<11:30)": {
+     "trades": 8,
+     "win_rate": 37.5,
+     "net": -1730,
+     "exp_R": -0.222,
+     "pf": 0.68
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "net": 3136,
+     "exp_R": 0.536,
+     "pf": 3.08
+    },
+    "RANGE": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -2175,
+     "exp_R": -1.116,
+     "pf": 0.0
+    },
+    "TREND_DOWN": {
+     "trades": 10,
+     "win_rate": 50.0,
+     "net": 1316,
+     "exp_R": 0.135,
+     "pf": 1.26
+    },
+    "TREND_UP": {
+     "trades": 3,
+     "win_rate": 100.0,
+     "net": 2173,
+     "exp_R": 0.743,
+     "pf": 99.0
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 9,
+     "win_rate": 66.7,
+     "net": 2403,
+     "exp_R": 0.274,
+     "pf": 1.92
+    },
+    "PE": {
+     "trades": 12,
+     "win_rate": 50.0,
+     "net": 2046,
+     "exp_R": 0.175,
+     "pf": 1.34
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 9,
+     "primary_net": -8690,
+     "any": 9,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 2,
+     "share_of_losers": "22%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 5,
+     "share_of_losers": "56%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 2,
+     "share_of_losers": "22%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 21,
+    "gross_at_mid": 7911,
+    "slippage": 1992,
+    "charges": 1468,
+    "net": 4450,
+    "cost_per_trade": 165,
+    "avg_risk_per_trade": 975
+   },
+   "adjustments": 10,
+   "conservative": {
+    "trades": 21,
+    "wins": 9,
+    "losses": 12,
+    "win_rate": 42.9,
+    "gross": 4908,
+    "charges": 1468,
+    "slippage": 3593,
+    "net": 3440,
+    "pf": 1.38,
+    "exp_rs": 163,
+    "exp_R": 0.168,
+    "avg_win": 1395,
+    "avg_loss": -759,
+    "rr": 1.84,
+    "max_dd": -3769,
+    "max_consec_losses": 4,
+    "avg_hold": 17.5,
+    "ci_low": -328,
+    "ci_high": 666,
+    "p_positive": 0.73
+   },
+   "v2_model": {
+    "trades": 21,
+    "wins": 12,
+    "losses": 9,
+    "win_rate": 57.1,
+    "gross": 7192,
+    "charges": 1467,
+    "slippage": 0,
+    "net": 5724,
+    "pf": 1.69,
+    "exp_rs": 272,
+    "exp_R": 0.28,
+    "avg_win": 1163,
+    "avg_loss": -915,
+    "rr": 1.27,
+    "max_dd": -3324,
+    "max_consec_losses": 3,
+    "avg_hold": 18.1,
+    "ci_low": -225,
+    "ci_high": 769,
+    "p_positive": 0.86
+   },
+   "config": {
+    "strategy": "retest",
+    "strat_cfg": {
+     "BRT_RETEST": false
+    },
+    "exit": {
+     "SL_POINTS": 15.0,
+     "TG_POINTS": 30.0,
+     "BE_AT_POINTS": 15.0
+    },
+    "risk": {
+     "SCALP_MAX_DAILY_LOSS": 2500,
+     "SCALP_MAX_HOLD_MIN": 30
+    }
+   },
+   "objective": 0.193
+  },
+  "H5 volume rule + regime filter \u00b7 15/30": {
+   "base": {
+    "trades": 61,
+    "wins": 27,
+    "losses": 34,
+    "win_rate": 44.3,
+    "gross": -10520,
+    "charges": 4204,
+    "slippage": 5622,
+    "net": -14724,
+    "pf": 0.55,
+    "exp_rs": -241,
+    "exp_R": -0.248,
+    "avg_win": 660,
+    "avg_loss": -957,
+    "rr": 0.69,
+    "max_dd": -18501,
+    "max_consec_losses": 7,
+    "avg_hold": 18.0,
+    "ci_low": -474,
+    "ci_high": -4,
+    "p_positive": 0.02
+   },
+   "rejected_signals": 210,
+   "rejections_by_reason": {
+    "daily risk lock": 89,
+    "position already open": 49,
+    "outside entry window": 32,
+    "regime RANGE": 10,
+    "cooldown": 10,
+    "crude agent": 4,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b91,101 > \u20b9401 allowed)": 2,
+    "loss at stop exceeds today's remaining risk (one lot risks \u20b91,166 > \u20b9334 allowed)": 1
+   },
+   "setups": {
+    "confirmed": 288
+   },
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 7,
+     "win_rate": 71.4,
+     "net": 305,
+     "exp_R": 0.045,
+     "pf": 1.14
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 19,
+     "win_rate": 47.4,
+     "net": 1969,
+     "exp_R": 0.106,
+     "pf": 1.24
+    },
+    "morning (<11:30)": {
+     "trades": 35,
+     "win_rate": 37.1,
+     "net": -16999,
+     "exp_R": -0.498,
+     "pf": 0.23
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 30,
+     "win_rate": 46.7,
+     "net": -6337,
+     "exp_R": -0.217,
+     "pf": 0.55
+    },
+    "TREND_DOWN": {
+     "trades": 20,
+     "win_rate": 50.0,
+     "net": -3793,
+     "exp_R": -0.195,
+     "pf": 0.65
+    },
+    "TREND_UP": {
+     "trades": 11,
+     "win_rate": 27.3,
+     "net": -4593,
+     "exp_R": -0.428,
+     "pf": 0.39
+    }
+   },
+   "by_side": {
+    "CE": {
+     "trades": 21,
+     "win_rate": 42.9,
+     "net": -3737,
+     "exp_R": -0.183,
+     "pf": 0.67
+    },
+    "PE": {
+     "trades": 40,
+     "win_rate": 45.0,
+     "net": -10987,
+     "exp_R": -0.282,
+     "pf": 0.48
+    }
+   },
+   "loss_causes": [
+    {
+     "cause": "cost-flipped",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "stop at cost",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "false breakout",
+     "primary": 34,
+     "primary_net": -32564,
+     "any": 34,
+     "share_of_losers": "100%"
+    },
+    {
+     "cause": "noise stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "chop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    },
+    {
+     "cause": "late entry",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 28,
+     "share_of_losers": "82%"
+    },
+    {
+     "cause": "time stop",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 7,
+     "share_of_losers": "21%"
+    },
+    {
+     "cause": "other",
+     "primary": 0,
+     "primary_net": 0,
+     "any": 0,
+     "share_of_losers": "0%"
+    }
+   ],
+   "costs": {
+    "trades": 61,
+    "gross_at_mid": -4898,
+    "slippage": 5623,
+    "charges": 4205,
+    "net": -14725,
+    "cost_per_trade": 161,
+    "avg_risk_per_trade": 975
+   },
+   "adjustments": 21,
+   "conservative": {
+    "trades": 50,
+    "wins": 13,
+    "losses": 37,
+    "win_rate": 26.0,
+    "gross": -16065,
+    "charges": 3386,
+    "slippage": 7880,
+    "net": -19451,
+    "pf": 0.39,
+    "exp_rs": -389,
+    "exp_R": -0.399,
+    "avg_win": 940,
+    "avg_loss": -856,
+    "rr": 1.1,
+    "max_dd": -22252,
+    "max_consec_losses": 10,
+    "avg_hold": 18.5,
+    "ci_low": -638,
+    "ci_high": -115,
+    "p_positive": 0.0
+   },
+   "v2_model": {
+    "trades": 67,
+    "wins": 33,
+    "losses": 34,
+    "win_rate": 49.3,
+    "gross": 501,
+    "charges": 4621,
+    "slippage": 0,
+    "net": -4119,
+    "pf": 0.86,
+    "exp_rs": -61,
+    "exp_R": -0.063,
+    "avg_win": 750,
+    "avg_loss": -849,
+    "rr": 0.88,
+    "max_dd": -10626,
+    "max_consec_losses": 7,
+    "avg_hold": 19.3,
+    "ci_low": -289,
+    "ci_high": 195,
+    "p_positive": 0.3
+   },
+   "config": {
+    "strategy": "volume",
+    "regime": {},
+    "exit": {
+     "SL_POINTS": 15.0,
+     "TG_POINTS": 30.0,
+     "BE_AT_POINTS": 15.0
+    },
+    "risk": {
+     "SCALP_MAX_DAILY_LOSS": 2500,
+     "SCALP_MAX_HOLD_MIN": 30
+    }
+   },
+   "objective": -0.323
+  },
+  "H0 Scalper V2 (active rule) \u00b7 15/30": {
+   "base": {
+    "trades": 11,
+    "wins": 7,
+    "losses": 4,
+    "win_rate": 63.6,
+    "gross": 3746,
+    "charges": 866,
+    "slippage": 0,
+    "net": 2879,
+    "pf": 1.65,
+    "exp_rs": 261,
+    "exp_R": 0.269,
+    "avg_win": 1047,
+    "avg_loss": -1114,
+    "rr": 0.94,
+    "max_dd": -3326,
+    "max_consec_losses": 3,
+    "avg_hold": 13.4,
+    "ci_low": -434,
+    "ci_high": 1017,
+    "p_positive": 0.74
+   },
+   "conservative": {
+    "trades": 10,
+    "wins": 4,
+    "losses": 6,
+    "win_rate": 40.0,
+    "gross": 4218,
+    "charges": 795,
+    "slippage": 0,
+    "net": 3423,
+    "pf": 1.96,
+    "exp_rs": 342,
+    "exp_R": 0.351,
+    "avg_win": 1747,
+    "avg_loss": -594,
+    "rr": 2.94,
+    "max_dd": -2345,
+    "max_consec_losses": 3,
+    "avg_hold": 12.8,
+    "ci_low": -360,
+    "ci_high": 1105,
+    "p_positive": 0.81
+   },
+   "config": {
+    "strategy": "Scalper V2 (scalp_v2_backtest engine)",
+    "sl": 15,
+    "tg": 30,
+    "be_r": 1.0,
+    "daily_loss": 2500,
+    "hold": 30
+   },
+   "objective": 0.31
+  },
+  "G selected combination": {
+   "base": {
+    "trades": 24,
+    "wins": 7,
+    "losses": 17,
+    "win_rate": 29.2,
+    "gross": -1742,
+    "charges": 1657,
+    "slippage": 2219,
+    "net": -3399,
+    "pf": 0.52,
+    "exp_rs": -141,
+    "exp_R": -0.436,
+    "avg_win": 532,
+    "avg_loss": -419,
+    "rr": 1.27,
+    "max_dd": -3596,
+    "max_consec_losses": 4,
+    "avg_hold": 2.6,
+    "ci_low": -307,
+    "ci_high": 42,
+    "p_positive": 0.06
+   },
+   "conservative": {
+    "trades": 21,
+    "wins": 5,
+    "losses": 16,
+    "win_rate": 23.8,
+    "gross": -3301,
+    "charges": 1427,
+    "slippage": 3330,
+    "net": -4728,
+    "pf": 0.34,
+    "exp_rs": -225,
+    "exp_R": -0.693,
+    "avg_win": 491,
+    "avg_loss": -449,
+    "rr": 1.09,
+    "max_dd": -4728,
+    "max_consec_losses": 4,
+    "avg_hold": 2.1,
+    "ci_low": -381,
+    "ci_high": -38,
+    "p_positive": 0.01
+   },
+   "v2_model": {
+    "trades": 24,
+    "wins": 8,
+    "losses": 16,
+    "win_rate": 33.3,
+    "gross": 387,
+    "charges": 1662,
+    "slippage": 0,
+    "net": -1274,
+    "pf": 0.78,
+    "exp_rs": -53,
+    "exp_R": -0.163,
+    "avg_win": 579,
+    "avg_loss": -369,
+    "rr": 1.57,
+    "max_dd": -2221,
+    "max_consec_losses": 4,
+    "avg_hold": 3.1,
+    "ci_low": -230,
+    "ci_high": 127,
+    "p_positive": 0.3
+   },
+   "config": {
+    "strategy": "retest",
+    "strat_cfg": {
+     "BRT_RETEST": false
+    },
+    "regime": {},
+    "exit": {
+     "BE_AT_POINTS": 0
+    }
+   },
+   "objective": -0.564,
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 6,
+     "win_rate": 50.0,
+     "net": 231,
+     "exp_R": 0.119,
+     "pf": 1.17
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 10,
+     "win_rate": 10.0,
+     "net": -3465,
+     "exp_R": -1.066,
+     "pf": 0.13
+    },
+    "morning (<11:30)": {
+     "trades": 8,
+     "win_rate": 37.5,
+     "net": -165,
+     "exp_R": -0.064,
+     "pf": 0.91
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 8,
+     "win_rate": 25.0,
+     "net": -1224,
+     "exp_R": -0.471,
+     "pf": 0.47
+    },
+    "TREND_DOWN": {
+     "trades": 13,
+     "win_rate": 30.8,
+     "net": -1859,
+     "exp_R": -0.44,
+     "pf": 0.53
+    },
+    "TREND_UP": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "net": -315,
+     "exp_R": -0.324,
+     "pf": 0.63
+    }
+   }
+  },
+  "G* sweep + regime filter (exploratory)": {
+   "base": {
+    "trades": 7,
+    "wins": 3,
+    "losses": 4,
+    "win_rate": 42.9,
+    "gross": 61,
+    "charges": 516,
+    "slippage": 784,
+    "net": -454,
+    "pf": 0.7,
+    "exp_rs": -64,
+    "exp_R": -0.2,
+    "avg_win": 347,
+    "avg_loss": -374,
+    "rr": 0.93,
+    "max_dd": -615,
+    "max_consec_losses": 2,
+    "avg_hold": 3.1,
+    "ci_low": -334,
+    "ci_high": 235,
+    "p_positive": 0.34
+   },
+   "conservative": {
+    "trades": 7,
+    "wins": 2,
+    "losses": 5,
+    "win_rate": 28.6,
+    "gross": -608,
+    "charges": 515,
+    "slippage": 1412,
+    "net": -1124,
+    "pf": 0.35,
+    "exp_rs": -160,
+    "exp_R": -0.494,
+    "avg_win": 301,
+    "avg_loss": -345,
+    "rr": 0.87,
+    "max_dd": -1124,
+    "max_consec_losses": 3,
+    "avg_hold": 3.6,
+    "ci_low": -385,
+    "ci_high": 98,
+    "p_positive": 0.11
+   },
+   "v2_model": {
+    "trades": 7,
+    "wins": 3,
+    "losses": 4,
+    "win_rate": 42.9,
+    "gross": 22,
+    "charges": 515,
+    "slippage": 0,
+    "net": -492,
+    "pf": 0.6,
+    "exp_rs": -70,
+    "exp_R": -0.217,
+    "avg_win": 243,
+    "avg_loss": -305,
+    "rr": 0.8,
+    "max_dd": -662,
+    "max_consec_losses": 2,
+    "avg_hold": 2.6,
+    "ci_low": -292,
+    "ci_high": 197,
+    "p_positive": 0.29
+   },
+   "config": {
+    "strategy": "sweep",
+    "regime": {}
+   },
+   "objective": -9.0,
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -457,
+     "exp_R": -1.408,
+     "pf": 0.0
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 3,
+     "win_rate": 100.0,
+     "net": 1041,
+     "exp_R": 1.068,
+     "pf": 99.0
+    },
+    "morning (<11:30)": {
+     "trades": 3,
+     "win_rate": 0.0,
+     "net": -1038,
+     "exp_R": -1.065,
+     "pf": 0.0
+    }
+   },
+   "by_regime": {
+    "MIXED": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -877,
+     "exp_R": -1.349,
+     "pf": 0.0
+    },
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "net": -90,
+     "exp_R": -0.069,
+     "pf": 0.85
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "net": 512,
+     "exp_R": 1.578,
+     "pf": 99.0
+    }
+   }
+  },
+  "G* breakout-retest + regime filter (exploratory)": {
+   "base": {
+    "trades": 5,
+    "wins": 1,
+    "losses": 4,
+    "win_rate": 20.0,
+    "gross": -222,
+    "charges": 364,
+    "slippage": 540,
+    "net": -586,
+    "pf": 0.47,
+    "exp_rs": -117,
+    "exp_R": -0.361,
+    "avg_win": 514,
+    "avg_loss": -275,
+    "rr": 1.87,
+    "max_dd": -1100,
+    "max_consec_losses": 4,
+    "avg_hold": 1.4,
+    "ci_low": -384,
+    "ci_high": 198,
+    "p_positive": 0.25
+   },
+   "conservative": {
+    "trades": 5,
+    "wins": 1,
+    "losses": 4,
+    "win_rate": 20.0,
+    "gross": -833,
+    "charges": 363,
+    "slippage": 970,
+    "net": -1196,
+    "pf": 0.28,
+    "exp_rs": -239,
+    "exp_R": -0.736,
+    "avg_win": 468,
+    "avg_loss": -416,
+    "rr": 1.13,
+    "max_dd": -1665,
+    "max_consec_losses": 4,
+    "avg_hold": 1.6,
+    "ci_low": -504,
+    "ci_high": 148,
+    "p_positive": 0.09
+   },
+   "v2_model": {
+    "trades": 5,
+    "wins": 2,
+    "losses": 3,
+    "win_rate": 40.0,
+    "gross": 146,
+    "charges": 364,
+    "slippage": 0,
+    "net": -217,
+    "pf": 0.73,
+    "exp_rs": -43,
+    "exp_R": -0.134,
+    "avg_win": 301,
+    "avg_loss": -273,
+    "rr": 1.1,
+    "max_dd": -798,
+    "max_consec_losses": 2,
+    "avg_hold": 1.4,
+    "ci_low": -323,
+    "ci_high": 270,
+    "p_positive": 0.35
+   },
+   "config": {
+    "strategy": "retest",
+    "regime": {}
+   },
+   "objective": -9.0,
+   "by_session": {
+    "afternoon (>13:30)": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "net": 60,
+     "exp_R": 0.093,
+     "pf": 1.13
+    },
+    "midday (11:30\u201313:30)": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -457,
+     "exp_R": -1.409,
+     "pf": 0.0
+    },
+    "morning (<11:30)": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "net": -188,
+     "exp_R": -0.291,
+     "pf": 0.0
+    }
+   },
+   "by_regime": {
+    "TREND_DOWN": {
+     "trades": 4,
+     "win_rate": 25.0,
+     "net": -494,
+     "exp_R": -0.381,
+     "pf": 0.51
+    },
+    "TREND_UP": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "net": -91,
+     "exp_R": -0.281,
+     "pf": 0.0
+    }
+   }
+  }
+ },
+ "notes": [],
+ "reproduction": {
+  "base": {
+   "old_trades": 75,
+   "old_net": -8256,
+   "new_trades": 75,
+   "new_net": -8256,
+   "identical_trades": true
+  },
+  "conservative": {
+   "old_trades": 38,
+   "old_net": -8198,
+   "new_trades": 38,
+   "new_net": -8198,
+   "identical_trades": true
+  }
+ },
+ "passed_components": [
+  "C2 breakout, no retest",
+  "D baseline + regime filter",
+  "F4 baseline + profit lock",
+  "F5 baseline + target extension",
+  "F6 baseline, no break-even"
+ ],
+ "walk_forward": {
+  "folds": [
+   {
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30"
+   },
+   {
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06"
+   },
+   {
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09"
+   },
+   {
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14"
+   }
+  ],
+  "oos": {
+   "baseline": {
+    "base": {
+     "trades": 42,
+     "wins": 16,
+     "losses": 26,
+     "win_rate": 38.1,
+     "gross": -5042,
+     "charges": 2931,
+     "slippage": 4017,
+     "net": -7974,
+     "pf": 0.27,
+     "exp_rs": -189,
+     "exp_R": -0.584,
+     "avg_win": 181,
+     "avg_loss": -418,
+     "rr": 0.43,
+     "max_dd": -8521,
+     "max_consec_losses": 7,
+     "avg_hold": 2.3,
+     "ci_low": -287,
+     "ci_high": -85,
+     "p_positive": 0.0
+    },
+    "conservative": {
+     "trades": 23,
+     "wins": 3,
+     "losses": 20,
+     "win_rate": 13.0,
+     "gross": -4395,
+     "charges": 1566,
+     "slippage": 3672,
+     "net": -5961,
+     "pf": 0.19,
+     "exp_rs": -259,
+     "exp_R": -0.798,
+     "avg_win": 477,
+     "avg_loss": -369,
+     "rr": 1.29,
+     "max_dd": -6480,
+     "max_consec_losses": 8,
+     "avg_hold": 1.7,
+     "ci_low": -387,
+     "ci_high": -116,
+     "p_positive": 0.0
+    }
+   },
+   "sweep": {
+    "base": {
+     "trades": 9,
+     "wins": 4,
+     "losses": 5,
+     "win_rate": 44.4,
+     "gross": -245,
+     "charges": 657,
+     "slippage": 981,
+     "net": -902,
+     "pf": 0.54,
+     "exp_rs": -100,
+     "exp_R": -0.309,
+     "avg_win": 265,
+     "avg_loss": -392,
+     "rr": 0.68,
+     "max_dd": -1047,
+     "max_consec_losses": 2,
+     "avg_hold": 3.4,
+     "ci_low": -316,
+     "ci_high": 158,
+     "p_positive": 0.23
+    },
+    "conservative": {
+     "trades": 9,
+     "wins": 2,
+     "losses": 7,
+     "win_rate": 22.2,
+     "gross": -995,
+     "charges": 656,
+     "slippage": 1768,
+     "net": -1652,
+     "pf": 0.27,
+     "exp_rs": -183,
+     "exp_R": -0.565,
+     "avg_win": 301,
+     "avg_loss": -322,
+     "rr": 0.94,
+     "max_dd": -1652,
+     "max_consec_losses": 4,
+     "avg_hold": 3.7,
+     "ci_low": -377,
+     "ci_high": 45,
+     "p_positive": 0.05
+    }
+   },
+   "retest": {
+    "base": {
+     "trades": 5,
+     "wins": 1,
+     "losses": 4,
+     "win_rate": 20.0,
+     "gross": -222,
+     "charges": 364,
+     "slippage": 540,
+     "net": -586,
+     "pf": 0.47,
+     "exp_rs": -117,
+     "exp_R": -0.361,
+     "avg_win": 514,
+     "avg_loss": -275,
+     "rr": 1.87,
+     "max_dd": -1100,
+     "max_consec_losses": 4,
+     "avg_hold": 1.4,
+     "ci_low": -384,
+     "ci_high": 198,
+     "p_positive": 0.25
+    },
+    "conservative": {
+     "trades": 5,
+     "wins": 1,
+     "losses": 4,
+     "win_rate": 20.0,
+     "gross": -833,
+     "charges": 363,
+     "slippage": 970,
+     "net": -1196,
+     "pf": 0.28,
+     "exp_rs": -239,
+     "exp_R": -0.736,
+     "avg_win": 468,
+     "avg_loss": -416,
+     "rr": 1.13,
+     "max_dd": -1665,
+     "max_consec_losses": 4,
+     "avg_hold": 1.6,
+     "ci_low": -504,
+     "ci_high": 148,
+     "p_positive": 0.09
+    }
+   },
+   "baseline+regime": {
+    "base": {
+     "trades": 44,
+     "wins": 19,
+     "losses": 25,
+     "win_rate": 43.2,
+     "gross": -3431,
+     "charges": 3058,
+     "slippage": 4150,
+     "net": -6490,
+     "pf": 0.38,
+     "exp_rs": -147,
+     "exp_R": -0.454,
+     "avg_win": 207,
+     "avg_loss": -417,
+     "rr": 0.5,
+     "max_dd": -7037,
+     "max_consec_losses": 5,
+     "avg_hold": 2.5,
+     "ci_low": -247,
+     "ci_high": -47,
+     "p_positive": 0.0
+    },
+    "conservative": {
+     "trades": 23,
+     "wins": 3,
+     "losses": 20,
+     "win_rate": 13.0,
+     "gross": -4411,
+     "charges": 1570,
+     "slippage": 3704,
+     "net": -5982,
+     "pf": 0.19,
+     "exp_rs": -260,
+     "exp_R": -0.8,
+     "avg_win": 477,
+     "avg_loss": -370,
+     "rr": 1.29,
+     "max_dd": -6500,
+     "max_consec_losses": 8,
+     "avg_hold": 1.8,
+     "ci_low": -388,
+     "ci_high": -117,
+     "p_positive": 0.0
+    }
+   },
+   "volume variants": {
+    "base": {
+     "trades": 38,
+     "wins": 12,
+     "losses": 26,
+     "win_rate": 31.6,
+     "gross": -5266,
+     "charges": 2664,
+     "slippage": 3687,
+     "net": -7930,
+     "pf": 0.26,
+     "exp_rs": -208,
+     "exp_R": -0.642,
+     "avg_win": 233,
+     "avg_loss": -412,
+     "rr": 0.57,
+     "max_dd": -8477,
+     "max_consec_losses": 11,
+     "avg_hold": 2.2,
+     "ci_low": -309,
+     "ci_high": -99,
+     "p_positive": 0.0
+    },
+    "conservative": {
+     "trades": 24,
+     "wins": 3,
+     "losses": 21,
+     "win_rate": 12.5,
+     "gross": -4711,
+     "charges": 1614,
+     "slippage": 3680,
+     "net": -6325,
+     "pf": 0.19,
+     "exp_rs": -263,
+     "exp_R": -0.811,
+     "avg_win": 500,
+     "avg_loss": -372,
+     "rr": 1.34,
+     "max_dd": -6844,
+     "max_consec_losses": 12,
+     "avg_hold": 1.8,
+     "ci_low": -390,
+     "ci_high": -120,
+     "p_positive": 0.0
+    }
+   }
+  },
+  "rows": [
+   {
+    "family": "baseline",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "base",
+    "chosen": "{}",
+    "train_obj": -0.306,
+    "trades": 10,
+    "net": -1975,
+    "exp_R": -0.608
+   },
+   {
+    "family": "baseline",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "conservative",
+    "chosen": "{}",
+    "train_obj": -0.306,
+    "trades": 6,
+    "net": -1311,
+    "exp_R": -0.672
+   },
+   {
+    "family": "baseline",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "base",
+    "chosen": "{}",
+    "train_obj": -0.398,
+    "trades": 8,
+    "net": -2231,
+    "exp_R": -0.858
+   },
+   {
+    "family": "baseline",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "conservative",
+    "chosen": "{}",
+    "train_obj": -0.398,
+    "trades": 7,
+    "net": -2070,
+    "exp_R": -0.91
+   },
+   {
+    "family": "baseline",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "base",
+    "chosen": "{}",
+    "train_obj": -0.497,
+    "trades": 12,
+    "net": -1815,
+    "exp_R": -0.465
+   },
+   {
+    "family": "baseline",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "conservative",
+    "chosen": "{}",
+    "train_obj": -0.497,
+    "trades": 5,
+    "net": -1586,
+    "exp_R": -0.977
+   },
+   {
+    "family": "baseline",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "base",
+    "chosen": "{}",
+    "train_obj": -0.534,
+    "trades": 12,
+    "net": -1951,
+    "exp_R": -0.5
+   },
+   {
+    "family": "baseline",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "conservative",
+    "chosen": "{}",
+    "train_obj": -0.534,
+    "trades": 5,
+    "net": -992,
+    "exp_R": -0.611
+   },
+   {
+    "family": "sweep",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "base",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.5}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": -422,
+    "exp_R": -1.3
+   },
+   {
+    "family": "sweep",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "conservative",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.5}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": -447,
+    "exp_R": -1.377
+   },
+   {
+    "family": "sweep",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "base",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.5}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": 512,
+    "exp_R": 1.578
+   },
+   {
+    "family": "sweep",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "conservative",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.5}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": 168,
+    "exp_R": 0.519
+   },
+   {
+    "family": "sweep",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "base",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.5}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": 33,
+    "exp_R": 0.104
+   },
+   {
+    "family": "sweep",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "conservative",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.5}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": -13,
+    "exp_R": -0.04
+   },
+   {
+    "family": "sweep",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "base",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.3}",
+    "train_obj": 0.17,
+    "trades": 6,
+    "net": -1026,
+    "exp_R": -0.526
+   },
+   {
+    "family": "sweep",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "conservative",
+    "chosen": "{\"SWEEP_RECLAIM_BARS\": 3, \"SWEEP_DISP_ATR\": 0.3}",
+    "train_obj": 0.17,
+    "trades": 6,
+    "net": -1360,
+    "exp_R": -0.697
+   },
+   {
+    "family": "retest",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "base",
+    "chosen": "{\"BRT_RANGE_N\": 10, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": 514,
+    "exp_R": 1.583
+   },
+   {
+    "family": "retest",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "conservative",
+    "chosen": "{\"BRT_RANGE_N\": 10, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": 468,
+    "exp_R": 1.441
+   },
+   {
+    "family": "retest",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "base",
+    "chosen": "{\"BRT_RANGE_N\": 10, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -9.0,
+    "trades": 2,
+    "net": -911,
+    "exp_R": -1.403
+   },
+   {
+    "family": "retest",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "conservative",
+    "chosen": "{\"BRT_RANGE_N\": 10, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -9.0,
+    "trades": 2,
+    "net": -1005,
+    "exp_R": -1.548
+   },
+   {
+    "family": "retest",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "base",
+    "chosen": "{\"BRT_RANGE_N\": 10, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": -91,
+    "exp_R": -0.281
+   },
+   {
+    "family": "retest",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "conservative",
+    "chosen": "{\"BRT_RANGE_N\": 10, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -9.0,
+    "trades": 1,
+    "net": -504,
+    "exp_R": -1.551
+   },
+   {
+    "family": "retest",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "base",
+    "chosen": "{\"BRT_RANGE_N\": 5, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -0.724,
+    "trades": 1,
+    "net": -97,
+    "exp_R": -0.3
+   },
+   {
+    "family": "retest",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "conservative",
+    "chosen": "{\"BRT_RANGE_N\": 5, \"BRT_RETEST_BARS\": 6}",
+    "train_obj": -0.724,
+    "trades": 1,
+    "net": -154,
+    "exp_R": -0.476
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "base",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.249,
+    "trades": 10,
+    "net": -1975,
+    "exp_R": -0.608
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "conservative",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.249,
+    "trades": 6,
+    "net": -1311,
+    "exp_R": -0.672
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "base",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.361,
+    "trades": 10,
+    "net": -730,
+    "exp_R": -0.225
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "conservative",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.361,
+    "trades": 7,
+    "net": -2082,
+    "exp_R": -0.915
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "base",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.413,
+    "trades": 11,
+    "net": -1859,
+    "exp_R": -0.52
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "conservative",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.413,
+    "trades": 5,
+    "net": -1596,
+    "exp_R": -0.982
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "base",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.471,
+    "trades": 13,
+    "net": -1923,
+    "exp_R": -0.455
+   },
+   {
+    "family": "baseline+regime",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "conservative",
+    "chosen": "{\"REG_MAX_VWAP_CROSSES\": 3, \"REG_FLAT_VWAP_PCT\": 0.03}",
+    "train_obj": -0.471,
+    "trades": 5,
+    "net": -992,
+    "exp_R": -0.611
+   },
+   {
+    "family": "volume variants",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "base",
+    "chosen": "{\"SCALP_VOL_MULT\": 2.0, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.201,
+    "trades": 7,
+    "net": -2032,
+    "exp_R": -0.894
+   },
+   {
+    "family": "volume variants",
+    "fold": 1,
+    "train": "2026-09-17\u21922026-09-25",
+    "test": "2026-09-28\u21922026-09-30",
+    "fills": "conservative",
+    "chosen": "{\"SCALP_VOL_MULT\": 2.0, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.201,
+    "trades": 6,
+    "net": -1750,
+    "exp_R": -0.898
+   },
+   {
+    "family": "volume variants",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "base",
+    "chosen": "{\"SCALP_VOL_MULT\": 2.0, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.381,
+    "trades": 7,
+    "net": -2264,
+    "exp_R": -0.995
+   },
+   {
+    "family": "volume variants",
+    "fold": 2,
+    "train": "2026-09-17\u21922026-09-30",
+    "test": "2026-10-01\u21922026-10-06",
+    "fills": "conservative",
+    "chosen": "{\"SCALP_VOL_MULT\": 2.0, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.381,
+    "trades": 6,
+    "net": -2089,
+    "exp_R": -1.072
+   },
+   {
+    "family": "volume variants",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "base",
+    "chosen": "{\"SCALP_VOL_MULT\": 1.5, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.497,
+    "trades": 12,
+    "net": -1815,
+    "exp_R": -0.465
+   },
+   {
+    "family": "volume variants",
+    "fold": 3,
+    "train": "2026-09-17\u21922026-10-06",
+    "test": "2026-10-07\u21922026-10-09",
+    "fills": "conservative",
+    "chosen": "{\"SCALP_VOL_MULT\": 1.5, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.497,
+    "trades": 5,
+    "net": -1586,
+    "exp_R": -0.977
+   },
+   {
+    "family": "volume variants",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "base",
+    "chosen": "{\"SCALP_VOL_MULT\": 2.0, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.534,
+    "trades": 12,
+    "net": -1818,
+    "exp_R": -0.466
+   },
+   {
+    "family": "volume variants",
+    "fold": 4,
+    "train": "2026-09-17\u21922026-10-09",
+    "test": "2026-10-12\u21922026-10-14",
+    "fills": "conservative",
+    "chosen": "{\"SCALP_VOL_MULT\": 2.0, \"VOL_DISP_ATR\": 0}",
+    "train_obj": -0.534,
+    "trades": 7,
+    "net": -899,
+    "exp_R": -0.395
+   }
+  ]
+ },
+ "sensitivity": [
+  {
+   "family": "sweep",
+   "param": "SWEEP_MIN_PEN_ATR",
+   "value": "0.05",
+   "default": false,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_MIN_PEN_ATR",
+   "value": "0.1",
+   "default": true,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_MIN_PEN_ATR",
+   "value": "0.2",
+   "default": false,
+   "trades": 6,
+   "exp_R_base": 0.002,
+   "net_base": 2,
+   "exp_R_cons": -0.318,
+   "net_cons": -620
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_RECLAIM_BARS",
+   "value": "1",
+   "default": false,
+   "trades": 4,
+   "exp_R_base": -0.447,
+   "net_base": -581,
+   "exp_R_cons": -0.641,
+   "net_cons": -833
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_RECLAIM_BARS",
+   "value": "2",
+   "default": false,
+   "trades": 6,
+   "exp_R_base": -0.496,
+   "net_base": -967,
+   "exp_R_cons": -0.663,
+   "net_cons": -1293
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_RECLAIM_BARS",
+   "value": "3",
+   "default": true,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_RECLAIM_BARS",
+   "value": "5",
+   "default": false,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_DISP_ATR",
+   "value": "0.3",
+   "default": false,
+   "trades": 11,
+   "exp_R_base": -0.134,
+   "net_base": -480,
+   "exp_R_cons": -0.378,
+   "net_cons": -1351
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_DISP_ATR",
+   "value": "0.5",
+   "default": true,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_DISP_ATR",
+   "value": "0.7",
+   "default": false,
+   "trades": 3,
+   "exp_R_base": 0.564,
+   "net_base": 550,
+   "exp_R_cons": 0.101,
+   "net_cons": 97
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_MIN_REWARD_R",
+   "value": "1.0",
+   "default": false,
+   "trades": 17,
+   "exp_R_base": -0.351,
+   "net_base": -1938,
+   "exp_R_cons": -0.635,
+   "net_cons": -3096
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_MIN_REWARD_R",
+   "value": "1.5",
+   "default": true,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_MIN_REWARD_R",
+   "value": "2.0",
+   "default": false,
+   "trades": 0,
+   "exp_R_base": 0.0,
+   "net_base": 0,
+   "exp_R_cons": 0.0,
+   "net_cons": 0
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_HTF",
+   "value": "off",
+   "default": false,
+   "trades": 18,
+   "exp_R_base": -0.496,
+   "net_base": -2899,
+   "exp_R_cons": -0.858,
+   "net_cons": -4737
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_HTF",
+   "value": "not_against",
+   "default": true,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "sweep",
+   "param": "SWEEP_HTF",
+   "value": "with",
+   "default": false,
+   "trades": 7,
+   "exp_R_base": -0.2,
+   "net_base": -454,
+   "exp_R_cons": -0.494,
+   "net_cons": -1124
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RANGE_N",
+   "value": "5",
+   "default": false,
+   "trades": 6,
+   "exp_R_base": -0.507,
+   "net_base": -989,
+   "exp_R_cons": -0.828,
+   "net_cons": -1615
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RANGE_N",
+   "value": "10",
+   "default": true,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RANGE_N",
+   "value": "15",
+   "default": false,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RETEST_BARS",
+   "value": "3",
+   "default": false,
+   "trades": 3,
+   "exp_R_base": -1.035,
+   "net_base": -1009,
+   "exp_R_cons": -1.191,
+   "net_cons": -1160
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RETEST_BARS",
+   "value": "6",
+   "default": true,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RETEST_BARS",
+   "value": "9",
+   "default": false,
+   "trades": 6,
+   "exp_R_base": -0.019,
+   "net_base": -37,
+   "exp_R_cons": -0.347,
+   "net_cons": -676
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RETEST_TOL_ATR",
+   "value": "0.15",
+   "default": false,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RETEST_TOL_ATR",
+   "value": "0.25",
+   "default": true,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_RETEST_TOL_ATR",
+   "value": "0.4",
+   "default": false,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_BODY_MIN",
+   "value": "0.4",
+   "default": false,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_BODY_MIN",
+   "value": "0.5",
+   "default": true,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_BODY_MIN",
+   "value": "0.6",
+   "default": false,
+   "trades": 4,
+   "exp_R_base": -0.376,
+   "net_base": -488,
+   "exp_R_cons": -0.801,
+   "net_cons": -1041
+  },
+  {
+   "family": "retest",
+   "param": "BRT_HTF",
+   "value": "off",
+   "default": false,
+   "trades": 8,
+   "exp_R_base": -0.354,
+   "net_base": -920,
+   "exp_R_cons": -0.63,
+   "net_cons": -1637
+  },
+  {
+   "family": "retest",
+   "param": "BRT_HTF",
+   "value": "not_against",
+   "default": true,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "retest",
+   "param": "BRT_HTF",
+   "value": "with",
+   "default": false,
+   "trades": 5,
+   "exp_R_base": -0.361,
+   "net_base": -586,
+   "exp_R_cons": -0.736,
+   "net_cons": -1196
+  },
+  {
+   "family": "regime",
+   "param": "REG_MAX_VWAP_CROSSES",
+   "value": "3",
+   "default": false,
+   "trades": 69,
+   "exp_R_base": -0.316,
+   "net_base": -7086,
+   "exp_R_cons": -0.652,
+   "net_cons": -8051
+  },
+  {
+   "family": "regime",
+   "param": "REG_MAX_VWAP_CROSSES",
+   "value": "4",
+   "default": true,
+   "trades": 70,
+   "exp_R_base": -0.275,
+   "net_base": -6250,
+   "exp_R_cons": -0.651,
+   "net_cons": -8042
+  },
+  {
+   "family": "regime",
+   "param": "REG_MAX_VWAP_CROSSES",
+   "value": "5",
+   "default": false,
+   "trades": 70,
+   "exp_R_base": -0.357,
+   "net_base": -8120,
+   "exp_R_cons": -0.681,
+   "net_cons": -8415
+  },
+  {
+   "family": "regime",
+   "param": "REG_MAX_VWAP_CROSSES",
+   "value": "6",
+   "default": false,
+   "trades": 67,
+   "exp_R_base": -0.42,
+   "net_base": -9139,
+   "exp_R_cons": -0.682,
+   "net_cons": -8417
+  },
+  {
+   "family": "regime",
+   "param": "REG_FLAT_VWAP_PCT",
+   "value": "0.01",
+   "default": false,
+   "trades": 70,
+   "exp_R_base": -0.275,
+   "net_base": -6250,
+   "exp_R_cons": -0.651,
+   "net_cons": -8042
+  },
+  {
+   "family": "regime",
+   "param": "REG_FLAT_VWAP_PCT",
+   "value": "0.02",
+   "default": true,
+   "trades": 70,
+   "exp_R_base": -0.275,
+   "net_base": -6250,
+   "exp_R_cons": -0.651,
+   "net_cons": -8042
+  },
+  {
+   "family": "regime",
+   "param": "REG_FLAT_VWAP_PCT",
+   "value": "0.03",
+   "default": false,
+   "trades": 70,
+   "exp_R_base": -0.275,
+   "net_base": -6250,
+   "exp_R_cons": -0.651,
+   "net_cons": -8042
+  },
+  {
+   "family": "regime",
+   "param": "REG_LOW_EXPANSION",
+   "value": "0.5",
+   "default": false,
+   "trades": 70,
+   "exp_R_base": -0.275,
+   "net_base": -6250,
+   "exp_R_cons": -0.651,
+   "net_cons": -8042
+  },
+  {
+   "family": "regime",
+   "param": "REG_LOW_EXPANSION",
+   "value": "0.6",
+   "default": true,
+   "trades": 70,
+   "exp_R_base": -0.275,
+   "net_base": -6250,
+   "exp_R_cons": -0.651,
+   "net_cons": -8042
+  },
+  {
+   "family": "regime",
+   "param": "REG_LOW_EXPANSION",
+   "value": "0.7",
+   "default": false,
+   "trades": 69,
+   "exp_R_base": -0.282,
+   "net_base": -6324,
+   "exp_R_cons": -0.69,
+   "net_cons": -8524
+  }
+ ],
+ "volume_value": {
+  "quintiles": [
+   {
+    "q": "Q1 lowest",
+    "rvol_mid": 0.23,
+    "n": 1474,
+    "abs_move_pts": 9.99,
+    "continuation_pts": 0.43,
+    "atr": 8.36
+   },
+   {
+    "q": "Q2",
+    "rvol_mid": 0.45,
+    "n": 1473,
+    "abs_move_pts": 10.41,
+    "continuation_pts": 0.59,
+    "atr": 9.12
+   },
+   {
+    "q": "Q3",
+    "rvol_mid": 0.67,
+    "n": 1474,
+    "abs_move_pts": 10.48,
+    "continuation_pts": 0.74,
+    "atr": 9.08
+   },
+   {
+    "q": "Q4",
+    "rvol_mid": 1.03,
+    "n": 1473,
+    "abs_move_pts": 10.7,
+    "continuation_pts": 0.33,
+    "atr": 9.05
+   },
+   {
+    "q": "Q5 highest",
+    "rvol_mid": 2.15,
+    "n": 1474,
+    "abs_move_pts": 11.5,
+    "continuation_pts": -0.02,
+    "atr": 8.88
+   }
+  ],
+  "n": 7368,
+  "corr_abs": 0.02,
+  "corr_cont": -0.012,
+  "spike_share": 0.176,
+  "spike_cont": 0.09,
+  "all_cont": 0.42
+ }
+}

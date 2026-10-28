@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kite Bot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232B4C9B'/%3E%3Cpath d='M7 21l6-6 4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+/* ---------- tokens: PAPER (default) = ledger paper; LIVE = dark with a signal-orange frame ---------- */
+:root{
+  --bg:#E9EEE8; --grid:rgba(43,76,155,.06); --panel:#F7F9F5; --panel2:#EEF2EC; --ink:#1B2622; --muted:#5E6B66;
+  --rule:#C9D3CB; --accent:#2B4C9B; --accent-ink:#fff; --up:#1E7A4C; --down:#B4322A; --warn:#9A6A00; --warn-bg:#FBF1D6;
+  --shadow:0 1px 0 rgba(27,38,34,.06);
+  --font:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+:root[data-theme="dark"]{
+  --bg:#12161B; --grid:rgba(126,162,255,.035); --panel:#1A2027; --panel2:#212932; --ink:#E8ECEF; --muted:#97A2AD;
+  --rule:#2E3742; --accent:#7EA2FF; --accent-ink:#0F1520; --up:#3FCB86; --down:#FF6B5E; --warn:#F2C14E; --warn-bg:#2E2817;
+  --shadow:none;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#12161B; --grid:rgba(126,162,255,.035); --panel:#1A2027; --panel2:#212932; --ink:#E8ECEF; --muted:#97A2AD;
+  --rule:#2E3742; --accent:#7EA2FF; --accent-ink:#0F1520; --up:#3FCB86; --down:#FF6B5E; --warn:#F2C14E; --warn-bg:#2E2817;
+  --shadow:none;
+}}
+body.live{
+  --bg:#15181D; --grid:rgba(255,91,31,.035); --panel:#1D2228; --panel2:#242A31; --ink:#EEF0F2; --muted:#9AA3AD;
+  --rule:#323A44; --accent:#FF5B1F; --accent-ink:#fff; --up:#3FCB86; --down:#FF6B5E; --warn:#F2C14E; --warn-bg:#2E2817;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg); color:var(--ink); font:14px/1.5 var(--font); font-variant-numeric:tabular-nums;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px; min-height:100vh;
+}
+body.live{box-shadow:inset 0 0 0 4px var(--accent)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- top bar ---------- */
+.livebar{display:none;background:var(--accent);color:#fff;text-align:center;font-weight:600;padding:6px 12px;font-size:14px}
+body.live .livebar{display:block}
+header{display:flex;align-items:center;gap:12px;padding:0 16px;height:52px;border-bottom:1px solid var(--rule);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);position:sticky;top:0;z-index:8}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-stretch:112%;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.logo svg{width:24px;height:24px}
+.logo .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.logo .dot.on{background:var(--up);box-shadow:0 0 0 4px color-mix(in srgb,var(--up) 25%,transparent)}
+.pills{display:flex;gap:6px;min-width:0;overflow:hidden;flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:2px 10px;background:var(--panel)}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none}
+.pill.ok i{background:var(--up)} .pill.bad i{background:var(--down)} .pill.warn i{background:var(--warn)}
+.pill.mode{color:var(--ink);letter-spacing:.06em}
+body.live .pill.mode{background:var(--accent);border-color:var(--accent);color:#fff}
+.iconbtn{border:1px solid var(--rule);background:var(--panel);color:var(--ink);width:32px;height:32px;border-radius:8px;cursor:pointer;display:grid;place-items:center;font:600 15px var(--font);flex:none}
+.iconbtn:hover{border-color:var(--muted)}
+#navToggle{display:none}
+.shell{display:grid;grid-template-columns:196px minmax(0,1fr);align-items:start}
+.tabs{display:flex;flex-direction:column;gap:1px;padding:10px 10px 20px;position:sticky;top:52px;height:calc(100vh - 52px);overflow:auto;border-right:1px solid var(--rule)}
+.tabs .grp{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:14px 10px 4px}
+.tabs .grp:first-child{padding-top:4px}
+.tabs a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:7px;font-weight:600;font-size:13.5px;white-space:nowrap;display:flex;align-items:center;justify-content:space-between}
+.tabs a:hover{color:var(--ink);background:var(--panel2)}
+.tabs a.active{color:var(--ink);background:var(--panel);box-shadow:inset 0 0 0 1px var(--rule),inset 3px 0 0 var(--accent)}
+.tabs a .flag{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--down)}
+.tabs a .new{font-size:10.5px;font-weight:700;color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 50%,transparent);border-radius:4px;padding:0 4px}
+.modeswitch{display:inline-flex;border:1px solid var(--rule);border-radius:9px;padding:3px;background:var(--panel)}
+.modeswitch button{border:0;background:none;color:var(--muted);font:600 13px var(--font);padding:4px 12px;border-radius:7px;cursor:pointer}
+.modeswitch button.on{background:var(--ink);color:var(--bg)}
+.modeswitch button.on[data-m=live]{background:var(--accent);color:#fff}
+.modeswitch button:disabled{cursor:not-allowed;opacity:.6}
+
+main{max-width:1320px;padding:20px 24px;min-width:0}
+h1{font-size:24px;line-height:1.15;font-weight:800;font-stretch:108%;letter-spacing:-.015em;margin:0 0 6px}
+h2{font-size:17px;font-weight:700;margin:0 0 12px}
+.lede{color:var(--muted);margin:0 0 22px;max-width:70ch}
+.muted{color:var(--muted)} .small{font-size:13px}
+.up{color:var(--up)} .down{color:var(--down)}
+.hidden{display:none!important}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.grid{display:grid;gap:14px}
+.grid>*{min-width:0}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow)}
+.panel.flush{padding:0;overflow:hidden}
+.panel.flush h2{padding:14px 16px 0}
+
+/* ---------- buttons & inputs ---------- */
+.btn{font:600 15px var(--font);border:1px solid var(--rule);background:var(--panel);color:var(--ink);padding:9px 16px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.go{background:var(--up);border-color:var(--up);color:#fff}
+.btn.stop{background:var(--down);border-color:var(--down);color:#fff}
+.btn.big{padding:15px 28px;font-size:17px;border-radius:10px}
+label.f{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+input,select{width:100%;font:15px var(--font);background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:9px 11px}
+input:focus,select:focus{outline:2px solid color-mix(in srgb,var(--accent) 45%,transparent);border-color:var(--accent)}
+.check{display:flex;gap:10px;align-items:center;font-weight:600;padding-top:28px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--accent)}
+.help{font-size:12.5px;color:var(--muted);margin-top:5px}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;padding:2px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:18px}
+.hero .status{font-size:19px;font-weight:700;line-height:1.3;max-width:34ch}
+.hero .status small{display:block;font-size:15px;font-weight:400;color:var(--muted);margin-top:6px}
+.pnl{font-size:44px;line-height:1;font-weight:800;font-stretch:118%;letter-spacing:-.03em;margin:14px 0 4px}
+.pnlcap{color:var(--muted);font-size:14px}
+.hero .actions{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+
+/* ---------- setup steps (a real sequence, so numbered) ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--rule);border-radius:10px;background:var(--panel);margin-bottom:22px;overflow:hidden}
+.step{padding:14px 18px;border-right:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start}
+.step:last-child{border-right:0}
+.step .n{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--muted)}
+.step.done .n{background:var(--up);border-color:var(--up);color:#fff}
+.step.now .n{border-color:var(--accent);color:var(--accent)}
+.step b{display:block;font-size:14.5px}
+.step span{font-size:13px;color:var(--muted)}
+
+/* ---------- meters ---------- */
+.meter{margin-bottom:16px}
+.meter:last-child{margin-bottom:0}
+.meter .top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.meter .top b{font-weight:700}
+.track{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden;border:1px solid var(--rule)}
+.track i{display:block;height:100%;background:var(--up);transition:width .4s}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:7px 12px;border-bottom:1px solid var(--rule);text-align:left;white-space:nowrap}
+th{font-size:13px;font-weight:600;color:var(--muted);background:var(--panel2)}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right}
+.tag{display:inline-block;padding:1px 8px;border-radius:5px;font-size:12.5px;font-weight:600;border:1px solid var(--rule)}
+.tag.live{background:var(--accent);border-color:var(--accent);color:#fff}
+.tag.exp{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
+.tag.ok{color:var(--up);border-color:color-mix(in srgb,var(--up) 45%,transparent)}
+.tag.bad{color:var(--down);border-color:color-mix(in srgb,var(--down) 45%,transparent)}
+/* ---------- strategy lab ---------- */
+.lab-chart svg{display:block;width:100%}
+.lab-chart text{font:12px var(--font);fill:var(--ink)}
+.lab-chart .ax{fill:var(--muted);font-size:11px}
+.lab-chart .gl{stroke:var(--rule);stroke-width:1}
+.lab-chart .zero{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 3}
+.lab-chart .ci{stroke:var(--muted);stroke-width:2;stroke-linecap:round}
+.lab-chart .pt{fill:var(--accent);stroke:var(--panel);stroke-width:2}
+.lab-chart .pt.base{fill:var(--ink)}
+.lab-chart .hit{fill:transparent;cursor:default}
+.lab-chart .hit:hover{fill:color-mix(in srgb,var(--accent) 7%,transparent)}
+tr.base td{background:color-mix(in srgb,var(--ink) 4%,transparent)}
+td.wrap{white-space:normal;min-width:180px}
+.tag.ce{color:var(--up);border-color:color-mix(in srgb,var(--up) 45%,transparent)}
+.tag.pe{color:var(--down);border-color:color-mix(in srgb,var(--down) 45%,transparent)}
+.empty{color:var(--muted);text-align:center;padding:28px 16px}
+
+/* ---------- misc ---------- */
+.notice{border-left:4px solid var(--warn);background:var(--warn-bg);padding:11px 14px;border-radius:6px;margin-bottom:16px;font-size:14.5px}
+.notice.bad{border-color:var(--down);background:color-mix(in srgb,var(--down) 10%,var(--panel))}
+pre{margin:0;background:var(--panel2);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;font:12.5px/1.55 var(--mono);max-height:360px;overflow:auto;white-space:pre-wrap;color:var(--ink)}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 18px;font-size:14px}
+.kv div span{display:block;color:var(--muted);font-size:12.5px}
+.stat{padding:14px 18px}
+.stat .v{font-size:26px;font-weight:800;font-stretch:112%;letter-spacing:-.01em}
+.stat .l{color:var(--muted);font-size:13px}
+.agent .big{font-size:34px;font-weight:800;font-stretch:112%}
+.bias{font-weight:700}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted);margin:-8px 0 18px}
+.flow b{color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:2px 8px;font-weight:600}
+.call{font-size:30px;font-weight:800;font-stretch:112%;letter-spacing:-.01em}
+.duel{display:flex;height:10px;border-radius:99px;overflow:hidden;border:1px solid var(--rule);background:var(--panel2);margin:10px 0 6px}
+.duel i{display:block;height:100%}
+.pts{list-style:none;margin:8px 0 0;padding:0;font-size:13.5px}
+.pts li{padding:3px 0 3px 14px;position:relative}
+.pts li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+.pts li.up::before{background:var(--up)} .pts li.down::before{background:var(--down)}
+.pts li span{color:var(--ink)}
+.an h2{margin-bottom:6px} .an .big{font-size:26px}
+.chk{font-size:13.5px;padding:3px 0}
+.chart svg{display:block;width:100%;height:230px}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:9px;max-width:380px;display:none;z-index:20;font-weight:500}
+.toast.err{background:var(--down);color:#fff}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:10;padding:16px}
+.modal .panel{width:min(460px,100%)}
+.fieldset{margin-bottom:16px}
+/* ---------- settings page layout ---------- */
+.set-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.set-top .lede{margin:0}
+.search{position:relative;width:min(300px,100%)}
+.search input{padding-left:34px}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.set-layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;align-items:start}
+.set-nav{position:sticky;top:84px;display:flex;flex-direction:column;gap:2px}
+.set-nav button{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border:0;border-radius:7px;background:none;color:var(--muted);font:600 14px var(--font);text-align:left;cursor:pointer;white-space:nowrap}
+.set-nav button:hover{background:var(--panel2);color:var(--ink)}
+.set-nav button.active{background:var(--panel);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule),inset 3px 0 0 var(--accent)}
+.set-nav .cnt.err{background:var(--down);color:#fff}
+.set-nav .cnt{font-size:11.5px;background:var(--accent);color:var(--accent-ink);border-radius:99px;padding:0 7px;line-height:18px}
+.set-sec{padding:0;margin-bottom:16px;scroll-margin-top:84px;overflow:hidden}
+.set-sec-h{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:18px 20px 14px;border-bottom:1px solid var(--rule)}
+.set-sec-h h2{margin:0 0 3px}
+.set-sec-h p{margin:0;color:var(--muted);font-size:14px;max-width:64ch}
+.linkbtn{background:none;border:0;color:var(--accent);font:600 13px var(--font);cursor:pointer;padding:0;white-space:nowrap}
+.linkbtn:hover{text-decoration:underline}
+.set-row{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:8px 28px;align-items:center;padding:14px 20px 14px 17px;border-bottom:1px solid var(--rule);border-left:3px solid transparent}
+.set-sec > .set-row:last-child,details.adv .set-row:last-child{border-bottom:0}
+.set-row.dirty{border-left-color:var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--panel))}
+.set-row.off .set-lab,.set-row.off .set-ctl{opacity:.45}
+.set-row.danger .set-lab label{color:var(--down)}
+.set-lab label{font-weight:600;display:block}
+.set-lab .help{margin-top:3px;font-size:13px;line-height:1.45;max-width:66ch}
+.set-def{font-size:12.5px;color:var(--muted);margin-top:5px}
+.set-def:empty,.set-err:empty{display:none}
+.set-err{font-size:12.5px;color:var(--down);margin-top:5px;font-weight:600}
+.set-ctl{display:flex;justify-content:flex-end}
+.set-ctl > input,.set-ctl > select,.set-ctl > .unit{width:100%}
+.unit{display:flex;align-items:stretch;border:1px solid var(--rule);border-radius:8px;background:var(--bg);overflow:hidden}
+.unit:focus-within{outline:2px solid color-mix(in srgb,var(--accent) 45%,transparent);border-color:var(--accent)}
+.unit input{border:0;border-radius:0;outline:none!important;min-width:0;flex:1}
+.unit span{display:flex;align-items:center;padding:0 10px;color:var(--muted);font-size:13.5px;background:var(--panel2);white-space:nowrap}
+.unit .pre{border-right:1px solid var(--rule)} .unit .suf{border-left:1px solid var(--rule)}
+.set-row[data-err="1"] input,.set-row[data-err="1"] .unit{border-color:var(--down)}
+.switch{position:relative;display:inline-block;width:46px;height:26px;flex:none}
+.switch input{opacity:0;width:0;height:0;position:absolute}
+.switch i{position:absolute;inset:0;background:color-mix(in srgb,var(--muted) 55%,var(--panel));border-radius:99px;transition:background .15s;cursor:pointer;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 14%,transparent)}
+.switch i::after{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.switch input:checked + i{background:var(--up)}
+.switch input:checked + i::after{transform:translateX(20px)}
+.switch input:focus-visible + i{outline:2px solid var(--accent);outline-offset:2px}
+.switch input:disabled + i{cursor:not-allowed;opacity:.6}
+.set-row.danger .switch i{background:color-mix(in srgb,var(--down) 22%,var(--panel));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--down) 55%,transparent)}
+.set-row.danger .switch input:checked + i{background:var(--down);box-shadow:none}
+.set-row.danger{background:color-mix(in srgb,var(--down) 4%,var(--panel))}
+.savebar .fixbtn{background:none;border:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;padding:0;margin-left:8px}
+details.adv{border-top:1px solid var(--rule)}
+details.adv summary{padding:12px 20px;cursor:pointer;font-weight:600;font-size:14px;color:var(--muted);list-style:none;display:flex;gap:8px;align-items:center}
+details.adv summary:hover{color:var(--ink)}
+details.adv summary::-webkit-details-marker{display:none}
+details.adv summary::before{content:"";width:0;height:0;border-left:5px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;transition:transform .15s}
+details.adv[open] summary::before{transform:rotate(90deg)}
+details.adv[open] summary{border-bottom:1px solid var(--rule)}
+.savebar{position:sticky;bottom:16px;z-index:6;display:none;align-items:center;justify-content:space-between;gap:12px;background:var(--ink);color:var(--bg);padding:10px 12px 10px 18px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);margin-top:4px;font-weight:600}
+.savebar.show{display:flex}
+.savebar .btn{padding:7px 14px;font-size:14px}
+.savebar .ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+.savebar .btn:disabled{opacity:.5;cursor:not-allowed}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:8px;padding:3px;background:var(--panel)}
+.seg button{border:0;background:none;color:var(--muted);font:600 13.5px var(--font);padding:5px 12px;border-radius:6px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+footer{padding:18px 0 8px;display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+footer button{background:none;border:0;color:var(--muted);font:inherit;cursor:pointer;text-decoration:underline}
+
+@media (max-width:900px){
+  #navToggle{display:grid} .pills .pill:not(.mode){display:none} .logo{font-size:0;gap:6px}
+  header{gap:8px;padding:0 12px} #labChart{overflow-x:auto} #labChart svg{min-width:720px}
+  section > .row.between{flex-direction:column;align-items:stretch!important}
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .tabs{display:none;position:fixed;top:52px;left:0;bottom:0;width:230px;z-index:9;background:var(--bg);height:auto}
+  body.navopen .tabs{display:flex}
+  main{padding:16px} .hero{grid-template-columns:1fr} .hero .actions{align-items:stretch}
+  .g2,.g3,.g5,.fields,.steps,.kv{grid-template-columns:1fr} .g4{grid-template-columns:repeat(2,1fr)}
+  .step{border-right:0;border-bottom:1px solid var(--rule)} .step:last-child{border-bottom:0}
+  .pnl{font-size:48px}
+  .set-layout{grid-template-columns:minmax(0,1fr)} .set-nav{position:static;flex-direction:row;overflow-x:auto;gap:4px;margin-bottom:4px;scrollbar-width:none}
+  .set-nav button{background:var(--panel);box-shadow:inset 0 0 0 1px var(--rule)}
+  .set-nav button.active{background:var(--ink);color:var(--bg);box-shadow:none}
+  .set-row{grid-template-columns:1fr;padding:14px 16px 14px 13px} .set-ctl{justify-content:flex-start}
+  .set-sec-h{padding:16px 16px 12px} .search{width:100%}
+}
+.row > select,.row > input{width:auto}
+</style>
+</head>
+<body>
+<div class="livebar">Live mode: the bot places real orders with real money</div>
+<header>
+  <button class="iconbtn" id="navToggle" aria-label="Menu">☰</button>
+  <div class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="var(--accent)"/><path d="M7 21l6-6 4 4 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Kite Bot <span class="dot" id="dot" title="Bot status"></span></div>
+  <div class="pills">
+    <span class="pill mode" id="pMode">PAPER</span>
+    <span class="pill" id="pSession"><i></i>Market</span>
+    <span class="pill opt" id="pFeed"><i></i>Feed</span>
+    <span class="pill opt" id="pBroker"><i></i>Zerodha</span>
+    <span class="pill opt" id="pBot"><i></i>Bot</span>
+    <span class="pill opt" id="pScalp"><i></i>Scalper</span>
+  </div>
+  <div class="modeswitch" id="modeSwitch" role="group" aria-label="Trading mode">
+    <button data-m="paper">Paper</button><button data-m="live">Live</button>
+  </div>
+  <button class="iconbtn" id="themeBtn" title="Theme: auto" aria-label="Switch theme">◐</button>
+</header>
+<div class="shell">
+<nav class="tabs" aria-label="Sections">
+  <div class="grp">Trading</div>
+  <a href="#dashboard" data-p="dashboard">Overview</a>
+  <a href="#scalper" data-p="scalper">Scalper</a>
+  <a href="#agents" data-p="agents">Agent council</a>
+  <div class="grp">Research</div>
+  <a href="#lab" data-p="lab">Strategy lab <span class="new">NEW</span></a>
+  <a href="#backtest" data-p="backtest">Backtest</a>
+  <div class="grp">Records</div>
+  <a href="#trades" data-p="trades">Trades</a>
+  <a href="#pnl" data-p="pnl">Performance</a>
+  <div class="grp">System</div>
+  <a href="#settings" data-p="settings">Settings</a>
+  <a href="#login" data-p="login">Zerodha<span class="flag hidden" id="loginFlag"></span></a>
+</nav>
+<main>
+<!-- ================= DASHBOARD ================= -->
+<section id="p-dashboard">
+  <div class="notice bad hidden" id="lockNote"></div>
+  <div class="hero">
+    <div>
+      <div class="status" id="statusLine">Loading…<small></small></div>
+      <div class="pnl" id="kPnl">₹0</div>
+      <div class="pnlcap">Today's profit and loss</div>
+    </div>
+    <div class="actions">
+      <button class="btn go big" id="startBtn">Start paper bot</button>
+      <button class="btn stop big hidden" id="stopBtn">Stop bot</button>
+      <span class="muted small" id="startHint"></span>
+    </div>
+  </div>
+
+  <div class="steps" id="steps"></div>
+
+  <div class="grid g3" style="margin-bottom:16px">
+    <div class="panel" style="grid-column:span 2">
+      <div class="row between"><h2>Open positions</h2><span class="muted small" id="spots"></span></div>
+      <div id="posBox" class="empty">No open position. The bot enters only when every rule lines up.</div>
+    </div>
+    <div class="panel">
+      <h2>Today's limits</h2>
+      <div class="meter"><div class="top"><span>Loss used</span><b id="mLoss">₹0 of ₹0</b></div><div class="track"><i id="barLoss" style="width:0"></i></div></div>
+      <div class="meter"><div class="top"><span>Trades taken</span><b id="mTrades">0 of 0</b></div><div class="track"><i id="barTrades" style="width:0"></i></div></div>
+      <div class="meter"><div class="top"><span>Losses in a row</span><b id="mStreak">0 of 0</b></div><div class="track"><i id="barStreak" style="width:0"></i></div></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px">
+    <div class="row between"><h2>Agent team</h2><a href="#agents" class="small">Open agent team</a></div>
+    <div id="dashAgents"><div class="empty">Loading…</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="row between"><h2>Activity</h2><span class="muted small" id="updated"></span></div>
+    <pre id="dashLog">No activity yet. Press Start to begin paper trading.</pre>
+  </div>
+</section>
+
+<!-- ================= AGENTS ================= -->
+<section id="p-agents" class="hidden">
+  <div class="row between" style="align-items:flex-start">
+    <div><h1>Agent team</h1><p class="lede">Five analysts report. Two researchers argue the bull and bear cases. The trader makes the call, and the risk manager has the final say. Agents can stop a trade but never start one: only the strategy's entry rules can do that.</p></div>
+    <div style="text-align:right"><button class="btn" id="agRefresh">Refresh now</button><div class="muted small" id="agAuto" style="margin-top:6px"></div></div>
+  </div>
+  <div class="flow"><b>Analysts</b>→<b>Bull vs bear debate</b>→<b>Trader</b>→<b>Risk manager</b>→ order</div>
+  <div class="grid g3" style="margin-bottom:16px">
+    <div class="panel" id="agTrader"></div>
+    <div class="panel" id="agDebate"></div>
+    <div class="panel" id="agRisk"></div>
+  </div>
+  <div class="grid g5" style="margin-bottom:16px" id="agAnalysts"></div>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="panel"><h2>Bull researcher</h2><ul class="pts" id="agBull"></ul></div>
+    <div class="panel"><h2>Bear researcher</h2><ul class="pts" id="agBear"></ul></div>
+  </div>
+  <div class="panel flush" style="margin-bottom:16px"><h2>Recent decisions</h2>
+    <div class="tablewrap"><table id="agDecisions"></table></div></div>
+  <div class="panel flush" style="margin-bottom:16px"><h2>Headlines behind the news score</h2>
+    <div class="tablewrap"><table id="agNews"></table></div>
+    <p class="muted small" style="padding:0 20px 14px">Scored with a finance word list, so it's a rough filter. Read the headlines yourself before going live.</p></div>
+  <div class="grid g2">
+    <div class="panel flush"><h2>Social posts behind the sentiment score</h2><div class="tablewrap"><table id="agPosts"></table></div></div>
+    <div class="panel flush"><h2>Heavyweight fundamentals</h2><div class="tablewrap"><table id="agFund"></table></div></div>
+  </div>
+</section>
+
+<!-- ================= SCALPER ================= -->
+<section id="p-scalper" class="hidden">
+  <div class="notice" id="scWarn">Backtest, 19 trading days (16 Sep – 14 Oct), modelled option prices: <b>every scalper rule lost money after realistic fills</b>. Volume rule: 75 trades, PF 0.49. Scalper V2: 8 trades, PF 0.28. The new sweep-reversal and breakout-retest rules were negative too (<a href="#lab">Strategy lab</a>). Paper-trade only. Live scalping stays off until you allow it in Settings → Scalper, and experimental rules refuse live mode.</div>
+  <div class="notice bad hidden" id="scLock"></div>
+  <div class="hero">
+    <div>
+      <div class="status" id="scStatus">Loading…<small></small></div>
+      <div class="pnl" id="scPnl">₹0</div>
+      <div class="pnlcap">Today's scalping profit and loss</div>
+    </div>
+    <div class="actions">
+      <button class="btn go big" id="scStart">Start paper scalper</button>
+      <button class="btn stop big hidden" id="scStop">Stop scalper</button>
+      <span class="muted small" id="scHint"></span>
+    </div>
+  </div>
+  <div class="grid g3" style="margin-bottom:16px">
+    <div class="panel"><h2>Open scalp</h2><div id="scPos" class="empty">No open scalp.</div></div>
+    <div class="panel"><h2>Today's scalp limits</h2>
+      <div class="meter"><div class="top"><span>Loss used</span><b id="scmLoss"></b></div><div class="track"><i id="scbLoss" style="width:0"></i></div></div>
+      <div class="meter"><div class="top"><span>Scalps taken</span><b id="scmTrades"></b></div><div class="track"><i id="scbTrades" style="width:0"></i></div></div>
+      <div class="meter"><div class="top"><span>Losses in a row</span><b id="scmStreak"></b></div><div class="track"><i id="scbStreak" style="width:0"></i></div></div>
+    </div>
+    <div class="panel"><h2>Rules</h2><div class="kv" id="scRules" style="grid-template-columns:1fr 1fr"></div>
+      <p class="muted small" style="margin:10px 0 0">Same entry rules, agents and ITM options as the main bot, on faster candles. Change these in <a href="#settings">Settings → Scalper</a>.</p></div>
+  </div>
+  <div class="panel hidden" id="scLabBox" style="margin-bottom:16px">
+    <div class="row between"><h2 style="margin:0">Live setups <span class="tag exp">Experimental · paper only</span></h2><span class="muted small" id="scLabMeta"></span></div>
+    <div id="scLabBody" style="margin-top:10px"></div>
+  </div>
+  <div class="panel" style="margin-bottom:16px">
+    <div class="row between"><h2>Scalper activity</h2><span class="muted small" id="scUpdated"></span></div>
+    <pre id="scLog">No scalper activity yet.</pre>
+  </div>
+  <div class="panel flush" style="margin-bottom:16px">
+    <div class="row between" style="padding:16px 20px 0"><h2 style="padding:0">Scalps</h2><span class="muted small" id="scTotal"></span></div>
+    <div class="tablewrap"><table id="scTrades"></table></div>
+  </div>
+  <div class="panel">
+    <h2>Scalper backtest</h2>
+    <p class="muted small" style="margin:0 0 12px">Last ~30 days of 1-minute data (Yahoo's limit), modelled option prices. Shows charges-only, base and conservative fills, and a few other stop sizes for context. The volume rule uses NIFTYBEES volume (indices have none). Takes 1–3 minutes.</p>
+    <div class="row" style="margin-bottom:12px">
+      <select id="scbtStrat"><option value="v2">Current scalper vs V2 (same data)</option><option value="both">Compare EMA vs volume</option><option value="ema">EMA cross only</option><option value="volume">Volume spike only</option></select>
+      <select id="scbtInst"><option>NIFTY</option><option>SENSEX</option><option>BOTH</option></select>
+      <input id="scbtLots" type="number" min="1" max="50" value="1" style="width:90px">
+      <button class="btn primary" id="scbtRun">Run scalper backtest</button>
+      <span class="muted small" id="scbtStatus"></span>
+    </div>
+    <pre id="scbtOut">No scalper backtest yet.</pre>
+  </div>
+</section>
+
+<!-- ================= STRATEGY LAB ================= -->
+<section id="p-lab" class="hidden">
+  <div class="row between" style="align-items:flex-start">
+    <div><h1>Strategy lab <span class="tag exp" style="vertical-align:middle">Research · paper only</span></h1>
+      <p class="lede">Scalper variants compared on one frozen 1-minute NIFTY dataset, with one engine, one option model and one cost model. Nothing here changes what the bots trade.</p></div>
+    <div style="text-align:right"><button class="btn primary" id="labRun">Re-run lab</button><div class="muted small" id="labStatus" style="margin-top:6px"></div></div>
+  </div>
+  <div class="notice" id="labVerdict">Loading…</div>
+  <div class="grid g4" style="margin-bottom:14px" id="labKpis"></div>
+  <div class="panel lab-chart" style="margin-bottom:14px">
+    <div class="row between"><h2 style="margin:0">Average result per trade, after costs <span class="muted small" style="font-weight:400">— dot = mean, line = 95% range (bootstrap)</span></h2>
+      <div class="seg" id="labFill"><button data-f="base" class="on">Base fills</button><button data-f="conservative">Conservative fills</button></div></div>
+    <div id="labChart" style="margin-top:10px"></div>
+  </div>
+  <div class="panel flush" style="margin-bottom:14px"><h2>All experiments</h2><div class="tablewrap"><table id="labTable"></table></div></div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel flush"><h2>Why the baseline loses</h2><p class="muted small" style="padding:0 16px;margin:4px 0 0">Losing trades of the existing volume rule (base fills). A trade can have several causes; "primary" counts each once.</p><div class="tablewrap"><table id="labCauses"></table></div><div id="labCosts" class="small" style="padding:10px 16px 14px"></div></div>
+    <div class="panel flush"><h2>Walk-forward (unseen days only)</h2><p class="muted small" style="padding:0 16px;margin:4px 0 0" id="labFolds"></p><div class="tablewrap"><table id="labWf"></table></div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel flush"><h2>Does NIFTYBEES volume predict NIFTY?</h2><p class="muted small" style="padding:0 16px;margin:4px 0 0" id="labVolNote"></p><div class="tablewrap"><table id="labVol"></table></div></div>
+    <div class="panel flush"><h2>Baseline reproduction</h2><p class="muted small" style="padding:0 16px;margin:4px 0 0">The lab engine re-runs the existing scalp backtest and must produce the same trades before anything is compared.</p><div class="tablewrap"><table id="labRepro"></table></div></div>
+  </div>
+  <details class="panel flush" style="margin-bottom:14px"><summary style="padding:14px 16px;cursor:pointer;font-weight:700">Sensitivity — one setting at a time</summary><div class="tablewrap"><table id="labSens"></table></div></details>
+  <div class="panel"><h2>Lab output</h2><pre id="labOut">Not run from the app yet. Results above come from reports/scalp_lab/results.json.</pre></div>
+</section>
+
+<!-- ================= TRADES ================= -->
+<section id="p-trades" class="hidden">
+  <div class="row between" style="align-items:flex-start">
+    <div><h1>Trades</h1><p class="lede">Every trade the bot has taken, newest first.</p></div>
+    <div class="seg filt" data-target="trades"><button data-f="">All</button><button data-f="paper">Paper</button><button data-f="live">Live</button></div>
+  </div>
+  <div class="panel flush"><div class="tablewrap"><table id="tradeTable"></table></div></div>
+</section>
+
+<!-- ================= PNL ================= -->
+<section id="p-pnl" class="hidden">
+  <div class="row between" style="align-items:flex-start">
+    <div><h1>Profit and loss</h1><p class="lede">Built from the bot's own trade log.</p></div>
+    <div class="seg filt" data-target="pnl"><button data-f="">All</button><button data-f="paper">Paper</button><button data-f="live">Live</button></div>
+  </div>
+  <div class="grid g4" style="margin-bottom:16px" id="pnlKpis"></div>
+  <div class="panel chart" style="margin-bottom:16px"><h2>Daily result and running total</h2><div id="pnlChart"></div></div>
+  <div class="grid g2">
+    <div class="panel flush"><h2>By month</h2><div class="tablewrap"><table id="monthTable"></table></div></div>
+    <div class="panel flush"><h2>By day</h2><div class="tablewrap"><table id="dayTable"></table></div></div>
+  </div>
+</section>
+
+<!-- ================= BACKTEST ================= -->
+<section id="p-backtest" class="hidden">
+  <h1>Backtest</h1>
+  <p class="lede">Runs the bot's exact rules on recent real index data (up to 55 days) and compares the crude agent on and off. Option prices are modelled, and the news agent can't be backtested, so read results as estimates.</p>
+  <div class="panel" style="margin-bottom:16px">
+    <div class="row" style="align-items:flex-end">
+      <div style="width:120px"><label class="f" for="btDays">Days</label><input id="btDays" type="number" value="30" min="1" max="55"></div>
+      <div style="width:120px"><label class="f" for="btLots">Lots</label><input id="btLots" type="number" value="2" min="1" max="50"></div>
+      <div style="width:160px"><label class="f" for="btInst">Index</label><select id="btInst"><option>NIFTY</option><option>SENSEX</option><option>BOTH</option></select></div>
+      <button class="btn primary" id="btRun">Run backtest</button>
+      <span class="muted small" id="btStatus"></span>
+    </div>
+  </div>
+  <div class="panel" style="margin-bottom:16px"><h2>Result</h2><pre id="btOut">Not run yet.</pre></div>
+  <div class="panel flush"><h2>Backtest trades</h2><div class="tablewrap"><table id="btTable"></table></div></div>
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section id="p-settings" class="hidden">
+  <div class="set-top">
+    <div><h1>Settings</h1><p class="lede">Saved only on this Mac. Changes apply the next time you start a bot.</p></div>
+    <label class="search" aria-label="Search settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="setSearch" type="search" placeholder="Search settings" autocomplete="off"></label>
+  </div>
+  <div class="notice hidden" id="setRunning">A bot is running. Stop it on the Dashboard or Scalper page to change settings.</div>
+  <div class="notice hidden" id="setWarn"></div>
+  <div class="set-layout">
+    <nav class="set-nav" id="setNav" aria-label="Settings sections"></nav>
+    <div>
+      <form id="setForm" onsubmit="return false"></form>
+      <div class="empty hidden" id="setNone">No settings match your search.</div>
+      <div class="savebar" id="saveBar" role="status"><span id="saveCount"></span>
+        <div class="row" style="gap:8px"><button class="btn ghost" id="discardBtn" type="button">Discard</button><button class="btn go" id="saveBtn" type="button">Save changes</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOGIN ================= -->
+<section id="p-login" class="hidden">
+  <h1>Zerodha connection</h1>
+  <p class="lede">Needed for live trading, or for paper trading on real Zerodha option prices. The free paper feed doesn't need it. SEBI requires a fresh login every trading day.</p>
+  <div class="notice bad hidden" id="loginErr"></div>
+  <div class="grid g2">
+    <div class="panel">
+      <h2>Today's session</h2>
+      <div id="loginStatus" style="margin-bottom:16px"></div>
+      <div class="row"><a class="btn primary big" href="/login" id="loginBtn">Log in with Zerodha</a><button class="btn hidden" id="logoutBtn">Log out</button></div>
+      <p class="help">You sign in on Zerodha's own page. Your password never passes through this app.</p>
+    </div>
+    <div class="panel">
+      <h2>One-time setup</h2>
+      <ol style="margin:0;padding-left:20px;line-height:1.9">
+        <li>Create an app at developers.kite.trade (Kite Connect subscription).</li>
+        <li>Set its redirect URL to <code id="redir">http://127.0.0.1:8765/callback</code></li>
+        <li>Whitelist your static IP in that app. Live orders need it.</li>
+        <li>Paste the API key and secret into <a href="#settings">Settings</a>.</li>
+      </ol>
+    </div>
+  </div>
+  <div id="acct" class="hidden" style="margin-top:22px">
+    <div class="row between" style="margin-bottom:12px"><h2 style="margin:0">Your Zerodha account</h2>
+      <div class="row" style="gap:10px"><span class="muted small" id="acctAt"></span><button class="btn" id="acctRefresh">Refresh</button></div></div>
+    <div class="notice bad hidden" id="acctErr"></div>
+    <div class="grid g4" style="margin-bottom:16px">
+      <div class="panel stat"><div class="l">Available to trade</div><div class="v" id="acBal">—</div><div class="l" id="acBalSub"></div></div>
+      <div class="panel stat"><div class="l">Margin used</div><div class="v" id="acUsed">—</div><div class="l">Blocked by open orders and positions</div></div>
+      <div class="panel stat"><div class="l">Today's P&amp;L</div><div class="v" id="acPnl">—</div><div class="l" id="acPnlSub"></div></div>
+      <div class="panel stat"><div class="l">Orders today</div><div class="v" id="acOrd">—</div><div class="l" id="acOrdSub"></div></div>
+    </div>
+    <div class="panel flush" style="margin-bottom:16px"><h2>Positions</h2><div class="tablewrap"><table id="acPos"></table></div></div>
+    <div class="panel flush"><h2>Today's orders</h2><div class="tablewrap"><table id="acOrders"></table></div></div>
+    <p class="help">Read straight from Zerodha. This page never places, changes or cancels anything. Includes trades you make in Kite yourself, not just the bot's.</p>
+  </div>
+</section>
+<footer><span id="clock"></span><button id="quitBtn">Quit app</button></footer>
+</main>
+</div>
+
+<div class="modal" id="liveModal" role="dialog" aria-modal="true" aria-labelledby="liveTitle">
+  <div class="panel">
+    <h2 id="liveTitle" style="color:var(--down)">Start live trading?</h2>
+    <p>The bot will place real orders with real money on your Zerodha account.</p>
+    <p class="muted">Only do this after weeks of profitable paper trading. Type YES to confirm.</p>
+    <input id="liveConfirm" placeholder="YES" autocomplete="off">
+    <div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" id="liveCancel">Cancel</button><button class="btn stop" id="liveGo">Start live bot</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const inr = (v, sign=true) => { if (v==null||isNaN(v)) return "—"; const s = Math.abs(Math.round(v)).toLocaleString("en-IN"); return (v>0&&sign?"+":v<0?"−":"") + "₹" + s; };
+const cls = v => v>0 ? "up" : v<0 ? "down" : "";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let S = {}; const filt = {trades:"", pnl:""};
+
+/* ---------- theme & menu ---------- */
+const THEMES = ["auto", "light", "dark"];
+function applyTheme(t){
+  if (t==="auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
+  $("#themeBtn").title = "Theme: " + t; $("#themeBtn").textContent = t==="dark" ? "☾" : t==="light" ? "☀" : "◐";
+}
+let theme = (() => { try { return localStorage.getItem("theme") || "auto"; } catch(e){ return "auto"; } })();
+applyTheme(theme);
+$("#themeBtn").onclick = () => { theme = THEMES[(THEMES.indexOf(theme)+1) % 3]; try { localStorage.setItem("theme", theme); } catch(e){} applyTheme(theme); };
+$("#navToggle").onclick = () => document.body.classList.toggle("navopen");
+function istNow(){
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kolkata",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+  return {wd: parts.weekday, m: (+parts.hour)*60 + (+parts.minute)};
+}
+function session(){
+  const {wd, m} = istNow();
+  if (wd==="Sat" || wd==="Sun") return ["Market closed · weekend", ""];
+  if (m < 9*60) return ["Market closed", ""];
+  if (m < 9*60+15) return ["Pre-open", "warn"];
+  if (m < 15*60+30) return ["Market open", "ok"];
+  return ["Market closed", ""];
+}
+function pill(id, text, state){ const el=$(id); el.className = "pill" + (el.classList.contains("opt")?" opt":"") + (state?" "+state:""); el.innerHTML = "<i></i>"+esc(text); }
+
+function toast(msg, err=false){ const t=$("#toast"); t.textContent=msg; t.className="toast"+(err?" err":""); t.style.display="block"; clearTimeout(t._h); t._h=setTimeout(()=>t.style.display="none", 4200); }
+async function api(path, body){
+  const r = await fetch(path, body===undefined ? {} : {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
+  const j = await r.json().catch(()=>({ok:false,error:"The app didn't answer. Is the Terminal window still open?"}));
+  if (!r.ok || j.ok===false) throw new Error(j.error || "Request failed");
+  return j;
+}
+
+/* ---------- routing ---------- */
+function route(){
+  const [page, q] = (location.hash.slice(1) || "dashboard").split("?");
+  const p = $("#p-"+page) ? page : "dashboard";
+  $$("main>section").forEach(s => s.classList.toggle("hidden", s.id !== "p-"+p));
+  $$(".tabs a").forEach(a => a.classList.toggle("active", a.dataset.p === p));
+  document.body.classList.remove("navopen");
+  if (p==="lab") loadLab();
+  const params = new URLSearchParams(q||"");
+  if (p==="login") loadAccount();
+  if (p==="login") { const e=params.get("error"); $("#loginErr").classList.toggle("hidden",!e); $("#loginErr").textContent = e ? "Login didn't complete: "+e : ""; }
+  if (p==="settings") { if (!(SET && SET.dirty)) loadSettings(); if (params.get("need")==="key") toast("Add your Zerodha API key and secret first.", true); }
+  if (p==="trades") loadTrades();
+  if (p==="pnl") loadPnl();
+  if (p==="backtest") loadBacktest();
+  if (p==="agents") loadAgents();
+  if (p==="scalper") { loadScalp(); loadScalpBt(); }
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route);
+
+/* ---------- dashboard ---------- */
+const nameOf = v => v==="BOTH" ? "Nifty and Sensex" : v==="SENSEX" ? "Sensex" : "Nifty";
+function meter(bar, label, val, max, text){
+  const pct = max ? Math.min(100, val/max*100) : 0;
+  $(bar).style.width = pct + "%";
+  $(bar).style.background = pct>=100 ? "var(--down)" : pct>60 ? "var(--warn)" : "var(--up)";
+  $(label).textContent = text;
+}
+function renderSteps(){
+  const live = S.mode==="live", zfeed = S.needs_login;
+  const steps = zfeed ? [
+    {t:"Add Zerodha keys", d:"API key and secret in Settings", done:S.has_key && S.has_secret, href:"#settings"},
+    {t:"Log in today", d:"Daily 2FA on Zerodha's page", done:S.login.logged_in, href:"#login"},
+    {t: live ? "Start live bot" : "Start paper bot", d:"Runs until 15:10 square-off", done:S.running},
+  ] : [
+    {t:"Check settings", d:`${nameOf(S.instruments)}, ${S.lots} lot${S.lots>1?"s":""}, free price feed`, done:true, href:"#settings"},
+    {t:"Run a backtest", d:"See how the rules did recently", done:S.backtest_done, href:"#backtest"},
+    {t:"Start paper bot", d:"No keys needed, no money used", done:S.running},
+  ];
+  const first = steps.findIndex(s => !s.done);
+  $("#steps").classList.toggle("hidden", S.running);
+  $("#steps").innerHTML = steps.map((s,i) => `<div class="step ${s.done?"done":i===first?"now":""}"><div class="n">${s.done?"✓":i+1}</div><div><b>${s.href&&!s.done?`<a href="${s.href}">${esc(s.t)}</a>`:esc(s.t)}</b><span>${esc(s.d)}</span></div></div>`).join("");
+}
+async function refresh(){
+  try { S = await api("/api/state"); } catch(e){ $("#statusLine").innerHTML = "The app isn't responding.<small>Double-click Start Kite Bot to open it again.</small>"; return; }
+  const live = S.mode==="live", st = S.status||{}, r = S.risk||{}, L = S.limits||{};
+  document.body.classList.toggle("live", live);
+  $("#clock").textContent = "India time " + S.now;
+  $("#dot").classList.toggle("on", S.running);
+  $$("#modeSwitch button").forEach(b => { b.classList.toggle("on", b.dataset.m===S.mode); b.disabled = S.running; });
+  $("#loginFlag").classList.toggle("hidden", !S.needs_login || S.login.logged_in);
+  $("#pMode").textContent = live ? "LIVE" : "PAPER";
+  pill("#pSession", ...session());
+  pill("#pFeed", live ? "Zerodha feed" : S.paper_feed==="free" ? "Free feed (Yahoo, ~1 min lag)" : "Zerodha feed", live || S.paper_feed!=="free" ? "ok" : "warn");
+  pill("#pBroker", S.login.logged_in ? "Zerodha connected" : S.needs_login ? "Zerodha: log in needed" : "Zerodha not needed", S.login.logged_in ? "ok" : S.needs_login ? "bad" : "");
+  pill("#pBot", S.error ? "Bot error" : S.running ? "Bot running" : "Bot stopped", S.error ? "bad" : S.running ? "ok" : "");
+  pill("#pScalp", S.scalp_running ? "Scalper running" : "Scalper stopped", S.scalp_running ? "ok" : "");
+
+  const who = nameOf(L.TRADE_INSTRUMENTS);
+  const feed = live ? "real orders" : S.paper_feed==="free" ? "free price feed" : "Zerodha prices";
+  let line, sub;
+  if (r.locked) { line = "Done for today."; sub = "A risk limit was hit, so no new trades until tomorrow."; }
+  else if (S.running && S.stop_pending) { line = "Stopping…"; sub = "Closing any open position first."; }
+  else if (S.running) { line = `${live?"Live":"Paper"} bot is ${st.state==="running"?"watching":"waiting to watch"} ${who}.`; sub = `${st.state==="running" ? "Market open" : st.state ? st.state[0].toUpperCase()+st.state.slice(1) : "Starting"}, using the ${feed}. Buys ${L.ITM_STRIKES} strike in the money with a 1:${L.RR} reward to risk.`; }
+  else { line = `Bot is stopped.`; sub = `Ready to trade ${who} on ${live?"your Zerodha account":"paper, "+feed}.`; }
+  $("#statusLine").innerHTML = esc(line) + `<small>${esc(sub)}</small>`;
+  $("#lockNote").classList.toggle("hidden", !r.locked && !S.error);
+  $("#lockNote").textContent = S.error ? "Bot error: " + S.error : "Locked for today: " + (r.reason||"risk limit") + ".";
+
+  $("#kPnl").textContent = inr(r.pnl||0); $("#kPnl").className = "pnl " + cls(r.pnl||0);
+  meter("#barLoss", "#mLoss", Math.max(0,-(r.pnl||0)), L.MAX_DAILY_LOSS, `${inr(Math.max(0,-(r.pnl||0)),false)} of ${inr(L.MAX_DAILY_LOSS,false)}`);
+  meter("#barTrades", "#mTrades", r.trades||0, L.MAX_TRADES_PER_DAY, `${r.trades||0} of ${L.MAX_TRADES_PER_DAY}`);
+  meter("#barStreak", "#mStreak", r.consec_losses||0, L.MAX_CONSECUTIVE_LOSSES, `${r.consec_losses||0} of ${L.MAX_CONSECUTIVE_LOSSES}`);
+
+  const blocked = S.needs_login && !S.login.logged_in;
+  $("#startBtn").classList.toggle("hidden", S.running); $("#stopBtn").classList.toggle("hidden", !S.running);
+  $("#startBtn").disabled = blocked || r.locked;
+  $("#startBtn").textContent = live ? "Start live bot" : "Start paper bot";
+  $("#startHint").textContent = S.running ? "Stop closes any open position first." :
+    blocked ? (S.has_key ? "Log in to Zerodha to enable Start." : live ? "Add your Zerodha keys in Settings first." : "Add your Zerodha keys, or set the paper feed to free.") :
+    r.locked ? "Locked by a risk limit until tomorrow." : "Keep the Terminal window open while it runs.";
+  renderSteps();
+
+  const sp = st.spots || {};
+  $("#spots").textContent = Object.entries(sp).map(([k,v]) => `${k==="NIFTY"?"Nifty":"Sensex"} ${Number(v).toLocaleString("en-IN",{maximumFractionDigits:0})}`).join("   ");
+  const ps = st.positions || [];
+  $("#posBox").className = ps.length ? "" : "empty";
+  $("#posBox").innerHTML = ps.length ? ps.map(p => `
+    <div style="padding:6px 0 12px">
+      <div class="row between" style="margin-bottom:10px"><div><b style="font-size:17px">${esc(p.symbol)}</b> <span class="tag ${p.side==="CE"?"ce":"pe"}">${p.side==="CE"?"Call":"Put"}</span> <span class="muted small">${p.qty} qty since ${esc(p.since)}</span></div>
+      <b class="${cls(p.pnl)}" style="font-size:22px">${inr(p.pnl)}</b></div>
+      <div class="kv">
+        <div><span>Option entry → now</span>${p.entry} → ${p.ltp}</div>
+        <div><span>${esc(p.index==="NIFTY"?"Nifty":"Sensex")} now</span>${p.idx ?? "—"}</div>
+        <div><span>Index stop${p.breakeven?" (moved to entry)":""} / target</span><span class="down" style="display:inline;color:var(--down)">${p.idx_sl}</span> / <span style="display:inline;color:var(--up)">${p.idx_target}</span></div>
+      </div></div>`).join("") : "No open position. The bot enters only when every rule lines up.";
+  $("#updated").textContent = st.updated && S.running ? "Updated " + st.updated.slice(11) : "";
+  if (SET && !!SET.running !== !!S.running && !$("#p-settings").classList.contains("hidden") && !SET.dirty) loadSettings();
+
+  $("#loginStatus").innerHTML = S.login.logged_in
+    ? `<b class="up">Logged in</b> <span class="muted">as ${esc(S.login.user||"")} since ${esc(S.login.login_time||"")}</span>`
+    : `<b class="down">Not logged in today</b>${S.needs_login?"":' <span class="muted">(not needed for the free paper feed)</span>'}`;
+  $("#loginBtn").textContent = S.login.logged_in ? "Log in again" : "Log in with Zerodha";
+  $("#logoutBtn").classList.toggle("hidden", !S.login.logged_in);
+  // Zerodha page: start the account panel once login state is known, hide it after logout
+  if (!$("#p-login").classList.contains("hidden") && (!acctTimer || !S.login.logged_in) && $("#acct").classList.contains("hidden") === !!S.login.logged_in) loadAccount();
+}
+async function refreshLog(){
+  try { const j = await api("/api/log"); const t = (j.log||"").trim() || (j.console||"").trim();
+    const pre = $("#dashLog"), atEnd = pre.scrollTop + pre.clientHeight >= pre.scrollHeight - 20;
+    if (t) { pre.textContent = t; if (atEnd) pre.scrollTop = pre.scrollHeight; } } catch(e){}
+}
+$("#startBtn").onclick = async () => {
+  if (S.mode==="live") { $("#liveConfirm").value=""; $("#liveModal").style.display="flex"; $("#liveConfirm").focus(); return; }
+  try { await api("/api/bot/start", {}); toast("Paper bot started."); refresh(); } catch(e){ toast(e.message, true); }
+};
+$("#liveCancel").onclick = () => $("#liveModal").style.display="none";
+$("#liveGo").onclick = async () => {
+  try { await api("/api/bot/start", {confirm: $("#liveConfirm").value.trim()}); $("#liveModal").style.display="none"; toast("Live bot started."); refresh(); }
+  catch(e){ toast(e.message, true); }
+};
+$("#stopBtn").onclick = async () => {
+  if (!confirm("Stop the bot? Any open position will be closed first.")) return;
+  try { const j = await api("/api/bot/stop", {}); toast(j.msg); refresh(); } catch(e){ toast(e.message, true); }
+};
+$$("#modeSwitch button").forEach(b => b.onclick = async () => {
+  if (b.dataset.m===S.mode) return;
+  if (b.dataset.m==="live" && !confirm("Switch to live mode? When started, the bot will place real orders.")) return;
+  try { await api("/api/mode", {mode:b.dataset.m}); toast(b.dataset.m==="live" ? "Switched to live mode." : "Switched to paper mode."); refresh(); } catch(e){ toast(e.message, true); }
+});
+$("#logoutBtn").onclick = async () => { await api("/api/logout", {}); toast("Logged out of Zerodha."); refresh(); };
+$("#quitBtn").onclick = async () => {
+  if (!confirm("Quit Kite Bot?")) return;
+  try { await api("/api/shutdown", {}); document.body.innerHTML = '<main><h1>Kite Bot is closed.</h1><p class="lede">Double-click Start Kite Bot to open it again.</p></main>'; } catch(err){ toast(err.message, true); } };
+
+/* ---------- settings ---------- */
+let SET = null;
+let setTab = (() => { try { return localStorage.getItem("setTab") || ""; } catch(e){ return ""; } })();
+function showSetTab(id){
+  setTab = id; try { localStorage.setItem("setTab", id); } catch(e){}
+  $$("#setForm .set-sec").forEach(sec => sec.classList.toggle("hidden", sec.id !== "sec-"+id));
+  $$("#setNav button").forEach(b => { b.classList.toggle("active", b.dataset.go===id); b.setAttribute("aria-selected", b.dataset.go===id); });
+}
+function showFirstError(){
+  const row = $('#setForm [data-err="1"]'); if (!row) return;
+  $("#setSearch").value = ""; filterSettings();
+  showSetTab(row.closest(".set-sec").id.slice(4));
+  const d = row.closest("details"); if (d) d.open = true;
+  row.scrollIntoView({behavior:"smooth", block:"center"});
+  const el = row.querySelector("input,select"); if (el) el.focus({preventScroll:true});
+}
+const field = k => SET.fields.find(f => f.key===k);
+const numType = f => f.type==="int" || f.type==="float";
+function fmtVal(f, v){
+  if (f.type==="bool") return v ? "on" : "off";
+  if (f.type==="select") return (f.choices.find(c => c.value===v) || {}).label || v;
+  if (v==="" || v==null) return "empty";
+  if (f.unit==="₹") return "₹" + Number(v).toLocaleString("en-IN");
+  return v + (f.unit && f.unit!=="%" ? " " + f.unit : f.unit);
+}
+function ctl(f){
+  const id = "f_"+f.key, dis = SET.running ? "disabled" : "";
+  if (f.type==="bool") return `<label class="switch"><input type="checkbox" id="${id}" ${f.value?"checked":""} ${dis}><i></i></label>`;
+  if (f.type==="select") return `<select id="${id}" ${dis}>${f.choices.map(c => `<option value="${esc(c.value)}" ${c.value===f.value?"selected":""}>${esc(c.label)}</option>`).join("")}</select>`;
+  if (f.type==="time") return `<input type="time" id="${id}" value="${esc(f.value)}" step="60" ${dis}>`;
+  if (f.type==="secret") return `<input type="password" id="${id}" placeholder="${f.has_value ? "Saved — leave blank to keep" : "Paste API secret"}" autocomplete="off" ${dis}>`;
+  if (f.type==="text") return `<input type="text" id="${id}" value="${esc(f.value)}" autocomplete="off" spellcheck="false" ${dis}>`;
+  const num = `<input type="number" id="${id}" value="${esc(f.value)}" step="${f.type==="int" ? 1 : "any"}" ${f.min!=null?`min="${f.min}"`:""} ${f.max!=null?`max="${f.max}"`:""} inputmode="decimal" ${dis}>`;
+  if (!f.unit) return num;
+  return f.unit==="₹" ? `<div class="unit"><span class="pre">₹</span>${num}</div>` : `<div class="unit">${num}<span class="suf">${esc(f.unit)}</span></div>`;
+}
+const rowHtml = f => `<div class="set-row${f.danger?" danger":""}" data-row="${f.key}" data-text="${esc((f.label+" "+f.help+" "+f.key).toLowerCase())}">
+  <div class="set-lab"><label for="f_${f.key}">${esc(f.label)}</label>${f.help?`<div class="help">${esc(f.help)}</div>`:""}<div class="set-def" id="d_${f.key}"></div><div class="set-err" id="e_${f.key}"></div></div>
+  <div class="set-ctl">${ctl(f)}</div></div>`;
+async function loadSettings(){
+  let j; try { j = await api("/api/settings"); } catch(e){ return; }
+  SET = j;
+  $("#redir").textContent = j.redirect_url;
+  $("#setRunning").classList.toggle("hidden", !j.running);
+  $("#setWarn").classList.toggle("hidden", !(j.warnings||[]).length);
+  $("#setWarn").textContent = (j.warnings||[]).join(" ");
+  const by = {};
+  j.fields.forEach(f => (by[f.section] ??= []).push(f));
+  const secs = j.sections.filter(s => by[s.id]);
+  $("#setForm").innerHTML = secs.map(s => {
+    const basic = by[s.id].filter(f => !f.advanced), adv = by[s.id].filter(f => f.advanced);
+    return `<div class="panel set-sec" id="sec-${s.id}">
+      <div class="set-sec-h"><div><h2>${esc(s.title)}</h2><p>${esc(s.desc)}</p></div>${s.id!=="account" && !j.running ? `<button type="button" class="linkbtn" data-reset="${s.id}">Reset to defaults</button>` : ""}</div>
+      ${basic.map(rowHtml).join("")}
+      ${adv.length ? `<details class="adv"><summary>Advanced · ${adv.length} setting${adv.length>1?"s":""}</summary>${adv.map(rowHtml).join("")}</details>` : ""}</div>`;
+  }).join("");
+  $("#setNav").innerHTML = secs.map(s => `<button type="button" role="tab" data-go="${s.id}">${esc(s.title)}<span class="cnt hidden" id="n_${s.id}"></span></button>`).join("");
+  $$("#setNav button").forEach(b => b.onclick = () => { $("#setSearch").value = ""; filterSettings(); showSetTab(b.dataset.go); });
+  $("#setSearch").value = "";
+  if (!secs.some(s => s.id===setTab)) setTab = secs[0].id;
+  showSetTab(setTab);
+  syncSettings();
+}
+function val(f){
+  const el = $("#f_"+f.key);
+  if (!el) return f.value;
+  if (f.type==="bool") return el.checked;
+  if (numType(f)) return el.value==="" ? "" : Number(el.value);
+  return el.value.trim();
+}
+function setVal(f, v){ const el = $("#f_"+f.key); if (!el) return; if (f.type==="bool") el.checked = !!v; else el.value = v; }
+const same = (a, b) => typeof a==="number" || typeof b==="number" ? a!=="" && b!=="" && Number(a)===Number(b) : String(a)===String(b);
+function syncSettings(){
+  if (!SET) return;
+  let dirty = 0, errs = 0; const per = {}, perErr = {};
+  SET.fields.forEach(f => {
+    const row = $(`[data-row="${f.key}"]`); if (!row) return;
+    const v = val(f);
+    const changed = f.type==="secret" ? v!=="" : !same(v, f.value);
+    row.classList.toggle("dirty", changed);
+    if (changed) { dirty++; per[f.section] = (per[f.section]||0) + 1; }
+    const fromDefault = !["secret","text"].includes(f.type) && f.section!=="account" && !same(v, f.default);
+    $("#d_"+f.key).innerHTML = fromDefault && !SET.running ? `Default: ${esc(fmtVal(f, f.default))} · <button type="button" class="linkbtn" data-def="${f.key}">Use default</button>` : "";
+    let err = "";
+    if (numType(f)) {
+      if (v==="" || Number.isNaN(v)) err = "Enter a number.";
+      else if (f.type==="int" && !Number.isInteger(v)) err = "Use a whole number.";
+      else if ((f.min!=null && v < f.min) || (f.max!=null && v > f.max)) err = f.max!=null ? `Use ${f.min} to ${f.max}.` : `Use at least ${f.min}.`;
+    }
+    if (f.type==="time" && !/^\d{2}:\d{2}$/.test(v)) err = "Use a time like 09:30.";
+    $("#e_"+f.key).textContent = err;
+    row.dataset.err = err ? "1" : "";
+    errs += !!err;
+    if (err) { perErr[f.section] = (perErr[f.section]||0) + 1; const d = row.closest("details"); if (d) d.open = true; }
+    if (f.dep) { const p = $("#f_"+f.dep); row.classList.toggle("off", !!p && !p.checked); }
+  });
+  SET.sections.forEach(s => { const n = $("#n_"+s.id); if (!n) return; const e = perErr[s.id];
+    n.textContent = e ? "!" : per[s.id] || ""; n.title = e ? `${e} to fix` : per[s.id] ? `${per[s.id]} unsaved` : "";
+    n.classList.toggle("err", !!e); n.classList.toggle("hidden", !e && !per[s.id]); });
+  SET.dirty = dirty;
+  $("#saveBar").classList.toggle("show", dirty > 0 || errs > 0);
+  $("#saveCount").innerHTML = errs ? `${errs} setting${errs>1?"s need":" needs"} fixing<button type="button" class="fixbtn" id="fixBtn">Show me</button>` : `${dirty} unsaved change${dirty>1?"s":""}`;
+  if (errs) $("#fixBtn").onclick = showFirstError;
+  $("#saveBtn").disabled = errs > 0 || SET.running;
+}
+$("#setForm").addEventListener("input", syncSettings);
+$("#setForm").addEventListener("change", syncSettings);
+$("#setForm").addEventListener("click", e => {
+  const k = e.target.dataset.def, sec = e.target.dataset.reset;
+  if (k) setVal(field(k), field(k).default);
+  if (sec && !confirm("Reset every setting in this tab to its default?")) return;
+  if (sec) SET.fields.filter(f => f.section===sec && !["secret","text"].includes(f.type)).forEach(f => setVal(f, f.default));
+  if (k || sec) syncSettings();
+});
+$("#discardBtn").onclick = () => { SET.fields.forEach(f => setVal(f, f.type==="secret" ? "" : f.value)); syncSettings(); };
+$("#saveBtn").onclick = async () => {
+  const data = {};
+  SET.fields.forEach(f => { const v = val(f); if (f.type==="secret" && v==="") return; data[f.key] = v; });
+  $("#saveBtn").disabled = true;
+  try { await api("/api/settings", data); toast("Saved. Changes apply the next time you start a bot."); await loadSettings(); refresh(); }
+  catch(err){ toast(err.message, true); $("#saveBtn").disabled = false; }
+};
+function filterSettings(){
+  const q = $("#setSearch").value.trim().toLowerCase(); let any = false;
+  $$("#setForm .set-sec").forEach(sec => {
+    let shown = 0;
+    sec.querySelectorAll("[data-row]").forEach(r => { const m = !q || r.dataset.text.includes(q); r.classList.toggle("hidden", !m); shown += m; });
+    const d = sec.querySelector("details");
+    if (d) { const hit = [...d.querySelectorAll("[data-row]")].some(r => !r.classList.contains("hidden")); d.classList.toggle("hidden", !hit); if (q) d.open = hit; }
+    sec.classList.toggle("hidden", !shown); any = any || shown > 0;
+  });
+  $("#setNone").classList.toggle("hidden", any);
+  $$("#setNav button").forEach(b => b.classList.toggle("active", !q && b.dataset.go===setTab));
+  if (!q && SET) showSetTab(setTab);   // search shows matches from every tab; clearing it returns to the tab
+}
+$("#setSearch").addEventListener("input", filterSettings);
+window.addEventListener("beforeunload", e => { if (SET && SET.dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+/* ---------- filters ---------- */
+$$(".filt").forEach(seg => {
+  const sync = () => seg.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.f===filt[seg.dataset.target]));
+  seg.querySelectorAll("button").forEach(b => b.onclick = () => { filt[seg.dataset.target]=b.dataset.f; sync(); seg.dataset.target==="trades"?loadTrades():loadPnl(); });
+  sync();
+});
+
+/* ---------- trades ---------- */
+async function loadTrades(){
+  const j = await api("/api/trades?mode=" + filt.trades);
+  $("#tradeTable").innerHTML = j.trades.length ? `<tr><th>Date</th><th>Mode</th><th>Index</th><th>Option</th><th class="n">Qty</th><th>In</th><th class="n">Entry</th><th>Out</th><th class="n">Exit</th><th class="n">P&amp;L</th><th>Exit reason</th></tr>` +
+    j.trades.map(t => `<tr><td>${esc(t.date)}</td><td><span class="tag ${t.mode==="live"?"live":""}">${t.mode==="live"?"Live":"Paper"}</span></td><td>${esc(t.index||"")}</td><td>${esc(t.symbol)}</td>
+      <td class="n">${t.qty}</td><td>${esc(t.entry_time)}</td><td class="n">${t.entry.toFixed(2)}</td><td>${esc(t.exit_time)}</td><td class="n">${t.exit.toFixed(2)}</td>
+      <td class="n ${cls(t.pnl)}"><b>${inr(t.pnl)}</b></td><td>${esc(t.reason)}</td></tr>`).join("")
+    : `<tr><td class="empty">No trades yet. Start the paper bot from the dashboard and they'll appear here.</td></tr>`;
+}
+
+/* ---------- zerodha account ---------- */
+let acctTimer = null;
+const px = v => v==null ? "—" : Number(v).toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2});
+const ordCls = st => st==="COMPLETE" ? "up" : st==="REJECTED" || st==="CANCELLED" ? "down" : "";
+async function loadAccount(force){
+  clearTimeout(acctTimer);
+  const onPage = !$("#p-login").classList.contains("hidden");
+  if (!onPage) { acctTimer = null; return; }
+  const logged = S && S.login && S.login.logged_in;
+  $("#acct").classList.toggle("hidden", !logged);
+  if (!logged) { acctTimer = null; return; }
+  let j;
+  try {
+    const r = await fetch("/api/zerodha/account" + (force ? "?force=1" : ""));
+    j = await r.json();
+    if (!j.ok) throw new Error(j.error || "Couldn't read your account.");
+  } catch(e) {
+    $("#acctErr").textContent = e.message; $("#acctErr").classList.remove("hidden");
+    acctTimer = setTimeout(loadAccount, 30000); return;
+  }
+  $("#acctErr").classList.add("hidden");
+  const eq = j.equity, comp = j.orders.filter(o => o.status==="COMPLETE").length, rej = j.orders.filter(o => o.status==="REJECTED").length;
+  $("#acctAt").textContent = "Updated " + j.fetched;
+  $("#acBal").textContent = inr(eq.net, false);
+  $("#acBalSub").textContent = `Opening ${inr(eq.opening, false)}` + (eq.collateral ? ` · collateral ${inr(eq.collateral, false)}` : "");
+  $("#acUsed").textContent = inr(eq.used, false);
+  $("#acPnl").textContent = inr(j.day_pnl); $("#acPnl").className = "v " + cls(j.day_pnl);
+  $("#acPnlSub").textContent = j.open_count ? `${j.open_count} position${j.open_count>1?"s":""} still open` : j.positions.length ? "All positions closed" : "No positions today";
+  $("#acOrd").textContent = j.orders.length;
+  $("#acOrdSub").textContent = j.orders.length ? `${comp} filled` + (rej ? ` · ${rej} rejected` : "") : "None yet";
+  $("#acPos").innerHTML = j.positions.length
+    ? `<tr><th>Instrument</th><th>Product</th><th class="n">Qty</th><th class="n">Avg</th><th class="n">LTP</th><th class="n">Realised</th><th class="n">Unrealised</th><th class="n">P&amp;L</th></tr>` +
+      j.positions.map(p => `<tr><td><b>${esc(p.symbol)}</b> <span class="muted small">${esc(p.exchange)}</span></td><td>${esc(p.product)}</td>
+        <td class="n">${p.qty || '<span class="muted">closed</span>'}</td><td class="n">${px(p.avg)}</td><td class="n">${px(p.ltp)}</td>
+        <td class="n ${cls(p.realised)}">${inr(p.realised)}</td><td class="n ${cls(p.unrealised)}">${inr(p.unrealised)}</td>
+        <td class="n ${cls(p.pnl)}"><b>${inr(p.pnl)}</b></td></tr>`).join("")
+    : `<tr><td class="empty">No positions today.</td></tr>`;
+  $("#acOrders").innerHTML = j.orders.length
+    ? `<tr><th>Time</th><th>Instrument</th><th>Side</th><th>Type</th><th class="n">Qty</th><th class="n">Price</th><th>Status</th><th>By</th></tr>` +
+      j.orders.map(o => `<tr><td>${esc(o.time)}</td><td>${esc(o.symbol)} <span class="muted small">${esc(o.product)}</span></td>
+        <td class="${o.side==="BUY"?"up":"down"}"><b>${esc(o.side)}</b></td><td>${esc(o.type)}${o.trigger ? ` <span class="muted small">trig ${px(o.trigger)}</span>` : ""}</td>
+        <td class="n">${o.filled}/${o.qty}</td><td class="n">${o.price ? px(o.price) : "—"}</td>
+        <td class="${ordCls(o.status)}" title="${esc(o.msg)}"><b>${esc(o.status)}</b>${o.msg && o.status==="REJECTED" ? `<div class="muted small" style="white-space:normal;max-width:280px">${esc(o.msg)}</div>` : ""}</td>
+        <td>${o.tag==="kitebot" ? "Bot" : o.tag==="kitescalp" ? "Scalper" : o.tag ? esc(o.tag) : '<span class="muted">You / other</span>'}</td></tr>`).join("")
+    : `<tr><td class="empty">No orders today.</td></tr>`;
+  acctTimer = setTimeout(loadAccount, 15000);
+}
+$("#acctRefresh").onclick = () => loadAccount(true);
+
+/* ---------- pnl ---------- */
+function chart(daily){
+  if (!daily.length) return '<div class="empty">No trades yet, so there is nothing to chart.</div>';
+  const css = getComputedStyle(document.body), up = css.getPropertyValue("--up"), down = css.getPropertyValue("--down"), acc = css.getPropertyValue("--accent"), mut = css.getPropertyValue("--muted"), rule = css.getPropertyValue("--rule");
+  const W=900,H=230,pad=40, n=daily.length, bw=Math.min(36,Math.max(3,(W-pad*2)/n*0.6));
+  let cum=0; const cums = daily.map(d => cum += d.pnl);
+  const vals=[...daily.map(d=>d.pnl),...cums,0], mx=Math.max(...vals), mn=Math.min(...vals), rng=(mx-mn)||1;
+  const y=v=>12+(mx-v)/rng*(H-36), x=i=>pad+(i+.5)*(W-pad*2)/n;
+  const bars=daily.map((d,i)=>`<rect x="${x(i)-bw/2}" y="${Math.min(y(d.pnl),y(0))}" width="${bw}" height="${Math.max(1,Math.abs(y(d.pnl)-y(0)))}" rx="2" fill="${d.pnl>=0?up:down}"><title>${d.date}: ${inr(d.pnl)}</title></rect>`).join("");
+  const line=cums.map((c,i)=>`${i?"L":"M"}${x(i)},${y(c)}`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Daily P&L bars with running total line">
+    <line x1="${pad}" x2="${W-pad}" y1="${y(0)}" y2="${y(0)}" stroke="${rule}"/>
+    <text x="0" y="${y(mx)+4}" fill="${mut}" font-size="11">${inr(mx,false)}</text><text x="0" y="${y(mn)}" fill="${mut}" font-size="11">${inr(mn,false)}</text>
+    ${bars}<path d="${line}" fill="none" stroke="${acc}" stroke-width="2.5"/></svg>
+    <p class="muted small" style="margin:8px 0 0">Bars show each day's result. The line is the running total.</p>`;
+}
+async function loadPnl(){
+  const j = await api("/api/pnl?mode=" + filt.pnl), s = j.summary;
+  const k = (v,l,c="") => `<div class="panel stat"><div class="v ${c}">${v}</div><div class="l">${l}</div></div>`;
+  $("#pnlKpis").innerHTML = k(inr(s.total),"Net result",cls(s.total)) + k(`${s.win_rate.toFixed(0)}%`,`Win rate over ${s.trades} trades`)
+    + k(inr(s.avg_win),"Average win","up") + k(inr(s.avg_loss),"Average loss","down")
+    + k(inr(s.best),"Best trade","up") + k(inr(s.worst),"Worst trade","down")
+    + k(s.best_day ? inr(s.best_day.pnl) : "—", "Best day" + (s.best_day ? ", "+s.best_day.date : ""), "up")
+    + k(inr(s.max_dd),"Deepest drawdown","down");
+  $("#pnlChart").innerHTML = chart(j.daily);
+  const tbl = (rows,key) => rows.length ? `<tr><th>${key==="month"?"Month":"Date"}</th><th class="n">Trades</th><th class="n">Wins</th><th class="n">Result</th></tr>` +
+    rows.slice().reverse().map(r => `<tr><td>${esc(r[key])}</td><td class="n">${r.trades}</td><td class="n">${r.wins}</td><td class="n ${cls(r.pnl)}"><b>${inr(r.pnl)}</b></td></tr>`).join("")
+    : `<tr><td class="empty">No trades yet.</td></tr>`;
+  $("#monthTable").innerHTML = tbl(j.monthly,"month"); $("#dayTable").innerHTML = tbl(j.daily,"date");
+}
+
+/* ---------- backtest ---------- */
+let btTimer=null;
+async function loadBacktest(){
+  const j = await api("/api/backtest");
+  $("#btRun").disabled = j.running;
+  $("#btStatus").textContent = j.running ? "Running since " + j.started + ". Downloading data takes about a minute." : j.finished ? "Finished at " + j.finished : "";
+  if (j.output) $("#btOut").textContent = j.output; else if (j.running) $("#btOut").textContent = "Running…";
+  $("#btTable").innerHTML = j.trades.length ? `<tr><th>Date</th><th>Index</th><th>Side</th><th class="n">Strike</th><th>In</th><th class="n">Entry</th><th>Out</th><th class="n">Exit</th><th class="n">Charges</th><th class="n">Net</th><th>Exit reason</th></tr>` +
+    j.trades.map(t => `<tr><td>${esc(t.date)}</td><td>${esc(t.index||"")}</td><td><span class="tag ${t.side==="CE"?"ce":"pe"}">${t.side==="CE"?"Call":"Put"}</span></td><td class="n">${esc(t.strike)}</td><td>${esc(t.entry_time)}</td><td class="n">${esc(t.entry)}</td><td>${esc(t.exit_time)}</td><td class="n">${esc(t.exit)}</td><td class="n">${esc(t.charges)}</td><td class="n ${cls(+t.net)}"><b>${inr(+t.net)}</b></td><td>${esc(t.reason)}</td></tr>`).join("")
+    : `<tr><td class="empty">No backtest trades yet. Press Run backtest.</td></tr>`;
+  clearTimeout(btTimer); if (j.running) btTimer = setTimeout(loadBacktest, 2000);
+}
+$("#btRun").onclick = async () => {
+  try { await api("/api/backtest", {days:+$("#btDays").value, lots:+$("#btLots").value, instrument:$("#btInst").value}); loadBacktest(); } catch(e){ toast(e.message, true); }
+};
+
+/* ---------- agents ---------- */
+const ago = d => d && d.fetched_at ? (m => m<1 ? "Updated just now" : m<120 ? `Updated ${m} min ago` : `Updated ${Math.round(m/60)} h ago`)(Math.round((Date.now()/1000 - d.fetched_at)/60)) : "";
+const sgn = v => (v>0?"+":"") + (+v).toFixed(2);
+const cap = s => s ? s[0].toUpperCase()+s.slice(1) : "";
+const ANALYSTS = [["technical","Technical"],["news","News"],["crude","Crude oil"],["sentiment","Sentiment"],["fundamental","Fundamental"]];
+const pts = (list, c, n=3) => (list||[]).slice(0,n).map(p => `<li class="${c}"><span>${esc(p[0])}</span></li>`).join("");
+function analystHtml(key, title, r, on){
+  if (!on) return `<h2>${title}</h2><p class="muted small">Off. Turn it on in Settings.</p>`;
+  if (!r) return `<h2>${title}</h2><p class="muted small">No reading yet. Press Refresh now.</p>`;
+  if (!r.ok) return `<h2>${title}</h2><div class="big">—</div><p class="small" style="margin:4px 0 0">${esc(r.note)}</p><p class="muted small" style="margin:6px 0 0">${ago(r)}</p>`;
+  if (key==="crude") {
+    const bc = r.bias==="bearish" ? "down" : r.bias==="bullish" ? "up" : "";
+    return `<h2>${title}</h2><div class="row between"><div class="big ${bc}">${r.change_pct>0?"+":""}${r.change_pct}%</div><span class="bias ${bc}">${r.bias==="neutral"?"No effect":r.bias==="bearish"?"Bearish for India":"Bullish for India"}</span></div>
+      <p class="muted small" style="margin:2px 0 6px">${esc(r.name)} at ${r.price}, ${r.change_1h_pct>0?"+":""}${r.change_1h_pct}% in the last hour</p>
+      <p class="small" style="margin:0">${esc(r.note)}</p><p class="muted small" style="margin:6px 0 0">${ago(r)}</p>`;
+  }
+  const bc = cls(r.score>=0.1 ? 1 : r.score<=-0.1 ? -1 : 0);
+  const extra = key==="news" ? `<p class="muted small" style="margin:2px 0 6px">${r.headline_count||0} headlines in 24 h</p>${r.event_risk?`<div class="notice" style="margin:0 0 6px;padding:6px 10px">Big event: ${esc(r.events.join(", "))}</div>`:""}`
+    : `<p class="muted small" style="margin:2px 0 6px">${esc(r.note)}</p>`;
+  return `<h2>${title}</h2><div class="row between"><div class="big ${bc}">${sgn(r.score)}</div><span class="bias ${bc}">${esc(cap(r.label))}</span></div>${extra}
+    <ul class="pts">${pts(r.bull,"up",2)}${pts(r.bear,"down",2)}</ul><p class="muted small" style="margin:6px 0 0">${ago(r)}</p>`;
+}
+function traderHtml(t, d, on){
+  const c = t.stance.startsWith("buy") ? "up" : t.stance.startsWith("sell") ? "down" : "";
+  return `<h2>Trader</h2><div class="call ${c}">${t.stance==="neutral" ? "Hold" : cap(t.stance)}</div>
+    <p class="small" style="margin:4px 0 0">${esc(t.reason)}</p>
+    <p class="muted small" style="margin:8px 0 0">${on ? `Overrules a strategy signal when the debate is ${"≥"} the set margin against it.` : "Off: signals go straight to the risk manager."}</p>`;
+}
+function debateHtml(d){
+  const b = d.bull_strength, r = d.bear_strength, tot = (b+r)||1;
+  return `<h2>Debate</h2><div class="row between"><b class="up">Bull ${b.toFixed(2)}</b><b>${esc(cap(d.verdict))}</b><b class="down">Bear ${r.toFixed(2)}</b></div>
+    <div class="duel"><i style="width:${b/tot*100}%;background:var(--up)"></i><i style="width:${r/tot*100}%;background:var(--down)"></i></div>
+    <p class="muted small" style="margin:0">Margin ${sgn(d.margin)} across ${Object.keys(d.analysts).length} analysts</p>
+    ${d.flags.map(f => `<div class="notice" style="margin:8px 0 0;padding:6px 10px;font-size:13.5px">${esc(f)}</div>`).join("")}`;
+}
+function riskHtml(last){
+  const rows = last && last.risk ? last.risk.checks.map(c => `<div class="chk"><b class="${c.ok?"up":"down"}">${c.ok?"✓":"✗"}</b> ${esc(c.name)} <span class="muted">— ${esc(c.detail)}</span></div>`).join("") : "";
+  return `<h2>Risk manager</h2>${last && last.risk ? `<p class="small" style="margin:0 0 6px">Last review: ${esc(last.index)} ${esc(last.side)} at ${esc(last.time)} — <b class="${last.risk.approved?"up":"down"}">${last.risk.approved?"approved":"vetoed"}</b></p>${rows}`
+    : `<p class="small" style="margin:0 0 6px">Checks every trade before the order: hard stop-loss, daily lock, open positions, premium cap, loss budget left today, and crude, news and event vetoes.</p><p class="muted small" style="margin:0">No trade has reached it yet today.</p>`}`;
+}
+async function loadAgents(){
+  let j; try { j = await api("/api/agents"); } catch(e){ return; }
+  const d = j.debate, t = j.trader, last = (j.decisions||[])[0];
+  $("#dashAgents").innerHTML = `<div class="row between" style="margin-bottom:10px"><div><span class="muted small">Trader stance</span><div class="call ${t.stance.startsWith("buy")?"up":t.stance.startsWith("sell")?"down":""}" style="font-size:24px">${t.stance==="neutral"?"Hold":cap(t.stance)}</div></div>
+    <div style="min-width:220px;flex:1;max-width:420px">${debateHtml(d).replace("<h2>Debate</h2>","")}</div></div>
+    <div class="grid g5">${ANALYSTS.map(([k,n]) => { const r=j[k]; const on=j.on[k];
+      const v = !on ? "Off" : !r||!r.ok ? "—" : k==="crude" ? (r.change_pct>0?"+":"")+r.change_pct+"%" : sgn(r.score);
+      const c = !on||!r||!r.ok ? "" : k==="crude" ? (r.bias==="bearish"?"down":r.bias==="bullish"?"up":"") : cls(r.score>=0.1?1:r.score<=-0.1?-1:0);
+      return `<div class="stat" style="padding:0"><div class="l">${n}</div><div class="v ${c}" style="font-size:20px">${v}</div></div>`; }).join("")}</div>`;
+  $("#agTrader").innerHTML = traderHtml(t, d, j.trader_on);
+  $("#agDebate").innerHTML = debateHtml(d);
+  $("#agRisk").innerHTML = riskHtml(last);
+  $("#agAnalysts").innerHTML = ANALYSTS.map(([k,n]) => `<div class="panel an">${analystHtml(k, n, j[k], j.on[k])}</div>`).join("");
+  $("#agBull").innerHTML = d.bull_case.length ? pts(d.bull_case,"up",6) : `<li class="muted">No bullish points right now.</li>`;
+  $("#agBear").innerHTML = d.bear_case.length ? pts(d.bear_case,"down",6) : `<li class="muted">No bearish points right now.</li>`;
+  const ds = j.decisions || [];
+  $("#agDecisions").innerHTML = ds.length ? `<tr><th>When</th><th>Index</th><th>Signal</th><th class="n">Debate</th><th>Trader</th><th>Risk manager</th><th>Outcome</th></tr>` +
+    ds.map(x => `<tr><td>${esc(x.date.slice(5))} ${esc(x.time.slice(0,5))}</td><td>${esc(x.index)}</td><td><span class="tag ${x.side==="CE"?"ce":"pe"}">${x.side==="CE"?"Call":"Put"}</span></td>
+      <td class="n ${cls(x.side==="CE"?x.debate.margin:-x.debate.margin)}">${sgn(x.debate.margin)}</td><td>${esc(x.trader.action)}</td>
+      <td style="white-space:normal">${x.risk ? (x.risk.approved ? '<span class="up">Approved</span>' : '<span class="down">Vetoed</span>: '+esc(x.risk.reason)) : '<span class="muted">—</span>'}</td>
+      <td style="white-space:normal">${esc(x.outcome)}</td></tr>`).join("")
+    : `<tr><td class="empty">No signals yet. Each strategy signal and what the team decided will show here.</td></tr>`;
+  const hs = (j.news && j.news.headlines) || [];
+  const age = m => m<60 ? m+" min" : Math.round(m/60)+" h";
+  $("#agNews").innerHTML = hs.length ? `<tr><th class="n">Score</th><th>Type</th><th>Headline</th><th>Source</th><th class="n">Age</th></tr>` +
+    hs.map(h => `<tr><td class="n ${cls(h.score)}"><b>${h.score>0?"+":""}${h.score}</b></td><td><span class="tag">${esc(cap(h.kind||"market"))}</span></td><td style="white-space:normal">${h.link?`<a href="${esc(h.link)}" target="_blank" rel="noopener">${esc(h.title)}</a>`:esc(h.title)}</td><td>${esc(h.source)}</td><td class="n">${age(h.age_min)}</td></tr>`).join("")
+    : `<tr><td class="empty">No headlines yet. Press Refresh now.</td></tr>`;
+  const ps = (j.sentiment && j.sentiment.posts) || [];
+  $("#agPosts").innerHTML = ps.length ? `<tr><th class="n">Score</th><th>Post</th><th class="n">Age</th></tr>` +
+    ps.map(p => `<tr><td class="n ${cls(p.score)}"><b>${p.score>0?"+":""}${p.score}</b></td><td style="white-space:normal"><a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a> <span class="muted small">r/${esc(p.sub)}</span></td><td class="n">${age(p.age_min)}</td></tr>`).join("")
+    : `<tr><td class="empty">No social posts yet.</td></tr>`;
+  const fs = (j.fundamental && j.fundamental.stocks) || [];
+  $("#agFund").innerHTML = fs.length ? `<tr><th>Stock</th><th class="n">Score</th><th>Growth</th><th class="n">P/E</th></tr>` +
+    fs.map(f => `<tr><td>${esc(f.symbol)}${f.results_today?' <span class="tag">Results today</span>':""}</td><td class="n ${cls(f.score>=0.1?1:f.score<=-0.1?-1:0)}"><b>${sgn(f.score)}</b></td><td>${esc(f.detail)}</td><td class="n">${f.pe??"—"}</td></tr>`).join("")
+    : `<tr><td class="empty">No fundamentals yet.</td></tr>`;
+  $("#agRefresh").disabled = j.busy; $("#agRefresh").textContent = j.busy ? "Refreshing…" : "Refresh now";
+  const a = j.auto || {};
+  $("#agAuto").textContent = a.by_bot ? "Auto-refresh: the running bot keeps agents fresh"
+    : !a.on ? "Auto-refresh off (Settings → Agents)"
+    : a.errors && a.errors.length ? "Auto-refresh on · last run had errors: " + a.errors[0]
+    : a.last ? `Auto-refresh on · checked ${Math.max(0, Math.round(a.now - a.last))} s ago` : "Auto-refresh on · starting…";
+  if (j.busy) setTimeout(loadAgents, 2000);
+}
+$("#agRefresh").onclick = async () => { await api("/api/agents/refresh", {}); setTimeout(loadAgents, 400); };
+
+/* ---------- scalper ---------- */
+let SC = {};
+async function loadScalp(){
+  if ($("#p-scalper").classList.contains("hidden")) return;
+  try { SC = await api("/api/scalp/state"); } catch(e){ return; }
+  const r = SC.risk||{}, R = SC.rules||{}, st = SC.status||{}, live = SC.mode==="live";
+  let line, sub;
+  if (r.locked) { line = "Scalper is done for today."; sub = r.reason || "A scalp risk limit was hit."; }
+  else if (SC.running && SC.stop_pending) { line = "Stopping…"; sub = "Closing any open scalp first."; }
+  else if (SC.running) { line = `${live?"Live":"Paper"} scalper is ${st.state==="running"?"watching":"waiting"}.`; sub = st.state ? st.state[0].toUpperCase()+st.state.slice(1) : "Starting"; }
+  else { line = "Scalper is stopped."; sub = live ? (SC.allow_live ? "Will place real orders when started." : "Live scalping is off in Settings.") : "Paper mode: no money used."; }
+  $("#scStatus").innerHTML = esc(line) + `<small>${esc(sub)}</small>`;
+  $("#scLock").classList.toggle("hidden", !r.locked); $("#scLock").textContent = "Locked for today: " + (r.reason||"");
+  $("#scPnl").textContent = inr(r.pnl||0); $("#scPnl").className = "pnl " + cls(r.pnl||0);
+  meter("#scbLoss", "#scmLoss", Math.max(0,-(r.pnl||0)), R.max_loss, `${inr(Math.max(0,-(r.pnl||0)),false)} of ${inr(R.max_loss,false)}`);
+  meter("#scbTrades", "#scmTrades", r.trades||0, R.max_trades, `${r.trades||0} of ${R.max_trades}`);
+  meter("#scbStreak", "#scmStreak", r.consec_losses||0, R.streak, `${r.consec_losses||0} of ${R.streak}`);
+  const blocked = (SC.needs_login && !SC.logged_in) || (live && !SC.allow_live);
+  $("#scStart").classList.toggle("hidden", SC.running); $("#scStop").classList.toggle("hidden", !SC.running);
+  $("#scStart").disabled = blocked || r.locked; $("#scStart").textContent = live ? "Start live scalper" : "Start paper scalper";
+  $("#scHint").textContent = SC.running ? "Stop closes any open scalp first." : live && !SC.allow_live ? "Allow live scalping in Settings → Scalper first." :
+    SC.needs_login && !SC.logged_in ? "Log in to Zerodha first." : "Runs alongside the main bot or on its own.";
+  const u = R.on==="premium" ? "option pts" : "index pts";
+  const RULES = {v2:"Scalper V2", ema:"EMA cross", volume:"Volume breakout", sweep:"Sweep reversal · experimental", retest:"Breakout-retest · experimental"};
+  $("#scRules").innerHTML = [["Entry rule", RULES[R.strategy] || R.strategy], ["Stop / target", `${R.sl} / ${R.tg} ${u}`], ["Stop to cost at", R.be ? `+${R.be} ${u}` : "off"],
+    ["Candles", `${R.candle} min`], ["Time stop", R.hold ? `${R.hold} min` : "off"], ["Lots", R.lots], ["Entry window", R.window]]
+    .map(([k,v]) => `<div><span>${esc(k)}</span>${esc(v)}</div>`).join("");
+  const ps = st.positions || [];
+  $("#scPos").className = ps.length ? "" : "empty";
+  $("#scPos").innerHTML = ps.length ? ps.map(p => `<div class="row between"><div><b>${esc(p.symbol)}</b> <span class="tag ${p.side==="CE"?"ce":"pe"}">${p.side==="CE"?"Call":"Put"}</span><div class="muted small">${p.qty} qty since ${esc(p.since)} · ${p.entry} → ${p.ltp ?? "—"}</div><div class="small">Stop ${esc(p.stop)} · Target ${esc(p.target)}</div></div><b class="${cls(p.pnl)}" style="font-size:20px">${inr(p.pnl)}</b></div>`).join("") : "No open scalp.";
+  $("#scUpdated").textContent = SC.running && st.updated ? "Updated " + st.updated.slice(11) : "";
+  const labs = SC.running && st.lab ? Object.entries(st.lab) : [];
+  $("#scLabBox").classList.toggle("hidden", !labs.length);
+  if (labs.length) {
+    $("#scLabMeta").textContent = labs[0][1].strategy;
+    const stTag = x => `<span class="tag ${x==="confirmed"?"ok":x==="provisional"?"exp":x==="rejected"||x==="invalidated"?"bad":""}">${esc(x)}</span>`;
+    $("#scLabBody").innerHTML = labs.map(([n, L]) => `
+      <div class="kv" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:10px">
+        <div><span>${esc(n)} regime</span><b>${esc(L.regime)}</b> <span class="muted small" style="display:inline">${esc(L.regime_detail)}</span></div>
+        <div><span>Proxy VWAP (NIFTYBEES volume)</span>${L.vwap ?? "—"}</div><div><span>Relative volume</span>${L.rvol ? L.rvol+"×" : "—"}</div>
+        <div><span>In progress</span>${L.active.length ? L.active.map(a => `${a.side} ${esc(a.kind)} @ ${a.level}`).join("<br>") : "none"}</div></div>
+      <div class="tablewrap"><table>${L.recent.length ? `<tr><th>Time</th><th>Side</th><th>Setup</th><th class="n">Level</th><th>Status</th><th>Reason</th></tr>` +
+        L.recent.map(x => `<tr><td>${esc(x.t)}</td><td><span class="tag ${x.side==="CE"?"ce":"pe"}">${x.side}</span></td><td>${esc(x.kind)}${x.level_kind?` <span class="muted">(${esc(x.level_kind)})</span>`:""}</td><td class="n">${x.level ?? "—"}</td><td>${stTag(x.status)}</td><td class="wrap">${esc(x.reason)}</td></tr>`).join("")
+        : `<tr><td class="empty">No setups yet.</td></tr>`}</table></div>`).join("");
+  }
+  const t = SC.total || {};
+  $("#scTotal").textContent = t.trades ? `${t.trades} ${live?"live":"paper"} scalps · ${Math.round(100*t.wins/t.trades)}% wins · ${inr(t.pnl)}` : "";
+  try {
+    const lg = await api("/api/scalp/log"); const txt = (lg.log||"").trim() || (lg.console||"").trim();
+    if (txt) { const pre = $("#scLog"), atEnd = pre.scrollTop + pre.clientHeight >= pre.scrollHeight - 20; pre.textContent = txt; if (atEnd) pre.scrollTop = pre.scrollHeight; }
+    const tr = await api("/api/scalp/trades");
+    $("#scTrades").innerHTML = tr.trades.length ? `<tr><th>Date</th><th>Mode</th><th>Option</th><th class="n">Qty</th><th>In</th><th class="n">Entry</th><th>Out</th><th class="n">Exit</th><th class="n">P&amp;L</th><th>Exit reason</th></tr>` +
+      tr.trades.slice(0, 200).map(x => `<tr><td>${esc(x.date)}</td><td><span class="tag ${x.mode==="live"?"live":""}">${x.mode==="live"?"Live":"Paper"}</span></td><td>${esc(x.symbol)}</td><td class="n">${x.qty}</td><td>${esc(x.entry_time)}</td><td class="n">${x.entry.toFixed(2)}</td><td>${esc(x.exit_time)}</td><td class="n">${x.exit.toFixed(2)}</td><td class="n ${cls(x.pnl)}"><b>${inr(x.pnl)}</b></td><td>${esc(x.reason)}</td></tr>`).join("")
+      : `<tr><td class="empty">No scalps yet.</td></tr>`;
+  } catch(e){}
+}
+$("#scStart").onclick = async () => {
+  let body = {};
+  if (SC.mode==="live") { const v = prompt("LIVE SCALPING places real orders. Type YES to continue."); if (v===null) return; body = {confirm: v.trim()}; }
+  try { await api("/api/scalp/start", body); toast("Scalper started."); setTimeout(loadScalp, 800); } catch(e){ toast(e.message, true); }
+};
+$("#scStop").onclick = async () => {
+  if (!confirm("Stop the scalper? Any open scalp will be closed first.")) return;
+  try { const j = await api("/api/scalp/stop", {}); toast(j.msg); loadScalp(); } catch(e){ toast(e.message, true); }
+};
+let scbtTimer = null;
+async function loadScalpBt(){
+  const j = await api("/api/scalp/backtest");
+  $("#scbtRun").disabled = j.running;
+  $("#scbtStatus").textContent = j.running ? "Running since " + j.started + "…" : j.finished ? "Finished at " + j.finished : "";
+  if (j.output) $("#scbtOut").textContent = j.output; else if (j.running) $("#scbtOut").textContent = "Downloading 1-minute data and simulating…";
+  clearTimeout(scbtTimer); if (j.running) scbtTimer = setTimeout(loadScalpBt, 3000);
+}
+$("#scbtRun").onclick = async () => {
+  try { await api("/api/scalp/backtest", {instrument: $("#scbtInst").value, lots: +$("#scbtLots").value, strategy: $("#scbtStrat").value}); loadScalpBt(); } catch(e){ toast(e.message, true); }
+};
+setInterval(loadScalp, 3000);
+
+/* ---------- strategy lab ---------- */
+let LAB = null, labFill = "base", labTimer = null;
+const sgnR = v => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(2) + "R";
+async function loadLab(){
+  let j; try { j = await api("/api/lab"); } catch(e){ return; }
+  $("#labRun").disabled = j.running;
+  $("#labStatus").textContent = j.running ? "Running since " + j.started + " (≈3 min)…" : j.finished ? "Finished at " + j.finished : "";
+  if (j.output) $("#labOut").textContent = j.output;
+  clearTimeout(labTimer); if (j.running) labTimer = setTimeout(loadLab, 4000);
+  LAB = j.results; renderLab();
+}
+function renderLab(){
+  const R = LAB;
+  if (!R) { $("#labVerdict").textContent = "No lab results yet. Press Re-run lab."; return; }
+  const E = R.experiments, names = Object.keys(E), base = E[names[0]];
+  const pos = names.filter(n => E[n].base.net > 0 && E[n].conservative.net > 0 && E[n].base.trades >= 20);
+  $("#labVerdict").className = "notice" + (pos.length ? "" : " bad");
+  $("#labVerdict").innerHTML = pos.length
+    ? `${pos.length} variant(s) were positive under both fill models with 20+ trades. That is not proof: check the walk-forward and the confidence ranges before paper-trading them.`
+    : `<b>No variant is profitable after realistic costs.</b> ${R.passed_components.length ? "Some components lose less than the baseline (" + R.passed_components.map(esc).join(", ") + "), but all still lose money." : ""} Live trading stays off; experimental rules can be paper-traded from Settings → Scalper.`;
+  const best = names.slice(1).filter(n => E[n].base.trades >= 10).sort((a,b) => E[b].objective - E[a].objective)[0];
+  const kpi = (l, v, sub, c="") => `<div class="panel stat"><div class="l">${l}</div><div class="v ${c}">${v}</div><div class="l">${sub}</div></div>`;
+  $("#labKpis").innerHTML = kpi("Dataset", R.days + " days", `${esc(R.period)} · ${esc(R.instrument)} · ${R.lots} lot`)
+    + kpi("Baseline (volume rule)", inr(base.base.net), `${base.base.trades} trades · PF ${base.base.pf} · ${sgnR(base.base.exp_R)}/trade`, cls(base.base.net))
+    + kpi("Best by objective (10+ trades)", best ? inr(E[best].base.net) : "—", best ? esc(best) + " · " + sgnR(E[best].base.exp_R) : "", best ? cls(E[best].base.net) : "")
+    + kpi("Cost per baseline trade", inr((base.costs||{}).cost_per_trade, false), `vs ${inr((base.costs||{}).avg_risk_per_trade, false)} risked — slippage + charges`);
+  // chart: one series, dot + 95% whisker, zero reference
+  const rows = names.map(n => ({n, m: E[n][labFill]})).filter(r => r.m.trades > 0);
+  const lo = Math.min(0, ...rows.map(r => r.m.ci_low)), hi = Math.max(0, ...rows.map(r => r.m.ci_high));
+  const W = 900, L = 290, Rm = 70, rowH = 24, H = rows.length*rowH + 34, x = v => L + (v-lo)/(hi-lo||1)*(W-L-Rm);
+  const ticks = []; const step = Math.pow(10, Math.floor(Math.log10((hi-lo)/4||1))) * ([1,2,5].find(k => (hi-lo)/(Math.pow(10, Math.floor(Math.log10((hi-lo)/4||1)))*k) <= 5) || 10);
+  for (let t = Math.ceil(lo/step)*step; t <= hi; t += step) ticks.push(t);
+  $("#labChart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Average net result per trade with 95% range for each experiment">
+    ${ticks.map(t => `<line class="gl" x1="${x(t)}" x2="${x(t)}" y1="6" y2="${H-24}"/><text class="ax" x="${x(t)}" y="${H-8}" text-anchor="middle">${t===0?"₹0":inr(t)}</text>`).join("")}
+    <line class="zero" x1="${x(0)}" x2="${x(0)}" y1="4" y2="${H-24}"/>
+    ${rows.map((r,i) => { const y = 16 + i*rowH, m = r.m, isB = i===0;
+      return `<g><title>${esc(r.n)} — ${m.trades} trades, ${inr(m.exp_rs)} per trade (95% range ${inr(m.ci_low)} to ${inr(m.ci_high)}), net ${inr(m.net)}, PF ${m.pf}</title>
+        <rect class="hit" x="0" y="${y-rowH/2}" width="${W}" height="${rowH}"/>
+        <text x="${L-12}" y="${y+4}" text-anchor="end" ${isB?'font-weight="700"':""}>${esc(r.n.length>40?r.n.slice(0,39)+"…":r.n)} <tspan class="ax">(${m.trades})</tspan></text>
+        <line class="ci" x1="${x(m.ci_low)}" x2="${x(m.ci_high)}" y1="${y}" y2="${y}"/>
+        <circle class="pt${isB?" base":""}" cx="${x(m.exp_rs)}" cy="${y}" r="5"/>
+        ${isB ? `<text class="ax" x="${x(m.ci_low)-8}" y="${y+4}" text-anchor="end">${inr(m.exp_rs)}/trade</text>` : ""}</g>`; }).join("")}
+  </svg><p class="muted small" style="margin:6px 0 0">Number in brackets = trades. A range that crosses ₹0 means the sample can't tell the variant apart from break-even; one entirely left of ₹0 is reliably losing.</p>`;
+  // full table
+  const hdr = `<tr><th>Experiment</th><th>Fills</th><th class="n">Trades</th><th class="n">Win %</th><th class="n">Net</th><th class="n">Charges</th><th class="n">Slippage</th><th class="n">PF</th><th class="n">Per trade</th><th class="n">R</th><th class="n">Avg win / loss</th><th class="n">Max DD</th><th class="n">Loss streak</th><th class="n">Hold</th></tr>`;
+  $("#labTable").innerHTML = hdr + names.map((n,i) => ["base","conservative"].map((f,k) => { const m = E[n][f];
+    return `<tr class="${i===0?"base":""}">${k===0?`<td rowspan="2" class="wrap"><b>${esc(n)}</b>${n.includes("exploratory")?' <span class="tag">exploratory</span>':i===0?' <span class="tag">baseline</span>':' <span class="tag exp">experimental</span>'}</td>`:""}
+      <td>${f}</td><td class="n">${m.trades}</td><td class="n">${m.win_rate}</td><td class="n ${cls(m.net)}"><b>${inr(m.net)}</b></td><td class="n">${inr(m.charges??0,false)}</td><td class="n">${inr(m.slippage??0,false)}</td>
+      <td class="n">${m.pf===99?"—":m.pf}</td><td class="n ${cls(m.exp_rs)}">${inr(m.exp_rs)}</td><td class="n">${sgnR(m.exp_R)}</td><td class="n">${inr(m.avg_win)} / ${inr(m.avg_loss)}</td>
+      <td class="n">${inr(m.max_dd)}</td><td class="n">${m.max_consec_losses}</td><td class="n">${m.avg_hold}m</td></tr>`; }).join("")).join("");
+  // causes + costs
+  const lc = base.loss_causes || [], c = base.costs || {};
+  $("#labCauses").innerHTML = `<tr><th>Cause</th><th class="n">Primary</th><th class="n">Its net</th><th class="n">Any</th><th class="n">Share of losers</th></tr>` +
+    lc.filter(x => x.any || x.primary).map(x => `<tr><td>${esc(x.cause)}</td><td class="n">${x.primary}</td><td class="n ${cls(x.primary_net)}">${inr(x.primary_net)}</td><td class="n">${x.any}</td><td class="n">${x.share_of_losers}</td></tr>`).join("");
+  $("#labCosts").innerHTML = c.trades ? `At mid prices the baseline made <b class="${cls(c.gross_at_mid)}">${inr(c.gross_at_mid)}</b>. Slippage and spread cost <b>${inr(c.slippage,false)}</b> and charges <b>${inr(c.charges,false)}</b>, leaving <b class="${cls(c.net)}">${inr(c.net)}</b>. That is ${inr(c.cost_per_trade,false)} per trade against ${inr(c.avg_risk_per_trade,false)} risked, so each trade starts about ${(c.cost_per_trade/c.avg_risk_per_trade).toFixed(1)}R behind.` : "";
+  // walk-forward
+  const wf = R.walk_forward || {};
+  $("#labFolds").textContent = (wf.folds||[]).map(f => "test " + f.test).join(" · ") + " — settings chosen on earlier days only.";
+  $("#labWf").innerHTML = `<tr><th>Family</th><th>Fills</th><th class="n">Trades</th><th class="n">Net</th><th class="n">R / trade</th><th class="n">PF</th><th class="n">P(total &gt; 0)</th></tr>` +
+    Object.entries(wf.oos||{}).map(([fam, d]) => Object.entries(d).map(([f, m]) => `<tr><td>${esc(fam)}</td><td>${f}</td><td class="n">${m.trades}</td><td class="n ${cls(m.net)}">${inr(m.net)}</td><td class="n">${sgnR(m.exp_R)}</td><td class="n">${m.pf===99?"—":m.pf}</td><td class="n">${Math.round(m.p_positive*100)}%</td></tr>`).join("")).join("");
+  // volume value
+  const v = R.volume_value || {};
+  $("#labVolNote").textContent = `${(v.n||0).toLocaleString("en-IN")} candles. Correlation with the next 5-min move size ${v.corr_abs}; with continuation ${v.corr_cont}. Near zero = no usable signal. Futures/option volume history isn't available on this feed.`;
+  $("#labVol").innerHTML = `<tr><th>Relative volume</th><th class="n">Median</th><th class="n">Candles</th><th class="n">Next 5-min |move|</th><th class="n">Continuation</th></tr>` +
+    (v.quintiles||[]).map(q => `<tr><td>${esc(q.q)}</td><td class="n">${q.rvol_mid}×</td><td class="n">${q.n}</td><td class="n">${q.abs_move_pts} pts</td><td class="n">${q.continuation_pts>0?"+":""}${q.continuation_pts} pts</td></tr>`).join("");
+  $("#labRepro").innerHTML = `<tr><th>Fills</th><th class="n">Old engine</th><th class="n">Lab engine</th><th>Same trades</th></tr>` +
+    Object.entries(R.reproduction||{}).map(([f, r]) => `<tr><td>${f}</td><td class="n">${r.old_trades} · ${inr(r.old_net)}</td><td class="n">${r.new_trades} · ${inr(r.new_net)}</td><td>${r.identical_trades ? '<span class="tag ok">✓ identical</span>' : '<span class="tag bad">✗ differs</span>'}</td></tr>`).join("");
+  $("#labSens").innerHTML = `<tr><th>Family</th><th>Setting</th><th>Value</th><th class="n">Trades</th><th class="n">R base</th><th class="n">Net base</th><th class="n">R conservative</th><th class="n">Net conservative</th></tr>` +
+    (R.sensitivity||[]).map(x => `<tr${x.default?' class="base"':""}><td>${esc(x.family)}</td><td>${esc(x.param)}</td><td>${esc(x.value)}${x.default?' <span class="tag">default</span>':""}</td><td class="n">${x.trades}</td><td class="n">${sgnR(x.exp_R_base)}</td><td class="n ${cls(x.net_base)}">${inr(x.net_base)}</td><td class="n">${sgnR(x.exp_R_cons)}</td><td class="n ${cls(x.net_cons)}">${inr(x.net_cons)}</td></tr>`).join("");
+}
+$$("#labFill button").forEach(b => b.onclick = () => { labFill = b.dataset.f; $$("#labFill button").forEach(x => x.classList.toggle("on", x===b)); renderLab(); });
+$("#labRun").onclick = async () => { try { await api("/api/lab/run", {}); toast("Lab started — about 3 minutes."); loadLab(); } catch(e){ toast(e.message, true); } };
+
+route(); refresh(); refreshLog(); loadAgents(); api("/api/agents/refresh", {}).catch(()=>{});
+setInterval(refresh, 3000); setInterval(refreshLog, 4000); setInterval(loadAgents, 15000);
+</script>
+</body>
+</html>

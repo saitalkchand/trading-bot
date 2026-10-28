@@ -1,0 +1,18 @@
+trade,t,what,rule,old,new,risk_change
+0,2026-09-17 10:12:00+05:30,stop,break-even (to cost incl. charges),180.9,192.15,-731.25
+1,2026-09-17 11:04:00+05:30,stop,break-even (to cost incl. charges),177.65,186.8,-594.75
+3,2026-09-17 11:59:00+05:30,stop,break-even (to cost incl. charges),208.25,217.05,-572.0
+5,2026-09-18 11:06:00+05:30,stop,break-even (to cost incl. charges),160.75,169.65,-578.5
+6,2026-09-18 13:05:00+05:30,stop,break-even (to cost incl. charges),176.1,181.8,-370.5
+9,2026-09-21 11:55:00+05:30,stop,break-even (to cost incl. charges),94.05,99.3,-341.25
+10,2026-09-21 13:56:00+05:30,stop,break-even (to cost incl. charges),110.8,116.45,-367.25
+11,2026-09-22 10:34:00+05:30,stop,break-even (to cost incl. charges),64.0,76.1,-786.5
+12,2026-09-22 11:36:00+05:30,stop,break-even (to cost incl. charges),59.65,68.55,-578.5
+14,2026-09-22 12:51:00+05:30,stop,break-even (to cost incl. charges),48.15,58.15,-650.0
+16,2026-09-23 09:55:00+05:30,stop,break-even (to cost incl. charges),154.45,164.55,-656.5
+17,2026-09-24 10:18:00+05:30,stop,break-even (to cost incl. charges),142.85,150.2,-477.75
+30,2026-10-07 11:00:00+05:30,stop,break-even (to cost incl. charges),224.5,232.0,-487.5
+31,2026-10-07 11:40:00+05:30,stop,break-even (to cost incl. charges),213.85,223.35,-617.5
+34,2026-10-09 10:30:00+05:30,stop,break-even (to cost incl. charges),203.6,214.65,-718.25
+37,2026-10-09 13:44:00+05:30,stop,break-even (to cost incl. charges),185.5,191.85,-412.75
+41,2026-10-13 09:49:00+05:30,stop,break-even (to cost incl. charges),66.15,75.0,-575.25

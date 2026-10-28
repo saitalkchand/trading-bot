@@ -1,0 +1,6 @@
+date,index,side,entry_type,regime,entry_time,exit_time,hold_min,strike,delta,idx_entry,idx_exit,entry,exit,sl_pts,qty,gross,charges,net,R,reason,score,tod,vol,vix_pctl
+2026-09-30,NIFTY,CE,pullback,STRONG_UPTREND,12:01,12:06,5,22650,0.62,22740.6,22732.1,222.9,216.81,5.0,65,-396,81,-477,-1.4664821867209668,stop-loss,80,midday (11:30–13:30),low vol,90.0
+2026-09-30,NIFTY,PE,pullback,STRONG_DOWNTREND,14:15,14:24,9,22850,-0.61,22708.4,22664.5,223.3,232.14,5.0,65,574,83,491,1.5121905548908756,target,84,afternoon (>13:30),low vol,90.0
+2026-10-07,NIFTY,PE,pullback,STRONG_DOWNTREND,12:59,13:02,3,22800,-0.64,22629.3,22628.2,244.1,246.12,5.0,65,131,85,46,0.1423132619422347,stop at cost,84,midday (11:30–13:30),low vol,85.0
+2026-10-14,NIFTY,PE,pullback,WEAK_DOWNTREND,11:08,11:09,1,22850,-0.62,22697.9,22708.0,239.13,232.96,5.0,65,-401,83,-484,-1.4903756610971077,stop-loss,87,morning (<11:30),low vol,75.0
+2026-10-16,NIFTY,PE,pullback,STRONG_DOWNTREND,11:11,11:12,1,23200,-0.63,23061.6,23076.5,208.48,201.67,5.79,65,-442,78,-521,-1.3833003398092827,stop-loss,78,morning (<11:30),high vol,65.0

@@ -1,0 +1,5 @@
+trade,t,what,rule,old,new,risk_change
+1,2026-10-01 11:49:00+05:30,stop,break-even (to cost incl. charges),174.95,182.55,-494.0
+2,2026-10-07 13:22:00+05:30,stop,break-even (to cost incl. charges),176.4,184.0,-494.0
+4,2026-10-14 10:12:00+05:30,stop,break-even (to cost incl. charges),225.0,233.1,-526.5
+5,2026-10-14 11:39:00+05:30,stop,break-even (to cost incl. charges),214.15,222.15,-520.0
