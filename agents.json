@@ -2,23 +2,23 @@
  "crude": {
   "ok": true,
   "name": "Brent",
-  "price": 112.44,
+  "price": 112.4,
   "prev_close": 109.7,
-  "change_pct": 2.5,
-  "change_1h_pct": 0.43,
+  "change_pct": 2.46,
+  "change_1h_pct": -0.1,
   "bias": "bearish",
-  "note": "Brent up 2.50% \u2014 negative for Indian markets; CE (buy) trades blocked.",
-  "fetched_at": 1793204296.8898282
+  "note": "Brent up 2.46% \u2014 negative for Indian markets; CE (buy) trades blocked.",
+  "fetched_at": 1793206531.957419
  },
  "news": {
   "ok": true,
-  "score": -0.14,
+  "score": -0.21,
   "label": "mildly bearish",
-  "headline_count": 292,
+  "headline_count": 259,
   "event_risk": true,
   "events": [
-   "US Fed decision",
-   "RBI policy"
+   "RBI policy",
+   "US Fed decision"
   ],
   "headlines": [
    {
@@ -27,7 +27,7 @@
     "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQV1NKNFNnTlpWcUY3NHplSzZyWWxiUUVUZ09raWFpTkU4QVRwMWZSbmtrTlUwOVBTY3NfeEdKMTJELUFFbkZ1SXBTRXN1aVBheXYwOWU5eUZYbDAwa0JZWmcyR2M0QjhGWUsxYXlrbVhWbDlMV21QcEI4R0psRV9qeXM3Q0hHS2EyeXF3TjlRRTNQRWc5VUYtd3dibXJPYjJ5V1ZBV0R0akVLVzZUczJkcUVqc0hiOFZRN1hsVlU2cWpfQXJaZmZoSkZFQmRSOHdSdFRv?oc=5",
     "score": -3,
     "kind": "market",
-    "age_min": 442
+    "age_min": 473
    },
    {
     "title": "Stock market crash today: Sensex plunges 995 points, Nifty sheds 1% ahead of Fed decision: Here's what spooked D-Street - TradingView",
@@ -35,7 +35,7 @@
     "link": "https://news.google.com/rss/articles/CBMiggJBVV95cUxOcF9iendBQVdPRUc2SVJlOXB0YmYyLVllcTNEbkllcDgtRm9KVkM1bnp5MzRQNGxiMVNwNEJEbzh0TWRaeko4YjFKTlloX2oza0dNbllUN1lrOTB3cV9IbkFTaG9yNUdfZDV6MDRvY3A0Q2FoY3A4aTdRZW1GQU1QTkJ1S3d6TnM3NVJ5M3lBVUU0MFJqeTc2b2tJcEVLREt5OGh6Um5WSERfQlo1MUdDcVhBdHplMU1qVTlLeGx3OXI0WGxzUVlUMnRjYVNMcmVOOU5CUnVBeFk2NFFqQWl2cy1kd0tlbmR5MHRNbFB1UGxIWk51c0JOMkUzYTQ2Z3puMEE?oc=5",
     "score": -3,
     "kind": "macro",
-    "age_min": 446
+    "age_min": 477
    },
    {
     "title": "Sensex Gains 414 Points, Nifty Closes Above 23,100 as IT Stocks Lead Market Rally - INDIA New England News",
@@ -43,7 +43,7 @@
     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNWm9iaHFnTHJfRGhBQVZpdU5ycGRGb0tOb1ZiRUR2dEJIR0tUYU9MTmpaRHBhZnB4MTMtQkVLNGZLWEhfMjBHcUJwaDB0bTAxemlOcGFIWDM0TlNKeG5acjVvVGtUVk1HSzVDdFNUQmNWeDJfMlhNR0F3Nk1MVm9GeGFNOWxMWUZMWWw2ZWpIcTVORzd3NDR5Z0J0OWhxMFpqTVVfQmctcFF6MDBT?oc=5",
     "score": 3,
     "kind": "market",
-    "age_min": 462
+    "age_min": 493
    },
    {
     "title": "Sensex plunges over 600 points, Nifty drops below 22,650 amid heavy selling - Punjab Newsline",
@@ -51,7 +51,7 @@
     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxObG9zVTVPMlVOZW9za0xaal9hLTZ2VU9IQU5vbHJEOHlvdjhkcW5FQmdHaklfOWtmdmNJUUNha0NKeXVFQzlJWHk1OExORHNnZERvRGNjTENPOVVBZk9OeWVGMk9WaXMxSl85Rjl4ODdMaTZObC1RUWFxVjlSRWdiTkM1RmYzZ1JsYW5NVDA5T2F2aVY5X1BIRFVoWTB4TzFua25IZS1kSGE?oc=5",
     "score": -3,
     "kind": "market",
-    "age_min": 491
+    "age_min": 522
    },
    {
     "title": "4 reasons why tech stocks are falling today: Nifty IT Index tumbles 3%; Infosys falls 4% - The Financial Express",
@@ -59,7 +59,7 @@
     "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNdGpkMlJnNjlTSFFrT01kekJxSTl6MURQYTI0aW1weHJIVDh6Rnd4Yi1lckVnZ28yWUNkRUhJQWdmYThUNmF0Rm9Lc2xPXzdscnA2d0VLLUZZdGgzUnNoLW5UelpVUWN3MXZrd2RVV29FbGhYc2Qyb01lU2l0cFotUFV5QUNWVHd0cnpqWHlVUDFZQUNUTm9NWWMtbm51X0dBWVhyTFE0YWRhVjNtVG5XeHBxYmFzZUt6dVJ5TkcwVnZQZ2hVMTlIN3U2T1lVUdIB1AFBVV95cUxNd3lXREZmcGYwV2l5YUxXZWVzaWQ4Q3hGb3V0TXlxRTFqUi1JM1FYcGRZOVlxUk9OTmhsSFQydnFCaVN1eG9kSy0zUUtlQjRQQ3FaUXQ0WnVRZFpudG9pT0x1eTVwbW1qSWhndDhsNFpRQ1dQcGNGTlZuRVhBQy1GUGhLR1FfalpEMUs1VGxWQlc4Rkd2NkJHbThqbUhwRWVGZHM5RUFVN2RqdDJiekJvTUNjejFBaG1ENmExbVF1REg4MHhfMlZXV2NacVhqblNPWE9RSw?oc=5",
     "score": -3,
     "kind": "market",
-    "age_min": 547
+    "age_min": 578
    },
    {
     "title": "Asian stocks rise as AI rally lifts markets; dollar steady - JournalArta",
@@ -67,7 +67,7 @@
     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE03Ynh0aFN4SlN0VW1vWFdpSXNxankzY190TjNETVlTUm5GNGxGVDhGMlVIUWF0UFRfOWtpWjdETkhnN3N3Ymt2dmVZbmtobUhKc0t1bml0T0NCQ2NfYVJDd2h1SnRrTkRBbkszVHpIT05GWm1HZjVLLW93?oc=5",
     "score": 3,
     "kind": "market",
-    "age_min": 584
+    "age_min": 615
    },
    {
     "title": "TCS Out, Jio In! Reliance Jio's listing shakes up India\u2019s rich list: IT major crashes out of top 5 as shares tumble 3.5% - Livemint",
@@ -75,7 +75,7 @@
     "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQVVUxaWpEbzVzNW00N3JyWkJNeFNPOG9WakJtSTk0bzl4N1ZIZ0stVjNMcmItVEhkcC15MnZtUml2TmxNWklSS25PYjJoQWtadDJKOTRDSERzNDhZNi1ZZHMyRlBMa3doUDRNYndLcUR4U2lKcmppWjNrdzkxdEpVR2ZmazJvU1JFRkJIUXdObkh2LTFsQlJqeFZacElRdDBGX1dMbjJDTGxfWTQweldFWHk4VWRra2k3MDVFbEhqc0szajRVcngxbGFlQ3R3UzdhZXJOY2ZKYnBpaVR0d0VjazdCcXhiLVNEQkVDZmdVbllnZV9NbWdwaFBR0gH_AUFVX3lxTE1BV01ieDUxVk9La1NjczIxcHJWdGpZNVZrbjl1M1M2RDhWQkpRazcwT0VJUWRoMG1ZcHM0dmV2WXZueDdkWUcyRU1DQTZEWE4ySjBkM1hrLVdncDc2bGdzdGo5RVpObS1GQzk0VWtJbGlObXEzT05HcF82dkUxajIwQmJEZHNQNFh2ZVBBNTlDWG85ZGh6cG9Kcy1EZW01VlozS0ZFTGZkY2xvUTBlZy1YVzhvemlsWkZwczVIUlZmSUVxRUFiWm5oNWMxNmdORzk5T3ZoSENxNHM3WWI3aUYtdDdZUjhBUXZWZ1h3bEh6djk1bnRCX242NkMwUnUxRQ?oc=5",
     "score": -3,
     "kind": "market",
-    "age_min": 594
+    "age_min": 625
    },
    {
     "title": "Sensex Falls 602 Points, Nifty 50 Slips 0.60% as IT and FMCG Stocks Face Selling Pressure - Dalal Street Investment Journal",
@@ -83,7 +83,7 @@
     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPTHhqUWFOdzNNcFF3NUQxVC1XbjBFMHpob0RzZUZfb0FBVWxQSDg2d2w2aGVOblZ0TGxURW1XeWVoNFlSbWExNDY3UWN0SVQwYVdYZ1pHMUQ1cGxTaTFxbGlEQ2o2emhVdDcxbmZ5RnE5MDMtSXZyaDZ5d3JkMjJsU3BTWlBvd1I1eDNVMkhUQVE1dS13MVBSeHMxNHpCa0VfVWZ6Y0tBSzhQYUYtMDBpMXQ2WkRjMDhKN2hteGUzU2phRmJZMnJKcVZZdkU5ZUdq?oc=5",
     "score": -3,
     "kind": "market",
-    "age_min": 599
+    "age_min": 630
    },
    {
     "title": "Global Market: Japan\u2019s Nikkei jumps over 1% as tech rally on Wall Street lifts sentiment - The Economic Times",
@@ -91,19 +91,19 @@
     "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxNWVRFQ1RHcGtIX3FiT0hLdE5BaEFxMnFfNnRWTTYzSUtYMndISUZoaTlYV2lnUFhwdk5Vd0YwbGkxSWw0Wnl2OWl5V3pXc2IxWHYwZ2YwUHZpN1NVZ1dvcHE2N1ZFWEk3bDd2Q3hUWjFCSTBlLW5JNVR6a2VWX0E0VjRUcW9ta2hQc0dBRFo1UlFXNkN4UTNBdE9SMHdKeE92VHhLdFgwcnVRSVk4WFl0bXRqRWhjT2FibDc3UERSRTlMc2JoSElqOVVYTDRxdlBMNjM1RkxBeUc1dnZuS3VGUDlHQV9WWFpRLUhMeTZGcWRyQ0M5NURrRTdGSC0yRUNx0gH6AUFVX3lxTE13YkJqSUNxbnBEaHJyV2JLbno5SkZjcllFdDIxeWR3dGlVVWtXM2RKckNLQlBwY2hZUTVSdW05eEJQdHhIdGM1eTNnMWtjRlYteFNXWEUwMTNkT3dUbDFjeTV3ZWpUXzE1OGJweG14bk8ycm5GS29uaWlMblVJU3pTME9WbC1NSllHRzQ3aW1QZWxvd21WNW5henRaTExxQk9yX2d1SnV3Wm9aSWpreTdtS2phV1podU04NktiSmpTVS0wclZ0Wm1rWlRaNGJ2Sjlhd1R2aTdNOVJaMkt1MFdNRnQxMWpkLVYxR09weGN4YzZJTXRxNUx3c3c?oc=5",
     "score": 3,
     "kind": "market",
-    "age_min": 626
+    "age_min": 657
    },
    {
-    "title": "Asian stocks rise led by Nikkei and Kospi tech rally; RBNZ surprises with rate hold ahead of Fed decision - TradingView",
-    "source": "TradingView",
-    "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQeHE2S0JTUlVZTXQ0ZGFJNnFKUDc0MHpvQjlKYnp0NjAzLUhyYXRRTkJJblJZNUVRQjZiY0JKSHFjNDNNSXdOLXplc2xCNG9xcVBvRGJKLTNXRGNldmpIelA0eldOckNUTUpFdkwyNjU2SkVJU0x0QTc1aUdtSGRQSkxfQV9mQjRVN0NIVWJqZjRKeGk3bE1ZcHNpQXFzZnp6U19XWGtQVXZ6QUloZjFQNmo0TzVmb2t5TGJXTTBkaXM4QmJXR1F5ZFU1eVVfOENndFozWEx6Sm5fMW9mYVZURlFjN21Ta3Y3OWo3cjF3dVdqOHNjRGF0WVlzdw?oc=5",
-    "score": 3,
-    "kind": "macro",
-    "age_min": 682
+    "title": "Sensex tumbles 600 points, Nifty falls 146 points as IT stocks drag markets amid rising crude oil prices - Deccan Herald",
+    "source": "Deccan Herald",
+    "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxOcHFrT3FjYzBUUUZGVl9FUTNXQVM5OXhhZXJMWFdMc1hYdWpWWW1TUFo0M0pFbW85NW5Eel9LRVFLeGJ6b2tYVVczUmxwdGVaS3MxYV9GTnI2UG9MdHhkZjJCdXNSSExmUWFTdGllWGhhN3NpU0dXZDV0dUlkZWJzWG5ZZnM0SUdMNlI2TXFJT3FVRGN2QVJUdklCcXUxZTVIVVZvYmpObEFGYlJlblBjUzh2UE9GWDk1ZzlmYmJwSkZjd3dzMS1mQzY0NVlKVG5ONmNsOS04RFNvbE1tcndWaWZ5dHZLWTlmZGtobVdja1RGWVdaVGgtVnY2ZUJQS05r?oc=5",
+    "score": -3,
+    "kind": "market",
+    "age_min": 720
    }
   ],
-  "note": "292 headlines, sentiment -0.14 (mildly bearish); events: US Fed decision, RBI policy",
-  "fetched_at": 1793204303.569118
+  "note": "259 headlines, sentiment -0.21 (mildly bearish); events: RBI policy, US Fed decision",
+  "fetched_at": 1793206166.948291
  },
  "technical": {
   "ok": true,
@@ -136,7 +136,7 @@
   "bb_upper": 22719.1,
   "pct_b": 0.46,
   "squeeze": true,
-  "fetched_at": 1793204298.320121
+  "fetched_at": 1793206471.817682
  },
  "fundamental": {
   "ok": true,
@@ -264,7 +264,7 @@
   "label": "neutral",
   "bull": [
    [
-    "Social chatter upbeat: 8 bullish vs 0 bearish posts",
+    "Social chatter upbeat: 7 bullish vs 0 bearish posts",
     0.11
    ]
   ],
@@ -277,74 +277,74 @@
   "note": "100 social posts, VIX 16.25, breadth 5\u2191 7\u2193",
   "problems": [],
   "social_point": [
-   "Social chatter upbeat: 8 bullish vs 0 bearish posts",
+   "Social chatter upbeat: 7 bullish vs 0 bearish posts",
    0.11
   ],
   "posts": [
-   {
-    "title": "Anyone here buying Jio stock for long term?",
-    "sub": "IndianStockMarket",
-    "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xhqofb/anyone_here_buying_jio_stock_for_long_term/",
-    "score": 1,
-    "age_min": 69
-   },
    {
     "title": "Kis kis ne listing gains le liye aaj?",
     "sub": "IndianStreetBets",
     "link": "https://www.reddit.com/r/IndianStreetBets/comments/1xhjphd/kis_kis_ne_listing_gains_le_liye_aaj/",
     "score": 1,
-    "age_min": 389
+    "age_min": 420
    },
    {
     "title": "Despite the morning down the market has given a slight reversal is this a sign of buying strength?",
     "sub": "IndianStockMarket",
     "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xhi65b/despite_the_morning_down_the_market_has_given_a/",
     "score": 1,
-    "age_min": 488
+    "age_min": 519
    },
    {
     "title": "Getting random stock market calls claiming I'm an active trader. Where are they getting my data from?",
     "sub": "IndianStockMarket",
     "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xhnf2b/getting_random_stock_market_calls_claiming_im_an/",
     "score": 0.5,
-    "age_min": 197
+    "age_min": 228
    },
    {
     "title": "HDFCBANK hit 52 week low and bounced today with strong close near its high. Will this signal tomorrow a gap up?",
     "sub": "IndianStockMarket",
     "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xhm3wk/hdfcbank_hit_52_week_low_and_bounced_today_with/",
     "score": 0.5,
-    "age_min": 258
+    "age_min": 289
    },
    {
     "title": "Checked every Nifty death cross since 2013. A year later, Nifty was higher all 9 times.",
     "sub": "IndianStockMarket",
     "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xhlm16/checked_every_nifty_death_cross_since_2013_a_year/",
     "score": 0.5,
-    "age_min": 283
+    "age_min": 314
    },
    {
     "title": "Checked every Nifty death cross since 2013. A year later, Nifty was higher all 9 times.",
     "sub": "IndianStreetBets",
     "link": "https://www.reddit.com/r/IndianStreetBets/comments/1xhlld9/checked_every_nifty_death_cross_since_2013_a_year/",
     "score": 0.5,
-    "age_min": 284
+    "age_min": 315
    },
    {
     "title": "NSE shares are negative while Jio is positive",
     "sub": "IndianStockMarket",
     "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xhkash/nse_shares_are_negative_while_jio_is_positive/",
     "score": 0.5,
-    "age_min": 353
+    "age_min": 384
+   },
+   {
+    "title": "Stocks",
+    "sub": "IndianStockMarket",
+    "link": "https://www.reddit.com/r/IndianStockMarket/comments/1xht6q3/stocks/",
+    "score": 0,
+    "age_min": 10
    }
   ],
-  "social_score": 0.23,
+  "social_score": 0.21,
   "post_count": 100,
   "vix": 16.25,
   "vix_change_pct": -0.9,
   "breadth_up": 5,
   "breadth_down": 7,
-  "fetched_at": 1793204307.30753
+  "fetched_at": 1793206170.8511622
  },
  "decisions": {
   "items": [
@@ -425,7 +425,7 @@
  },
  "global": {
   "ok": true,
-  "score": 0.22,
+  "score": 0.25,
   "label": "mildly bullish",
   "bull": [
    [
@@ -433,7 +433,7 @@
     0.02
    ],
    [
-    "US futures +0.17% now",
+    "US futures +0.18% now",
     0.05
    ],
    [
@@ -441,40 +441,48 @@
     0.2
    ],
    [
-    "Europe +0.12% on average (2 of 3 up)",
-    0.02
+    "Europe +0.20% on average (3 of 3 up)",
+    0.03
+   ],
+   [
+    "Dollar index -0.06%",
+    0.01
    ]
   ],
   "bear": [
    [
-    "GIFT Nifty -0.07% at 22,718 (+19 pts vs Nifty spot)",
-    0.03
+    "GIFT Nifty -0.03% at 22,726 (+28 pts vs Nifty spot)",
+    0.01
    ],
    [
-    "US 10-year yield +4 bp to 5.04%",
+    "Rupee weaker (95.22 per $, +0.03%)",
+    0.01
+   ],
+   [
+    "US 10-year yield +4 bp to 5.03%",
     0.04
    ]
   ],
-  "note": "Mixed globally; GIFT Nifty -0.07%; open now: FTSE 100, DAX, CAC 40, S&P 500, Nasdaq",
+  "note": "Risk-on globally; GIFT Nifty -0.03%; open now: S&P 500, Nasdaq, Dow Jones",
   "markets": [
    {
     "key": "gift",
     "name": "GIFT Nifty",
     "region": "India",
     "status": "open",
-    "detail": "closes in 4 h 56 min",
+    "detail": "closes in 4 h 19 min",
     "opens_ist": "06:30",
     "closes_ist": "02:45",
     "hours_ist": "06:30\u201315:40 \u00b7 16:35\u201302:45",
     "local": "06:30\u201315:40 \u00b7 16:35\u201302:45 IST",
-    "price": 22717.5,
-    "change": -15.5,
-    "change_pct": -0.07,
+    "price": 22726.5,
+    "change": -6.5,
+    "change_pct": -0.03,
     "prev_close": 22733.0,
     "state": "OPEN",
     "high": 22845.0,
     "low": 22518.0,
-    "updated": 1793204115.0,
+    "updated": 1793206220.0,
     "source": "Moneycontrol"
    },
    {
@@ -482,7 +490,7 @@
     "name": "Nifty 50",
     "region": "India",
     "status": "closed",
-    "detail": "opens in 11 h 26 min",
+    "detail": "opens in 10 h 49 min",
     "opens_ist": "09:15",
     "closes_ist": "15:30",
     "hours_ist": "09:15\u201315:30",
@@ -498,7 +506,7 @@
     "name": "Sensex",
     "region": "India",
     "status": "closed",
-    "detail": "opens in 11 h 26 min",
+    "detail": "opens in 10 h 49 min",
     "opens_ist": "09:15",
     "closes_ist": "15:30",
     "hours_ist": "09:15\u201315:30",
@@ -514,7 +522,7 @@
     "name": "Nikkei 225",
     "region": "Asia",
     "status": "closed",
-    "detail": "opens in 7 h 41 min",
+    "detail": "opens in 7 h 04 min",
     "opens_ist": "05:30",
     "closes_ist": "12:00",
     "hours_ist": "05:30\u201308:00 \u00b7 09:00\u201312:00",
@@ -534,7 +542,7 @@
     "name": "KOSPI",
     "region": "Asia",
     "status": "closed",
-    "detail": "opens in 7 h 41 min",
+    "detail": "opens in 7 h 04 min",
     "opens_ist": "05:30",
     "closes_ist": "12:00",
     "hours_ist": "05:30\u201312:00",
@@ -554,7 +562,7 @@
     "name": "Taiwan",
     "region": "Asia",
     "status": "closed",
-    "detail": "opens in 8 h 41 min",
+    "detail": "opens in 8 h 04 min",
     "opens_ist": "06:30",
     "closes_ist": "11:00",
     "hours_ist": "06:30\u201311:00",
@@ -574,7 +582,7 @@
     "name": "Hang Seng",
     "region": "Asia",
     "status": "closed",
-    "detail": "opens in 9 h 11 min",
+    "detail": "opens in 8 h 34 min",
     "opens_ist": "07:00",
     "closes_ist": "13:30",
     "hours_ist": "07:00\u201309:30 \u00b7 10:30\u201313:30",
@@ -594,7 +602,7 @@
     "name": "Shanghai",
     "region": "Asia",
     "status": "closed",
-    "detail": "opens in 9 h 11 min",
+    "detail": "opens in 8 h 34 min",
     "opens_ist": "07:00",
     "closes_ist": "12:30",
     "hours_ist": "07:00\u201309:00 \u00b7 10:30\u201312:30",
@@ -614,7 +622,7 @@
     "name": "Straits Times",
     "region": "Asia",
     "status": "closed",
-    "detail": "opens in 8 h 41 min",
+    "detail": "opens in 8 h 04 min",
     "opens_ist": "06:30",
     "closes_ist": "14:30",
     "hours_ist": "06:30\u201309:30 \u00b7 10:30\u201314:30",
@@ -633,60 +641,60 @@
     "key": "ftse",
     "name": "FTSE 100",
     "region": "Europe",
-    "status": "open",
-    "detail": "closes in 11 min",
+    "status": "closed",
+    "detail": "opens in 15 h 04 min",
     "opens_ist": "13:30",
     "closes_ist": "22:00",
     "hours_ist": "13:30\u201322:00",
     "local": "08:00\u201316:30 GMT",
-    "price": 10683.54,
-    "change": -3.0,
-    "change_pct": -0.03,
+    "price": 10691.36,
+    "change": 4.82,
+    "change_pct": 0.05,
     "prev_close": 10686.54,
-    "state": "OPEN",
+    "state": "CLOSED",
     "high": 10722.77,
     "low": 10643.25,
-    "updated": 1793204156.0,
+    "updated": 1793204999.0,
     "source": "Moneycontrol"
    },
    {
     "key": "dax",
     "name": "DAX",
     "region": "Europe",
-    "status": "open",
-    "detail": "closes in 11 min",
+    "status": "closed",
+    "detail": "opens in 15 h 04 min",
     "opens_ist": "13:30",
     "closes_ist": "22:00",
     "hours_ist": "13:30\u201322:00",
     "local": "09:00\u201317:30 CET",
-    "price": 25690.5,
-    "change": 99.73,
-    "change_pct": 0.39,
+    "price": 25709.4,
+    "change": 118.63,
+    "change_pct": 0.46,
     "prev_close": 25590.77,
-    "state": "OPEN",
+    "state": "CLOSED",
     "high": 25716.83,
     "low": 25534.42,
-    "updated": 1793204158.0,
+    "updated": 1793204998.0,
     "source": "Moneycontrol"
    },
    {
     "key": "cac",
     "name": "CAC 40",
     "region": "Europe",
-    "status": "open",
-    "detail": "closes in 11 min",
+    "status": "closed",
+    "detail": "opens in 15 h 04 min",
     "opens_ist": "13:30",
     "closes_ist": "22:00",
     "hours_ist": "13:30\u201322:00",
     "local": "09:00\u201317:30 CET",
-    "price": 7887.6,
-    "change": 0.46,
-    "change_pct": 0.01,
+    "price": 7894.8,
+    "change": 7.66,
+    "change_pct": 0.1,
     "prev_close": 7887.14,
-    "state": "OPEN",
+    "state": "CLOSED",
     "high": 7918.74,
     "low": 7870.75,
-    "updated": 1793204160.0,
+    "updated": 1793204998.0,
     "source": "Moneycontrol"
    },
    {
@@ -694,19 +702,19 @@
     "name": "S&P 500",
     "region": "US",
     "status": "open",
-    "detail": "closes in 3 h 41 min",
+    "detail": "closes in 3 h 04 min",
     "opens_ist": "19:00",
     "closes_ist": "01:30",
     "hours_ist": "19:00\u201301:30",
     "local": "09:30\u201316:00 EDT",
-    "price": 7738.05,
-    "change": 15.45,
-    "change_pct": 0.2,
+    "price": 7738.55,
+    "change": 16.2,
+    "change_pct": 0.21,
     "prev_close": 7722.6,
     "state": "OPEN",
     "high": 7742.75,
     "low": 7718.37,
-    "updated": 1793204161.52,
+    "updated": 1793206320.4,
     "source": "Moneycontrol"
    },
    {
@@ -714,19 +722,19 @@
     "name": "Nasdaq",
     "region": "US",
     "status": "open",
-    "detail": "closes in 3 h 41 min",
+    "detail": "closes in 3 h 04 min",
     "opens_ist": "19:00",
     "closes_ist": "01:30",
     "hours_ist": "19:00\u201301:30",
     "local": "09:30\u201316:00 EDT",
-    "price": 26463.25,
-    "change": -14.56,
+    "price": 26463.31,
+    "change": -14.5,
     "change_pct": -0.05,
     "prev_close": 26477.81,
     "state": "OPEN",
     "high": 26582.01,
     "low": 26428.26,
-    "updated": 1793204160.0,
+    "updated": 1793206318.0,
     "source": "Moneycontrol"
    },
    {
@@ -734,15 +742,15 @@
     "name": "Dow Jones",
     "region": "US",
     "status": "open",
-    "detail": "closes in 3 h 41 min",
+    "detail": "closes in 3 h 04 min",
     "opens_ist": "19:00",
     "closes_ist": "01:30",
     "hours_ist": "19:00\u201301:30",
     "local": "09:30\u201316:00 EDT",
-    "price": 52506.35,
+    "price": 52611.04,
     "prev_close": 52377.57,
-    "change": 128.78,
-    "change_pct": 0.25,
+    "change": 233.47,
+    "change_pct": 0.45,
     "source": "Yahoo"
    }
   ],
@@ -760,58 +768,55 @@
     "key": "nq",
     "name": "Nasdaq futures",
     "why": "risk-on",
-    "price": 29852.25,
+    "price": 29855.5,
     "prev_close": 29812.0,
-    "change": 40.25,
-    "change_pct": 0.14
+    "change": 43.5,
+    "change_pct": 0.15
    },
    {
     "key": "dxy",
     "name": "Dollar index",
     "why": "dollar strength pulls money out of India",
-    "price": 102.3,
+    "price": 102.26,
     "prev_close": 102.32,
-    "change": -0.02,
-    "change_pct": -0.02
+    "change": -0.06,
+    "change_pct": -0.06
    },
    {
     "key": "usdinr",
     "name": "USD/INR",
     "why": "weaker rupee",
-    "price": 95.21,
+    "price": 95.22,
     "prev_close": 95.19,
-    "change": 0.02,
-    "change_pct": 0.02
+    "change": 0.03,
+    "change_pct": 0.03
    },
    {
     "key": "us10y",
     "name": "US 10Y yield",
     "why": "higher yields pull money out of emerging markets",
-    "price": 5.04,
+    "price": 5.03,
     "prev_close": 4.99,
     "change": 0.04,
-    "change_pct": 0.86
+    "change_pct": 0.74
    },
    {
     "key": "gold",
     "name": "Gold",
     "why": "safe-haven buying",
-    "price": 4051.8,
+    "price": 4053.4,
     "prev_close": 4074.6,
-    "change": -22.8,
-    "change_pct": -0.56
+    "change": -21.2,
+    "change_pct": -0.52
    }
   ],
   "open_now": [
-   "FTSE 100",
-   "DAX",
-   "CAC 40",
    "S&P 500",
    "Nasdaq",
    "Dow Jones"
   ],
-  "gift_premium": 18.7,
+  "gift_premium": 27.7,
   "problems": [],
-  "fetched_at": 1793204298.2025979
+  "fetched_at": 1793206533.0681899
  }
 }
