@@ -316,6 +316,7 @@ def main():
     if not acquire_lock("scalp.pid", "scalper.py"):
         log("Another copy of the scalper is already running — not starting a second one.")
         sys.exit(1)
+    bot.keep_awake()
     if live and config.SCALP_STRATEGY in EXPERIMENTAL:
         log(f"'{config.SCALP_STRATEGY}' is an experimental strategy — paper only. Not starting in live mode.")
         sys.exit(1)

@@ -1,1 +1,38 @@
-.venv
+# Python / environment
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# macOS / editors
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets — never commit (Kite login token, API key/secret saved from the Settings page)
+access_token.txt
+token_meta.json
+settings.json
+settings.backup-*.json
+.env
+
+# Runtime state written by the bots and the app
+*.pid
+STOP
+status.json
+scalp_status.json
+positions.json
+state.json
+agents.json
+
+# Logs
+*.log
+
+# Generated trade logs and backtest output (rewritten on every run)
+trades.csv
+backtest_trades.csv
+scalp_backtest_trades.csv
+scalp_rejections.csv
+
+# Local backups
+backups/

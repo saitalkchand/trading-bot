@@ -423,6 +423,20 @@ table.rules td{padding:7px 18px;font-size:13px}
 table.rules td:first-child{color:var(--muted)} table.rules td:last-child{font-weight:700}
 table.rules tr:last-child td{border-bottom:0}
 .filters select{width:auto;padding:5px 10px;font-size:12.5px;border-radius:8px}
+/* zerodha page */
+#p-login>*+*{margin-top:var(--gap)}
+.zsession .zs-main{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+details.zsetup{margin:12px -18px -16px}
+details.zsetup summary{padding:12px 18px}
+details.zsetup ol{margin:0;padding:0 18px 16px 40px;line-height:1.9}
+.zacct{display:grid;gap:var(--gap)}
+.zacct .phead{flex-wrap:wrap}
+.zacct .filters{gap:8px}
+.zacct .seg button{padding:4px 12px;font-size:12.5px}
+.zsearch{width:150px}
+.zsearch input{padding-top:5px;padding-bottom:5px;font-size:12.5px;border-radius:8px}
+.zcount{font-weight:500;margin-left:6px}
+@media (max-width:700px){ .zacct .filters,.zsearch{width:100%} .zacct .filters select{flex:1} }
 .st-dot{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12.5px}
 .st-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .health{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;font-size:13px;align-items:center}
@@ -757,28 +771,31 @@ table.gm tr.grp td{padding:8px 4px 2px;font-size:10.5px;font-weight:800;letter-s
 
 <!-- ================= LOGIN ================= -->
 <section id="p-login" class="hidden">
-  <div class="pagehead"><div><h1>Zerodha connection</h1><p class="lede">Needed for live trading, or for paper trading on real Zerodha option prices. The free paper feed doesn't need it. SEBI requires a fresh login every trading day.</p></div></div>
+  <div class="pagehead">
+    <div><h1>Zerodha</h1><p class="lede">Needed for live trading, or for paper trading on real Zerodha option prices. The free paper feed doesn't need it. SEBI requires a fresh login every trading day.</p></div>
+  </div>
   <div class="notice bad hidden" id="loginErr"></div>
-  <div class="grid g2">
-    <div class="panel">
-      <h2>Today's session</h2>
-      <div id="loginStatus"></div>
-      <div class="row"><a class="btn primary big" href="/login" id="loginBtn">Log in with Zerodha</a><button class="btn hidden" id="logoutBtn">Log out</button></div>
-      <p class="help">You sign in on Zerodha's own page. Your password never passes through this app.</p>
+
+  <div class="panel zsession">
+    <div class="zs-main">
+      <div><h2 style="margin:0 0 4px">Today's session</h2><div id="loginStatus"></div></div>
+      <div class="row"><a class="btn primary" href="/login" id="loginBtn">Log in with Zerodha</a><button class="btn hidden" id="logoutBtn">Log out</button></div>
     </div>
-    <div class="panel">
-      <h2>One-time setup</h2>
-      <ol style="margin:0;padding-left:20px;line-height:1.9">
+    <p class="help" style="margin-top:10px">You sign in on Zerodha's own page. Your password never passes through this app.</p>
+    <details class="adv zsetup" id="zSetup">
+      <summary>One-time setup</summary>
+      <ol>
         <li>Create an app at developers.kite.trade (Kite Connect subscription).</li>
         <li>Set its redirect URL to <code id="redir">http://127.0.0.1:8765/callback</code></li>
         <li>Whitelist your static IP in that app. Live orders need it.</li>
         <li>Paste the API key and secret into <a href="#settings">Settings</a>.</li>
       </ol>
-    </div>
+    </details>
   </div>
-  <div id="acct" class="hidden" style="margin-top:22px">
-    <div class="row between" style="margin-bottom:12px"><h2 style="margin:0">Your Zerodha account</h2>
-      <div class="row" style="gap:10px"><span class="muted small" id="acctAt"></span><button class="btn" id="acctRefresh">Refresh</button></div></div>
+
+  <div id="acct" class="hidden zacct">
+    <div class="row between"><h2 style="margin:0">Your account</h2>
+      <div class="row" style="gap:10px"><span class="muted small" id="acctAt"></span><button class="btn sm" id="acctRefresh">Refresh</button></div></div>
     <div class="notice bad hidden" id="acctErr"></div>
     <div class="grid g4">
       <div class="kpi"><div class="l">Available to trade</div><div class="v" id="acBal">—</div><div class="l" id="acBalSub"></div></div>
@@ -786,8 +803,27 @@ table.gm tr.grp td{padding:8px 4px 2px;font-size:10.5px;font-weight:800;letter-s
       <div class="kpi"><div class="l">Today's P&amp;L</div><div class="v" id="acPnl">—</div><div class="l" id="acPnlSub"></div></div>
       <div class="kpi"><div class="l">Orders today</div><div class="v" id="acOrd">—</div><div class="l" id="acOrdSub"></div></div>
     </div>
-    <div class="panel flush"><h2>Positions</h2><div class="tablewrap"><table id="acPos"></table></div></div>
-    <div class="panel flush"><h2>Today's orders</h2><div class="tablewrap"><table id="acOrders"></table></div></div>
+
+    <div class="panel flush">
+      <div class="phead"><h2>Positions <span class="muted small zcount" id="acPosCount"></span></h2>
+        <div class="row filters">
+          <div class="seg" id="zPosSeg" role="group" aria-label="Show positions"><button data-f="" class="on">All</button><button data-f="open">Open</button><button data-f="closed">Closed</button></div>
+          <label class="search zsearch" aria-label="Search positions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="zPosQ" type="search" placeholder="Symbol" autocomplete="off"></label>
+        </div></div>
+      <div class="tablewrap"><table id="acPos"></table></div>
+    </div>
+
+    <div class="panel flush">
+      <div class="phead"><h2>Today's orders <span class="muted small zcount" id="acOrdCount"></span></h2>
+        <div class="row filters">
+          <select id="zOrdStatus" aria-label="Filter by status"><option value="">All statuses</option><option value="COMPLETE">Filled</option><option value="open">Open / pending</option><option value="REJECTED">Rejected</option><option value="CANCELLED">Cancelled</option></select>
+          <select id="zOrdSide" aria-label="Filter by side"><option value="">Buy &amp; sell</option><option value="BUY">Buy</option><option value="SELL">Sell</option></select>
+          <select id="zOrdBy" aria-label="Filter by who placed it"><option value="">Anyone</option><option value="bot">Bot</option><option value="scalper">Scalper</option><option value="you">You / other</option></select>
+          <label class="search zsearch" aria-label="Search orders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="zOrdQ" type="search" placeholder="Symbol" autocomplete="off"></label>
+          <button class="btn sm hidden" id="zOrdClear">Clear</button>
+        </div></div>
+      <div class="tablewrap"><table id="acOrders"></table></div>
+    </div>
     <p class="help">Read straight from Zerodha. This page never places, changes or cancels anything. Includes trades you make in Kite yourself, not just the bot's.</p>
   </div>
 </section>
@@ -1136,24 +1172,54 @@ async function loadAccount(force){
   $("#acPnlSub").textContent = j.open_count ? `${j.open_count} position${j.open_count>1?"s":""} still open` : j.positions.length ? "All positions closed" : "No positions today";
   $("#acOrd").textContent = j.orders.length;
   $("#acOrdSub").textContent = j.orders.length ? `${comp} filled` + (rej ? ` · ${rej} rejected` : "") : "None yet";
-  $("#acPos").innerHTML = j.positions.length
+  acctData = j;
+  renderAcctTables();
+  acctTimer = setTimeout(loadAccount, 15000);
+}
+$("#acctRefresh").onclick = () => loadAccount(true);
+
+/* zerodha filters: re-render from the last fetch, no extra Zerodha calls */
+let acctData = null;
+const zf = (() => { try { return JSON.parse(localStorage.getItem("zFilters")) || {}; } catch(e){ return {}; } })();
+const ordBy = o => o.tag==="kitebot" ? "bot" : o.tag==="kitescalp" ? "scalper" : "you";
+const ordDone = st => st==="COMPLETE" || st==="REJECTED" || st==="CANCELLED";
+function renderAcctTables(){
+  try { localStorage.setItem("zFilters", JSON.stringify(zf)); } catch(e){}
+  const j = acctData; if (!j) return;
+  const pq = (zf.posQ||"").trim().toUpperCase(), oq = (zf.ordQ||"").trim().toUpperCase();
+  const pos = j.positions.filter(p => (!zf.pos || (zf.pos==="open" ? p.qty : !p.qty)) && (!pq || p.symbol.toUpperCase().includes(pq)));
+  const ords = j.orders.filter(o => (!zf.status || (zf.status==="open" ? !ordDone(o.status) : o.status===zf.status))
+    && (!zf.side || o.side===zf.side) && (!zf.by || ordBy(o)===zf.by) && (!oq || o.symbol.toUpperCase().includes(oq)));
+  const ordFiltered = !!(zf.status || zf.side || zf.by || oq);
+  $("#acPosCount").textContent = j.positions.length ? (pos.length===j.positions.length ? `${pos.length}` : `${pos.length} of ${j.positions.length}`) : "";
+  $("#acOrdCount").textContent = j.orders.length ? (ords.length===j.orders.length ? `${ords.length}` : `${ords.length} of ${j.orders.length}`) : "";
+  $("#zOrdClear").classList.toggle("hidden", !ordFiltered);
+  $("#acPos").innerHTML = pos.length
     ? `<tr><th>Instrument</th><th>Product</th><th class="n">Qty</th><th class="n">Avg</th><th class="n">LTP</th><th class="n">Realised</th><th class="n">Unrealised</th><th class="n">P&amp;L</th></tr>` +
-      j.positions.map(p => `<tr><td><b>${esc(p.symbol)}</b> <span class="muted small">${esc(p.exchange)}</span></td><td>${esc(p.product)}</td>
+      pos.map(p => `<tr><td><b>${esc(p.symbol)}</b> <span class="muted small">${esc(p.exchange)}</span></td><td>${esc(p.product)}</td>
         <td class="n">${p.qty || '<span class="muted">closed</span>'}</td><td class="n">${px(p.avg)}</td><td class="n">${px(p.ltp)}</td>
         <td class="n ${cls(p.realised)}">${inr(p.realised)}</td><td class="n ${cls(p.unrealised)}">${inr(p.unrealised)}</td>
         <td class="n ${cls(p.pnl)}"><b>${inr(p.pnl)}</b></td></tr>`).join("")
-    : `<tr><td class="empty">No positions today.</td></tr>`;
-  $("#acOrders").innerHTML = j.orders.length
+    : `<tr><td class="empty">${j.positions.length ? "No positions match these filters." : "No positions today."}</td></tr>`;
+  $("#acOrders").innerHTML = ords.length
     ? `<tr><th>Time</th><th>Instrument</th><th>Side</th><th>Type</th><th class="n">Qty</th><th class="n">Price</th><th>Status</th><th>By</th></tr>` +
-      j.orders.map(o => `<tr><td>${esc(o.time)}</td><td>${esc(o.symbol)} <span class="muted small">${esc(o.product)}</span></td>
+      ords.map(o => `<tr><td>${esc(o.time)}</td><td>${esc(o.symbol)} <span class="muted small">${esc(o.product)}</span></td>
         <td class="${o.side==="BUY"?"up":"down"}"><b>${esc(o.side)}</b></td><td>${esc(o.type)}${o.trigger ? ` <span class="muted small">trig ${px(o.trigger)}</span>` : ""}</td>
         <td class="n">${o.filled}/${o.qty}</td><td class="n">${o.price ? px(o.price) : "—"}</td>
         <td class="${ordCls(o.status)}" title="${esc(o.msg)}"><b>${esc(o.status)}</b>${o.msg && o.status==="REJECTED" ? `<div class="muted small" style="white-space:normal;max-width:280px">${esc(o.msg)}</div>` : ""}</td>
         <td>${o.tag==="kitebot" ? "Bot" : o.tag==="kitescalp" ? "Scalper" : o.tag ? esc(o.tag) : '<span class="muted">You / other</span>'}</td></tr>`).join("")
-    : `<tr><td class="empty">No orders today.</td></tr>`;
-  acctTimer = setTimeout(loadAccount, 15000);
+    : `<tr><td class="empty">${j.orders.length ? "No orders match these filters." : "No orders today."}</td></tr>`;
 }
-$("#acctRefresh").onclick = () => loadAccount(true);
+(() => {
+  const seg = $("#zPosSeg");
+  const syncSeg = () => seg.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.f===(zf.pos||"")));
+  seg.querySelectorAll("button").forEach(b => b.onclick = () => { zf.pos = b.dataset.f; syncSeg(); renderAcctTables(); });
+  syncSeg();
+  [["#zOrdStatus","status"],["#zOrdSide","side"],["#zOrdBy","by"]].forEach(([id,k]) => { $(id).value = zf[k]||""; $(id).onchange = e => { zf[k] = e.target.value; renderAcctTables(); }; });
+  [["#zPosQ","posQ"],["#zOrdQ","ordQ"]].forEach(([id,k]) => { $(id).value = zf[k]||""; $(id).oninput = e => { zf[k] = e.target.value; renderAcctTables(); }; });
+  $("#zOrdClear").onclick = () => { zf.status = zf.side = zf.by = zf.ordQ = "";
+    ["#zOrdStatus","#zOrdSide","#zOrdBy","#zOrdQ"].forEach(id => $(id).value = ""); renderAcctTables(); };
+})();
 
 /* ---------- pnl ---------- */
 function chart(daily){
@@ -1318,6 +1384,8 @@ async function refresh(){
     : `<b class="down">Not logged in today</b>${S.needs_login?"":' <span class="muted">(not needed for the free paper feed)</span>'}`;
   $("#loginBtn").textContent = S.login.logged_in ? "Log in again" : "Log in with Zerodha";
   $("#logoutBtn").classList.toggle("hidden", !S.login.logged_in);
+  const zs = $("#zSetup"), li = String(!!S.login.logged_in);
+  if (zs.dataset.for !== li) { zs.dataset.for = li; zs.open = li !== "true"; }  // only on login change, so a manual toggle sticks
   // Zerodha page: start the account panel once login state is known, hide it after logout
   if (!$("#p-login").classList.contains("hidden") && (!acctTimer || !S.login.logged_in) && $("#acct").classList.contains("hidden") === !!S.login.logged_in) loadAccount();
 }

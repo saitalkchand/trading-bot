@@ -398,6 +398,21 @@ def acquire_lock(path, script):
     return True
 
 
+def keep_awake():
+    """Stop macOS idle-sleeping while this bot runs. A sleeping Mac gets no prices, so candles are
+    built across the gap and skipped, and signals the backtest takes are silently missed.
+    caffeinate -w exits by itself when this process ends. Closing the lid still sleeps the Mac."""
+    if sys.platform != "darwin":
+        return None
+    import subprocess
+    try:
+        return subprocess.Popen(["caffeinate", "-ims", "-w", str(os.getpid())],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except OSError as e:
+        log(f"Could not stop the Mac sleeping ({e}) — keep it awake yourself or signals will be missed.")
+        return None
+
+
 POSITIONS_FILE = "positions.json"
 
 
@@ -472,6 +487,8 @@ def main():
     if not acquire_lock("bot.pid", "bot.py"):
         log("Another copy of the bot is already running — not starting a second one (it would double every order).")
         sys.exit(1)
+    if keep_awake():
+        log("Keeping the Mac awake while the bot runs (closing the lid will still sleep it).")
     for w in config.TIME_WARNINGS:
         log(w)
     if live:
